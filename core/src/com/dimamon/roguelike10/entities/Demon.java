@@ -2,12 +2,13 @@ package com.dimamon.roguelike10.entities;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.dimamon.roguelike10.common.Direction;
 
 /**
  * Created by dimamon on 4/9/17.
  */
 
-public class Demon extends Creature {
+public class Demon extends Creature{
 
     public Demon(Texture texture, String name, int strength, int dexterity, int intellect) {
         super(texture, name, strength, dexterity, intellect);
@@ -27,7 +28,6 @@ public class Demon extends Creature {
     public void dispose() {
         texture.dispose();
     }
-
 
     @Override
     public String toString() {
