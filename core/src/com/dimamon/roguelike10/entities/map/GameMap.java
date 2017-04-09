@@ -1,6 +1,7 @@
 package com.dimamon.roguelike10.entities.map;
 
 import com.dimamon.roguelike10.config.GameConfig;
+import com.dimamon.roguelike10.entities.creatures.Creature;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +33,19 @@ public class GameMap {
 
     public static GameFloor getFloor(int n){
         return gameMap.get(n);
+    }
+
+    /**
+     * Add an object to a selected floor
+     */
+    public static void addOnFloor(Creature creature, int floor, int x, int y){
+        gameMap.get(floor).put(creature, x, y);
+    }
+
+    public static void dispose(){
+        for(GameFloor f : gameMap){
+            f.dispose();
+        }
     }
 
 }

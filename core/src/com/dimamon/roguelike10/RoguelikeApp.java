@@ -1,37 +1,32 @@
 package com.dimamon.roguelike10;
 
 import com.badlogic.gdx.ApplicationAdapter;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.dimamon.roguelike10.entities.creatures.Creature;
 import com.dimamon.roguelike10.entities.creatures.CreatureFactory;
 import com.dimamon.roguelike10.entities.map.GameFloor;
+import com.dimamon.roguelike10.entities.map.GameMap;
 import com.dimamon.roguelike10.entities.Сontrollable;
 
 public class RoguelikeApp extends ApplicationAdapter {
 
 	private SpriteBatch batch;
 
-	private GameFloor gameFloor;
-
-	private Creature demon;
 	private Creature android;
-
-
-
 	private Сontrollable player;
 
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
 
-		gameFloor = new GameFloor();
-
-		demon = CreatureFactory.getDemon(0);
 		android = CreatureFactory.getAndroid(0);
-
 		player = new Сontrollable(android);
+		player.getControllableCreature().setPos(2,2);
+
+		GameMap.addOnFloor(player.getControllableCreature(),0,3,3);
 	}
 
 	@Override
@@ -42,9 +37,9 @@ public class RoguelikeApp extends ApplicationAdapter {
 		batch.begin();
 
 		//DRAW HERE
-		gameFloor.render(batch);
-		player.render(batch);
+		GameMap.getFloor(0).render(batch);
 
+		player.render(batch);
 
 		batch.end();
 	}
@@ -58,7 +53,7 @@ public class RoguelikeApp extends ApplicationAdapter {
 
 	@Override
 	public void dispose () {
-		gameFloor.dispose();
+		GameMap.dispose();
 		player.dispose();
 		batch.dispose();
 	}

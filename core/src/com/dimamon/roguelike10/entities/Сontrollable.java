@@ -11,20 +11,21 @@ import com.dimamon.roguelike10.entities.creatures.Creature;
  * It makes Creature controllable by player
  * Created by dimamon on 4/9/17.
  */
-public class Сontrollable implements GameObject {
+public class Сontrollable extends Creature implements GameObject {
 
-    private Creature controllableCreature;
+    private Creature creature;
 
-    public Сontrollable(Creature controllableCreature) {
-        this.controllableCreature = controllableCreature;
+    public Сontrollable(Creature creature) {
+        super("player", creature.getTexture());
+        this.creature = creature;
     }
 
     public Creature getControllableCreature() {
-        return controllableCreature;
+        return creature;
     }
 
     public void setControllableCreature(Creature controllableCreature) {
-        this.controllableCreature = controllableCreature;
+        this.creature = controllableCreature;
     }
 
     /**
@@ -33,32 +34,32 @@ public class Сontrollable implements GameObject {
     public void updateUserInput(){
 
         if(Gdx.input.isKeyJustPressed(Input.Keys.W) || Gdx.input.isKeyJustPressed(Input.Keys.UP)){
-            controllableCreature.move(Direction.UP);
+            creature.move(Direction.UP);
         }
         if(Gdx.input.isKeyJustPressed(Input.Keys.S) || Gdx.input.isKeyJustPressed(Input.Keys.DOWN)){
-            controllableCreature.move(Direction.DOWN);
+            creature.move(Direction.DOWN);
         }
         if(Gdx.input.isKeyJustPressed(Input.Keys.A) || Gdx.input.isKeyJustPressed(Input.Keys.LEFT)){
-            controllableCreature.move(Direction.LEFT);
+            creature.move(Direction.LEFT);
         }
         if(Gdx.input.isKeyJustPressed(Input.Keys.D) || Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)){
-            controllableCreature.move(Direction.RIGHT);
+            creature.move(Direction.RIGHT);
         }
     }
 
     @Override
     public void render(SpriteBatch batch) {
-        controllableCreature.render(batch);
+        creature.render(batch);
     }
 
     @Override
     public void update() {
         updateUserInput();
-        controllableCreature.update();
+        creature.update();
     }
 
     @Override
     public void dispose() {
-        controllableCreature.dispose();
+        creature.dispose();
     }
 }

@@ -1,4 +1,4 @@
-package com.dimamon.roguelike10.entities.map;
+package com.dimamon.roguelike10.entities.items;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -6,36 +6,32 @@ import com.dimamon.roguelike10.config.MapUtils;
 import com.dimamon.roguelike10.entities.GameObject;
 
 /**
- * Created by dimamon on 4/9/17.
+ * Created by dimamon on 4/10/17.
  */
-public class Tile implements GameObject{
 
-    private Texture texture;
-    private String name;
+public class Item implements GameObject {
 
-    //Can creatures move to this tile
-    private boolean blocking;
+    String name;
+    Texture texture;
 
-    public Tile(Texture texture, String name, boolean blocking) {
-        this.texture = texture;
+    public Item(String name, Texture texture) {
         this.name = name;
-        this.blocking = blocking;
+        this.texture = texture;
     }
 
-    public boolean isBlocking() {
-        return blocking;
-    }
+
 
     public void render(SpriteBatch batch, int x, int y) {
         batch.draw(texture, MapUtils.toReal(x),MapUtils.toReal(y));
     }
 
-    //TODO: remove?
+    //TODO: REMOVE!
     @Override
     public void render(SpriteBatch batch) {
+
     }
 
-    //TODO: remove?
+    //TODO: REMOVE!
     @Override
     public void update() {
 

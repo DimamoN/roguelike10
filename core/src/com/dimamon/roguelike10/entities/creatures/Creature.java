@@ -38,8 +38,18 @@ public abstract class Creature implements GameObject, Moving {
         this.log = new Logger(name);
     }
 
+    public Creature(String name, Texture texture) {
+        this.name = name;
+        this.texture = texture;
+    }
+
+    //TODO:REMOVE
     @Override
     public void render(SpriteBatch batch) {
+        batch.draw(texture, MapUtils.toReal(x), MapUtils.toReal(y));
+    }
+
+    public void render(SpriteBatch batch, int x, int y) {
         batch.draw(texture, MapUtils.toReal(x), MapUtils.toReal(y));
     }
 
@@ -88,6 +98,20 @@ public abstract class Creature implements GameObject, Moving {
     public Creature setFloor(int floor){
         this.floor = floor;
         return this;
+    }
+
+    public void setPos(int x, int y){
+        this.x = x;
+        this.y = y;
+    }
+
+
+    public Texture getTexture() {
+        return texture;
+    }
+
+    public String getName() {
+        return name;
     }
 
     @Override
