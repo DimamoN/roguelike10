@@ -12,10 +12,10 @@ public class TileFactory {
     private static final String WALL_TEXTURE = "tiles/wall2.png";
 
     public static Tile getFloor(){
-        return new Tile(new Texture(FLOOR_TEXTURE),"road1.png");
+        return new Tile(new Texture(FLOOR_TEXTURE),"road1.png", false);
     }
 
     public static Tile getWall(){
-        return new Tile(new Texture(WALL_TEXTURE),"wall.png");
+        return new Tile(new Texture(WALL_TEXTURE),"wall.png", true);
     }
 }

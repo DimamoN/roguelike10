@@ -2,6 +2,8 @@ package com.dimamon.roguelike10.entities.creatures;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.dimamon.roguelike10.config.GameConfig;
+import com.dimamon.roguelike10.config.MapUtils;
 
 /**
  * Created by dimamon on 4/9/17.
@@ -15,18 +17,8 @@ public class Android extends Creature{
     }
 
     @Override
-    public void render(SpriteBatch batch) {
-        batch.draw(texture,x,y);
-    }
-
-    @Override
     public void update() {
 
-    }
-
-    @Override
-    public void dispose() {
-        texture.dispose();
     }
 
     @Override

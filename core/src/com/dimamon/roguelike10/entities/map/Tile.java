@@ -13,16 +13,21 @@ public class Tile implements GameObject{
     private String name;
     private int x,y;
 
-    public Tile(Texture texture, String name) {
+    //Can creatures move to this tile
+    private boolean blocking;
+
+    public Tile(Texture texture, String name, boolean blocking) {
         this.texture = texture;
         this.name = name;
+        this.blocking = blocking;
     }
 
-    public Tile(Texture texture, String name, int x, int y) {
+    public Tile(Texture texture, String name, int x, int y, boolean blocking) {
         this.texture = texture;
         this.name = name;
         this.x = x;
         this.y = y;
+        this.blocking = blocking;
     }
 
     public int getX() {
@@ -39,6 +44,10 @@ public class Tile implements GameObject{
 
     public void setY(int y) {
         this.y = y;
+    }
+
+    public boolean isBlocking() {
+        return blocking;
     }
 
     @Override

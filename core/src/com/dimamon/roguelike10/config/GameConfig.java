@@ -11,4 +11,6 @@ public class GameConfig {
 
     public static final int TEXTURE_SIZE = 32;
 
+    public static final int FLOOR_COUNT = 1;
+
 }

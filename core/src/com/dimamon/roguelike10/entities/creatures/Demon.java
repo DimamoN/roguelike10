@@ -19,16 +19,6 @@ public class Demon extends Creature{
     }
 
     @Override
-    public void render(SpriteBatch batch) {
-        batch.draw(texture,x,y);
-    }
-
-    @Override
-    public void dispose() {
-        texture.dispose();
-    }
-
-    @Override
     public String toString() {
         return super.toString();
     }
