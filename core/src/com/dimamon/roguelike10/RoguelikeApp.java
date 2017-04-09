@@ -6,24 +6,32 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.dimamon.roguelike10.entities.creatures.Creature;
 import com.dimamon.roguelike10.entities.creatures.CreatureFactory;
+import com.dimamon.roguelike10.entities.map.GameMap;
 import com.dimamon.roguelike10.entities.Сontrollable;
 
 public class RoguelikeApp extends ApplicationAdapter {
 
 	private SpriteBatch batch;
 
-	private CreatureFactory creatureFactory;
+	private GameMap gameMap;
+
 	private Creature demon;
+	private Creature android;
+
+
+
 	private Сontrollable player;
 
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
 
+		gameMap = new GameMap();
 
-		creatureFactory = new CreatureFactory();
-		demon = creatureFactory.getDemon();
-		player = new Сontrollable(demon);
+		demon = CreatureFactory.getDemon();
+		android = CreatureFactory.getAndroid();
+
+		player = new Сontrollable(android);
 	}
 
 	@Override
@@ -34,6 +42,7 @@ public class RoguelikeApp extends ApplicationAdapter {
 		batch.begin();
 
 		//HERE DRAW UNITS
+		gameMap.render(batch);
 		player.render(batch);
 
 
@@ -49,6 +58,7 @@ public class RoguelikeApp extends ApplicationAdapter {
 
 	@Override
 	public void dispose () {
+		gameMap.dispose();
 		player.dispose();
 		batch.dispose();
 	}

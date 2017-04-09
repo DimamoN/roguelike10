@@ -46,6 +46,10 @@ public class Tile implements GameObject{
         batch.draw(texture,x,y);
     }
 
+    public void render(SpriteBatch batch, int x, int y) {
+        batch.draw(texture,x,y);
+    }
+
     //TODO: remove?
     @Override
     public void update() {

@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.dimamon.roguelike10.common.Direction;
+import com.dimamon.roguelike10.entities.creatures.Creature;
 
 /**
  * Wrapper for Creatures
@@ -12,17 +13,17 @@ import com.dimamon.roguelike10.common.Direction;
  */
 public class Сontrollable implements GameObject {
 
-    private com.dimamon.roguelike10.entities.creatures.Creature controllableCreature;
+    private Creature controllableCreature;
 
-    public Сontrollable(com.dimamon.roguelike10.entities.creatures.Creature controllableCreature) {
+    public Сontrollable(Creature controllableCreature) {
         this.controllableCreature = controllableCreature;
     }
 
-    public com.dimamon.roguelike10.entities.creatures.Creature getControllableCreature() {
+    public Creature getControllableCreature() {
         return controllableCreature;
     }
 
-    public void setControllableCreature(com.dimamon.roguelike10.entities.creatures.Creature controllableCreature) {
+    public void setControllableCreature(Creature controllableCreature) {
         this.controllableCreature = controllableCreature;
     }
 
