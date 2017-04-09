@@ -1,8 +1,7 @@
-package com.dimamon.roguelike10.entities;
+package com.dimamon.roguelike10.entities.creatures;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.dimamon.roguelike10.common.Direction;
 
 /**
  * Created by dimamon on 4/9/17.

@@ -1,4 +1,4 @@
-package com.dimamon.roguelike10.entities;
+package com.dimamon.roguelike10.entities.creatures;
 
 import com.badlogic.gdx.graphics.Texture;
 

@@ -4,8 +4,8 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.dimamon.roguelike10.entities.Creature;
-import com.dimamon.roguelike10.entities.CreatureFactory;
+import com.dimamon.roguelike10.entities.creatures.Creature;
+import com.dimamon.roguelike10.entities.creatures.CreatureFactory;
 import com.dimamon.roguelike10.entities.Сontrollable;
 
 public class RoguelikeApp extends ApplicationAdapter {

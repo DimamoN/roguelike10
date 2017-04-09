@@ -12,17 +12,17 @@ import com.dimamon.roguelike10.common.Direction;
  */
 public class Сontrollable implements GameObject {
 
-    private Creature controllableCreature;
+    private com.dimamon.roguelike10.entities.creatures.Creature controllableCreature;
 
-    public Сontrollable(Creature controllableCreature) {
+    public Сontrollable(com.dimamon.roguelike10.entities.creatures.Creature controllableCreature) {
         this.controllableCreature = controllableCreature;
     }
 
-    public Creature getControllableCreature() {
+    public com.dimamon.roguelike10.entities.creatures.Creature getControllableCreature() {
         return controllableCreature;
     }
 
-    public void setControllableCreature(Creature controllableCreature) {
+    public void setControllableCreature(com.dimamon.roguelike10.entities.creatures.Creature controllableCreature) {
         this.controllableCreature = controllableCreature;
     }
 

@@ -1,8 +1,10 @@
-package com.dimamon.roguelike10.entities;
+package com.dimamon.roguelike10.entities.creatures;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.Logger;
 import com.dimamon.roguelike10.common.Direction;
+import com.dimamon.roguelike10.entities.GameObject;
+import com.dimamon.roguelike10.entities.Moving;
 
 
 public abstract class Creature implements GameObject, Moving {
