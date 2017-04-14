@@ -11,16 +11,17 @@ import com.dimamon.roguelike10.entities.creatures.Creature;
  * It makes Creature controllable by player
  * Created by dimamon on 4/9/17.
  */
-public class Сontrollable extends Creature implements GameObject {
+public class Player extends Creature implements GameObject {
 
     private Creature creature;
+    private int floor;
 
-    public Сontrollable(Creature creature) {
+    public Player(Creature creature) {
         super("player", creature.getTexture());
         this.creature = creature;
     }
 
-    public Creature getControllableCreature() {
+    public Creature creature() {
         return creature;
     }
 
@@ -45,6 +46,11 @@ public class Сontrollable extends Creature implements GameObject {
         if(Gdx.input.isKeyJustPressed(Input.Keys.D) || Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)){
             creature.move(Direction.RIGHT);
         }
+    }
+
+
+    public int getFloor() {
+        return floor;
     }
 
     @Override

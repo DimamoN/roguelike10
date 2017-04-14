@@ -18,8 +18,7 @@ public class GameFloor implements GameObject{
     private static final int SIZE_X = WIDTH/TEXTURE_SIZE;
     private static final int SIZE_Y = HEIGHT/TEXTURE_SIZE;
 
-
-    private static List<Creature> creatures = new ArrayList<Creature>();
+    private static List<Creature> creatures = new ArrayList<>();
     private static GameTile[][] floorMap = new GameTile[SIZE_X][SIZE_Y];
 
 
@@ -44,16 +43,6 @@ public class GameFloor implements GameObject{
         }
     }
 
-    /**
-     * Check : can unit move to pos(x,y)
-     * Edges of map handled
-     */
-    public boolean canMoveTo(int x, int y){
-        if(x < 0 || y < 0 || x >= SIZE_X || y >= SIZE_Y) return false;
-        if(floorMap[x][y].isBlocking()) return false;
-        return true;
-    }
-
     @Override
     public void render(SpriteBatch batch) {
 
@@ -62,8 +51,8 @@ public class GameFloor implements GameObject{
                 floorMap[x][y].render(batch, x, y);
             }
         }
+        creatures.stream().forEach(c -> c.render(batch));
     }
-
     @Override
     public void update() {
         for (int x = 0; x < WIDTH / TEXTURE_SIZE; x++) {
@@ -71,8 +60,8 @@ public class GameFloor implements GameObject{
                 floorMap[x][y].update();
             }
         }
+        creatures.stream().forEach(c -> c.update());
     }
-
     @Override
     public void dispose() {
         for (int x = 0; x < SIZE_X; x++) {
@@ -83,10 +72,24 @@ public class GameFloor implements GameObject{
     }
 
     /**
-     * Put an object to a floor, coorinates are taken from object
-     * @param creature
+     * Check : can unit move to pos(x,y)
+     * Edges of map handled
      */
-    public void put(Creature creature, int x, int y) {
-        floorMap[x][y].setCreature(creature);
+    public boolean canMoveTo(int x, int y){
+        if(x < 0 || y < 0 || x >= SIZE_X || y >= SIZE_Y) return false;
+        if(floorMap[x][y].isBlocking()) return false;
+        return true;
+    }
+
+    public void addCreature(Creature creature){
+        creatures.add(creature);
+    }
+
+    public static List<Creature> getCreatures() {
+        return creatures;
+    }
+
+    public static void setCreatures(List<Creature> creatures) {
+        GameFloor.creatures = creatures;
     }
 }

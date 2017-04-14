@@ -1,10 +1,15 @@
 package com.dimamon.roguelike10.entities.map;
 
-import com.dimamon.roguelike10.config.GameConfig;
+import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.dimamon.roguelike10.entities.GameObject;
+import com.dimamon.roguelike10.entities.Player;
 import com.dimamon.roguelike10.entities.creatures.Creature;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.dimamon.roguelike10.config.GameConfig.FLOOR_COUNT;
 
 /**
  * This is MAIN FULL GAME MAP
@@ -17,35 +22,46 @@ import java.util.List;
  *
  * Created by dimamon on 4/10/17.
  */
-public class GameMap {
+public class GameMap implements GameObject {
 
-    private static final int FLOOR_COUNT = GameConfig.FLOOR_COUNT;
-
-    private static List<GameFloor> gameMap;
+    private static List<GameFloor> floors;
+    private Player player;
 
     //Init all floors
-    static {
-        gameMap = new ArrayList<GameFloor>();
+    {
+        floors = new ArrayList<>();
         for (int i = 0; i < FLOOR_COUNT; i++) {
-            gameMap.add(new GameFloor());
+            floors.add(new GameFloor());
         }
     }
 
-    public static GameFloor getFloor(int n){
-        return gameMap.get(n);
+    public GameMap(Player player) {
+        this.player = player;
     }
 
-    /**
-     * Add an object to a selected floor
-     */
-    public static void addOnFloor(Creature creature, int floor, int x, int y){
-        gameMap.get(floor).put(creature, x, y);
+    public void render(SpriteBatch batch){
+        floors.get(player.getFloor()).render(batch);
     }
-
-    public static void dispose(){
-        for(GameFloor f : gameMap){
+    public void update() {
+        floors.get(player.getFloor()).update();
+    }
+    public void dispose(){
+        for(GameFloor f : floors){
             f.dispose();
         }
     }
 
+    public static GameFloor getFloor(int n){
+        return floors.get(n);
+    }
+    /**
+     * Add a creature to a selected floor
+     */
+    public void addOnFloor(Creature creature, int floor){
+        floors.get(floor).addCreature(creature);
+    }
+
+    public void putPlayerToFloor(int floor){
+        addOnFloor(player, floor);
+    }
 }

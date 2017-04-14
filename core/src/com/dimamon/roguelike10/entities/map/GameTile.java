@@ -72,7 +72,7 @@ public class GameTile implements GameObject {
 
     @Override
     public void update() {
-        creature.update();
+        if(creature != null) creature.update();
     }
 
     @Override
