@@ -13,6 +13,7 @@ import com.dimamon.roguelike10.map.gameTile.GameTileFactory;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -32,6 +33,10 @@ public class GameFloor extends GameEntity implements LibGdxable, Turn {
 
     private void initMap(){
 
+        //test stepLow
+        int putX = new Random().nextInt(FLOOR_SIZE_X-1)+2;
+        int putY = new Random().nextInt(FLOOR_SIZE_Y-1)+2;
+
         for (int x = 0; x < FLOOR_SIZE_X; x++) {
             for (int y = 0; y < FLOOR_SIZE_Y ; y++) {
                 floorMap[x][y] = GameTileFactory.getFloor();
@@ -41,6 +46,9 @@ public class GameFloor extends GameEntity implements LibGdxable, Turn {
                 if(y == 0) floorMap[x][y] =  GameTileFactory.getWallUp();
                 if(x == 0) floorMap[x][y] =  GameTileFactory.getWallRight();
                 if(x == FLOOR_SIZE_X-1) floorMap[x][y] =  GameTileFactory.getWallLeft();
+
+                //put StepLow
+                if(x == putX && y == putY) floorMap[x][y] =  GameTileFactory.getStepLow();
             }
         }
     }

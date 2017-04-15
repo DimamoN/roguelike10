@@ -16,12 +16,15 @@ public class TileFactory {
     private static final String WALL_LEFT_TEXTURE = "tiles/wallLeft.png";
     private static final String ROCK_TEXTURE = "tiles/rock.png";
 
+    private static final String STEP_LOW = "tiles/stepLow.png";
+
     private static final Tile floor = new Tile(new Texture(FLOOR_TEXTURE),"road1.png", false);
     private static final Tile wall = new Tile(new Texture(WALL_TEXTURE),"road1.png", true);
     private static final Tile wallUp = new Tile(new Texture(WALL_UP_TEXTURE),"road1.png", true);
     private static final Tile wallRight = new Tile(new Texture(WALL_RIGHT_TEXTURE),"road1.png", true);
     private static final Tile wallLeft = new Tile(new Texture(WALL_LEFT_TEXTURE),"road1.png", true);
     private static final Tile rock = new Tile(new Texture(ROCK_TEXTURE),"road1.png", true);
+    private static final Tile stepLow = new Tile(new Texture(STEP_LOW),"stepLow.png", true);
 
 
     public static Tile getFloor(){
@@ -48,4 +51,7 @@ public class TileFactory {
         return rock;
     }
 
+    public static Tile getStepLow() {
+        return stepLow;
+    }
 }

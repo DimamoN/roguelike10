@@ -27,6 +27,10 @@ public class GameTileFactory {
     }
     //*************************************************
 
+    public static GameTile getStepLow(){
+        return new GameTile(TileFactory.getStepLow());
+    }
+
     public static GameTile getRock(){
         return new GameTile(TileFactory.getRock());
     }
