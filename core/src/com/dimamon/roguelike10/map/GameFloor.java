@@ -1,6 +1,9 @@
 package com.dimamon.roguelike10.map;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.Logger;
+import com.dimamon.roguelike10.common.Log;
+import com.dimamon.roguelike10.entities.GameEntity;
 import com.dimamon.roguelike10.entities.LibGdxable;
 import com.dimamon.roguelike10.entities.creatures.Creature;
 import com.dimamon.roguelike10.map.gameTile.GameTile;
@@ -14,17 +17,20 @@ import java.util.TreeSet;
 
 import static com.dimamon.roguelike10.config.GameConfig.*;
 
-public class GameFloor implements LibGdxable {
+public class GameFloor extends GameEntity implements LibGdxable {
 
+    //TODO: Use dynamic sorted structure
     private List<Creature> creatures;
     private static GameTile[][] floorMap = new GameTile[FLOOR_SIZE_X][FLOOR_SIZE_Y];
 
     public GameFloor() {
         creatures = new ArrayList<>();
+        this.log = new Log("Gamemap");
         initMap();
     }
 
     private void initMap(){
+
         for (int x = 0; x < FLOOR_SIZE_X; x++) {
             for (int y = 0; y < FLOOR_SIZE_Y ; y++) {
                 floorMap[x][y] = GameTileFactory.getFloor();
@@ -70,7 +76,6 @@ public class GameFloor implements LibGdxable {
         creatures.stream().forEach(c -> c.dispose());
     }
 
-
     public boolean canMoveTo(int x, int y){
         if(x < 0 || y < 0 || x >= FLOOR_SIZE_X || y >= FLOOR_SIZE_Y) return false;
         if(floorMap[x][y].isBlocking()) return false;
@@ -79,7 +84,9 @@ public class GameFloor implements LibGdxable {
     }
 
     public boolean isOnPos(int x, int y){
-        return creatures.stream().anyMatch(c -> c.getPos().floor == x && c.getPos().y == y);
+        boolean result = creatures.stream().anyMatch(c -> c.getPos().x == x && c.getPos().y == y);
+        log.debug("Is on pos "+x+":"+y);
+        return result;
     }
 
     public void addCreature(Creature creature){

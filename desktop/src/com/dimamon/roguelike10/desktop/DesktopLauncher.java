@@ -10,6 +10,7 @@ public class DesktopLauncher {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		config.height = GameConfig.HEIGHT;
 		config.width = GameConfig.WIDTH;
+		config.title = "roguelike10 - dev";
 		new LwjglApplication(new RoguelikeApp(), config);
 	}
 }

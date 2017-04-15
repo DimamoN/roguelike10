@@ -3,6 +3,7 @@ package com.dimamon.roguelike10.entities.creatures;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.dimamon.roguelike10.common.Direction;
+import com.dimamon.roguelike10.common.Log;
 import com.dimamon.roguelike10.config.MapUtils;
 import com.dimamon.roguelike10.entities.GameEntityVisiblePos;
 import com.dimamon.roguelike10.entities.LibGdxable;
@@ -24,6 +25,7 @@ public abstract class Creature extends GameEntityVisiblePos implements LibGdxabl
         this.name = name;
         this.attributes = new Attributes(str,dex,mind);
         this.pos = new Pos();
+        this.log = new Log(name);
     }
 
     //FOR PLAYER (THINK ABOUT IT)
@@ -32,6 +34,7 @@ public abstract class Creature extends GameEntityVisiblePos implements LibGdxabl
         this.texture = texture;
         this.attributes = new Attributes();
         this.pos = new Pos();
+        this.log = new Log(name);
     }
 
     @Override

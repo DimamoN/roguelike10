@@ -1,5 +1,6 @@
 package com.dimamon.roguelike10;
 
+import com.badlogic.gdx.Application;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
@@ -17,6 +18,8 @@ public class RoguelikeApp extends ApplicationAdapter {
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
+
+		Gdx.app.setLogLevel(Application.LOG_DEBUG);
 
 		//TODO : fix add on floor!
 
