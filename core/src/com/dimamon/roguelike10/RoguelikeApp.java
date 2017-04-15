@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.dimamon.roguelike10.entities.creatures.CreatureFactory;
 import com.dimamon.roguelike10.entities.player.Player;
 import com.dimamon.roguelike10.map.GameMap;
+import com.dimamon.roguelike10.sound.Sounds;
 
 public class RoguelikeApp extends ApplicationAdapter {
 
@@ -55,5 +56,6 @@ public class RoguelikeApp extends ApplicationAdapter {
 		gameMap.dispose();
 		player.dispose();
 		batch.dispose();
+		Sounds.dispose();
 	}
 }

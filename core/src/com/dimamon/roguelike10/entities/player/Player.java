@@ -2,11 +2,14 @@ package com.dimamon.roguelike10.entities.player;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.dimamon.roguelike10.common.Direction;
 import com.dimamon.roguelike10.entities.LibGdxable;
 import com.dimamon.roguelike10.entities.creatures.Creature;
 import com.dimamon.roguelike10.map.GameMap;
+import com.dimamon.roguelike10.sound.Sounds;
 
 /**
  * Wrapper for Creatures
@@ -26,11 +29,16 @@ public class Player extends Creature implements LibGdxable {
     public void update() {
         updateUserInput();
     }
-
+    @Override
+    public void dispose() {
+        super.dispose();
+    }
     @Override
     public void turn() {
         log.log("Turn ["+stats.turnCount+"]");
+        Sounds.step();
     }
+
 
     /**
      * Method for using in main update loop
