@@ -1,4 +1,4 @@
-package com.dimamon.roguelike10.entities.map;
+package com.dimamon.roguelike10.map;
 
 /**
  * Created by dimamon on 4/10/17.

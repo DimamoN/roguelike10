@@ -1,18 +1,16 @@
-package com.dimamon.roguelike10.entities.creatures;
+package com.dimamon.roguelike10.entities.creatures.impl;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.dimamon.roguelike10.config.GameConfig;
-import com.dimamon.roguelike10.config.MapUtils;
+import com.dimamon.roguelike10.entities.creatures.Creature;
 
 /**
  * Created by dimamon on 4/9/17.
  */
 
-public class Android extends Creature{
+public class Demon extends Creature {
 
-
-    public Android(Texture texture, String name, int strength, int dexterity, int intellect) {
+    public Demon(Texture texture, String name, int strength, int dexterity, int intellect) {
         super(texture, name, strength, dexterity, intellect);
     }
 

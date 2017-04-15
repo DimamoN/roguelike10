@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
  * Created by dimamon on 4/9/17.
  */
 
-public interface GameObject {
+public interface LibGdxable {
 
     void render(SpriteBatch batch);
     void update();

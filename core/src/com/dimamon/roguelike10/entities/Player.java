@@ -11,10 +11,9 @@ import com.dimamon.roguelike10.entities.creatures.Creature;
  * It makes Creature controllable by player
  * Created by dimamon on 4/9/17.
  */
-public class Player extends Creature implements GameObject {
+public class Player extends Creature implements LibGdxable {
 
     private Creature creature;
-    private int floor;
 
     public Player(Creature creature) {
         super("player", creature.getTexture());
@@ -50,7 +49,7 @@ public class Player extends Creature implements GameObject {
 
 
     public int getFloor() {
-        return floor;
+        return pos.floor;
     }
 
     @Override

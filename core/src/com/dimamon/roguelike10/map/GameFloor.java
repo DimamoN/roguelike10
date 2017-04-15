@@ -1,25 +1,21 @@
-package com.dimamon.roguelike10.entities.map;
+package com.dimamon.roguelike10.map;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.dimamon.roguelike10.config.MapUtils;
-import com.dimamon.roguelike10.entities.GameObject;
+import com.dimamon.roguelike10.entities.LibGdxable;
 import com.dimamon.roguelike10.entities.creatures.Creature;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 import static com.dimamon.roguelike10.config.GameConfig.*;
 
 /**
  * Created by dimamon on 4/9/17.
  */
-public class GameFloor implements GameObject{
+public class GameFloor implements LibGdxable {
 
-    private static final int SIZE_X = WIDTH/TEXTURE_SIZE;
-    private static final int SIZE_Y = HEIGHT/TEXTURE_SIZE;
-
-    private static List<Creature> creatures = new ArrayList<>();
-    private static GameTile[][] floorMap = new GameTile[SIZE_X][SIZE_Y];
+    private Set<Creature> creatures = new TreeSet<>();
+    private static GameTile[][] floorMap = new GameTile[FLOOR_SIZE_X][FLOOR_SIZE_Y];
 
 
     public GameFloor() {
@@ -30,15 +26,15 @@ public class GameFloor implements GameObject{
      * Simply add floor texture
      */
     private void initMap(){
-        for (int x = 0; x < SIZE_X; x++) {
-            for (int y = 0; y < SIZE_Y ; y++) {
+        for (int x = 0; x < FLOOR_SIZE_X; x++) {
+            for (int y = 0; y < FLOOR_SIZE_Y ; y++) {
                 floorMap[x][y] =  GameTileFactory.getFloor();
 
                 //test
-                if(y == SIZE_Y-1) floorMap[x][y] =  GameTileFactory.getWall();
+                if(y == FLOOR_SIZE_Y-1) floorMap[x][y] =  GameTileFactory.getWall();
                 if(y == 0) floorMap[x][y] =  GameTileFactory.getWallUp();
                 if(x == 0) floorMap[x][y] =  GameTileFactory.getWallRight();
-                if(x == SIZE_X-1) floorMap[x][y] =  GameTileFactory.getWallLeft();
+                if(x == FLOOR_SIZE_X-1) floorMap[x][y] =  GameTileFactory.getWallLeft();
             }
         }
     }
@@ -64,11 +60,12 @@ public class GameFloor implements GameObject{
     }
     @Override
     public void dispose() {
-        for (int x = 0; x < SIZE_X; x++) {
-            for (int y = 0; y < SIZE_Y ; y++) {
+        for (int x = 0; x < FLOOR_SIZE_X; x++) {
+            for (int y = 0; y < FLOOR_SIZE_Y ; y++) {
                 floorMap[x][y].dispose();
             }
         }
+        creatures.stream().forEach(c -> c.dispose());
     }
 
     /**
@@ -76,20 +73,18 @@ public class GameFloor implements GameObject{
      * Edges of map handled
      */
     public boolean canMoveTo(int x, int y){
-        if(x < 0 || y < 0 || x >= SIZE_X || y >= SIZE_Y) return false;
+        if(x < 0 || y < 0 || x >= FLOOR_SIZE_X || y >= FLOOR_SIZE_Y) return false;
         if(floorMap[x][y].isBlocking()) return false;
+        if(isOnPos(x,y)) return false;
         return true;
+    }
+
+    public boolean isOnPos(int x, int y){
+        return creatures.stream().anyMatch(c -> c.getPos().floor == x && c.getPos().y == y);
     }
 
     public void addCreature(Creature creature){
         creatures.add(creature);
     }
 
-    public static List<Creature> getCreatures() {
-        return creatures;
-    }
-
-    public static void setCreatures(List<Creature> creatures) {
-        GameFloor.creatures = creatures;
-    }
 }

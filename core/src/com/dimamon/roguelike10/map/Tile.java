@@ -1,14 +1,14 @@
-package com.dimamon.roguelike10.entities.map;
+package com.dimamon.roguelike10.map;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.dimamon.roguelike10.config.MapUtils;
-import com.dimamon.roguelike10.entities.GameObject;
+import com.dimamon.roguelike10.entities.LibGdxable;
 
 /**
  * Created by dimamon on 4/9/17.
  */
-public class Tile implements GameObject{
+public class Tile implements LibGdxable {
 
     private Texture texture;
     private String name;

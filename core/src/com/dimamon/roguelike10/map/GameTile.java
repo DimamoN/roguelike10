@@ -1,7 +1,7 @@
-package com.dimamon.roguelike10.entities.map;
+package com.dimamon.roguelike10.map;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.dimamon.roguelike10.entities.GameObject;
+import com.dimamon.roguelike10.entities.LibGdxable;
 import com.dimamon.roguelike10.entities.creatures.Creature;
 import com.dimamon.roguelike10.entities.items.Item;
 
@@ -11,7 +11,7 @@ import java.util.Queue;
 /**
  * Created by dimamon on 4/10/17.
  */
-public class GameTile implements GameObject {
+public class GameTile implements LibGdxable {
 
     //Items on the floor
     private Queue<Item> items;
@@ -61,7 +61,7 @@ public class GameTile implements GameObject {
     public void render(SpriteBatch batch, int x, int y) {
         background.render(batch, x, y);
         if(!items.isEmpty()) items.peek().render(batch,x,y);
-        if(creature != null) creature.render(batch, x, y);
+        if(creature != null) creature.render(batch);
     }
 
     //TODO: REMOVE!

@@ -1,13 +1,14 @@
-package com.dimamon.roguelike10.entities.map;
+package com.dimamon.roguelike10.map;
 
-import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.dimamon.roguelike10.entities.GameObject;
+import com.dimamon.roguelike10.config.GameConfig;
+import com.dimamon.roguelike10.entities.LibGdxable;
 import com.dimamon.roguelike10.entities.Player;
 import com.dimamon.roguelike10.entities.creatures.Creature;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import static com.dimamon.roguelike10.config.GameConfig.FLOOR_COUNT;
 
@@ -22,7 +23,7 @@ import static com.dimamon.roguelike10.config.GameConfig.FLOOR_COUNT;
  *
  * Created by dimamon on 4/10/17.
  */
-public class GameMap implements GameObject {
+public class GameMap implements LibGdxable {
 
     private static List<GameFloor> floors;
     private Player player;
@@ -58,6 +59,13 @@ public class GameMap implements GameObject {
      * Add a creature to a selected floor
      */
     public void addOnFloor(Creature creature, int floor){
+        floors.get(floor).addCreature(creature);
+    }
+
+    public void addOnFloorRndSpace(Creature creature, int floor){
+        creature.setPos(
+                new Random().nextInt(GameConfig.FLOOR_SIZE_X-1),
+                new Random().nextInt(GameConfig.FLOOR_SIZE_Y-1));
         floors.get(floor).addCreature(creature);
     }
 
