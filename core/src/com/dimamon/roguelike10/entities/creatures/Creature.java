@@ -10,6 +10,7 @@ import com.dimamon.roguelike10.entities.LibGdxable;
 import com.dimamon.roguelike10.entities.Moving;
 import com.dimamon.roguelike10.entities.creatures.params.Attributes;
 import com.dimamon.roguelike10.entities.creatures.params.Pos;
+import com.dimamon.roguelike10.game.Statictics;
 import com.dimamon.roguelike10.game.Turn;
 import com.dimamon.roguelike10.map.GameMap;
 
@@ -20,6 +21,7 @@ import com.dimamon.roguelike10.map.GameMap;
 public abstract class Creature extends GameEntityVisiblePos implements LibGdxable, Moving, Comparable<Creature>,Turn {
 
     protected Attributes attributes;
+    protected Statictics stats;
 
     public Creature(Texture texture, String name, int str, int dex, int mind) {
         this.texture = texture;
@@ -27,6 +29,7 @@ public abstract class Creature extends GameEntityVisiblePos implements LibGdxabl
         this.attributes = new Attributes(str,dex,mind);
         this.pos = new Pos();
         this.log = new Log(name);
+        this.stats = new Statictics();
     }
 
     //FOR PLAYER (THINK ABOUT IT)
@@ -36,6 +39,7 @@ public abstract class Creature extends GameEntityVisiblePos implements LibGdxabl
         this.attributes = new Attributes();
         this.pos = new Pos();
         this.log = new Log(name);
+        this.stats = new Statictics();
     }
 
     @Override
@@ -58,19 +62,31 @@ public abstract class Creature extends GameEntityVisiblePos implements LibGdxabl
     public void move(Direction direction) {
         switch (direction){
             case UP:{
-                if(canMove(direction)) pos.y = ++pos.y;
+                if(canMove(direction)) {
+                    pos.y = ++pos.y;
+                    stats.updTurnCount();
+                }
                 break;
             }
             case RIGHT:{
-                if(canMove(direction)) pos.x = ++pos.x;
+                if(canMove(direction)) {
+                    pos.x = ++pos.x;
+                    stats.updTurnCount();
+                }
                 break;
             }
             case DOWN: {
-                if(canMove(direction)) pos.y = --pos.y;
+                if(canMove(direction)) {
+                    pos.y = --pos.y;
+                    stats.updTurnCount();
+                }
                 break;
             }
             case LEFT:{
-                if(canMove(direction)) pos.x = --pos.x;
+                if(canMove(direction)) {
+                    pos.x = --pos.x;
+                    stats.updTurnCount();
+                }
                 break;
             }
             default: log.debug("no such direction");

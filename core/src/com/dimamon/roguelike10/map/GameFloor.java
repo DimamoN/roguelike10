@@ -90,7 +90,7 @@ public class GameFloor extends GameEntity implements LibGdxable, Turn {
 
     public boolean isOnPos(int x, int y){
         boolean result = creatures.stream().anyMatch(c -> c.getPos().x == x && c.getPos().y == y);
-        log.debug("Is on pos "+x+":"+y+"="+result);
+//        log.debug("Is on pos "+x+":"+y+"="+result);
         return result;
     }
 

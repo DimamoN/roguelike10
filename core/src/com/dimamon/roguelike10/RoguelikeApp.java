@@ -28,7 +28,7 @@ public class RoguelikeApp extends ApplicationAdapter {
 		gameMap = new GameMap(player);
 		gameMap.putPlayerToFloor(0);
 
-		for (int i = 0; i < 10 ; i++) {
+		for (int i = 0; i < 3 ; i++) {
 			gameMap.addOnFloorRndSpace(CreatureFactory.getAndroidBlue(0,i+""),0);
 		}
 

@@ -27,6 +27,11 @@ public class Player extends Creature implements LibGdxable {
         updateUserInput();
     }
 
+    @Override
+    public void turn() {
+        log.log("Turn ["+stats.turnCount+"]");
+    }
+
     /**
      * Method for using in main update loop
      */
