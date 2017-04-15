@@ -10,13 +10,14 @@ import com.dimamon.roguelike10.entities.LibGdxable;
 import com.dimamon.roguelike10.entities.Moving;
 import com.dimamon.roguelike10.entities.creatures.params.Attributes;
 import com.dimamon.roguelike10.entities.creatures.params.Pos;
+import com.dimamon.roguelike10.game.Turn;
 import com.dimamon.roguelike10.map.GameMap;
 
 
 /**
  * Main creature entity
  */
-public abstract class Creature extends GameEntityVisiblePos implements LibGdxable, Moving, Comparable<Creature> {
+public abstract class Creature extends GameEntityVisiblePos implements LibGdxable, Moving, Comparable<Creature>,Turn {
 
     protected Attributes attributes;
 
@@ -49,7 +50,10 @@ public abstract class Creature extends GameEntityVisiblePos implements LibGdxabl
     public void dispose() {
         texture.dispose();
     }
-
+    @Override
+    public void turn() {
+        log.debug("do turn");
+    }
 
     public void move(Direction direction) {
         switch (direction){

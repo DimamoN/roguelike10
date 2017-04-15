@@ -18,20 +18,21 @@ public class RoguelikeApp extends ApplicationAdapter {
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
-
 		Gdx.app.setLogLevel(Application.LOG_DEBUG);
 
-		//TODO : fix add on floor!
 
 		player = new Player(CreatureFactory.getAndroid(0));
 		player.setPos(2,2);
 
+		//TODO : fix add on floor!
 		gameMap = new GameMap(player);
 		gameMap.putPlayerToFloor(0);
 
 		for (int i = 0; i < 10 ; i++) {
-			gameMap.addOnFloorRndSpace(CreatureFactory.getAndroidBlue(0),0);
+			gameMap.addOnFloorRndSpace(CreatureFactory.getAndroidBlue(0,i+""),0);
 		}
+
+		player.setMap(gameMap);
 
 	}
 

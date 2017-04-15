@@ -21,8 +21,8 @@ public class CreatureFactory {
         return (Android) new Android(new Texture(ANDROID_TEXTURE), "Android", 10,10,10).setFloor(floor);
     }
 
-    public static Android getAndroidBlue(int floor){
-        return (Android) new Android(new Texture(ANDROID_BLUE_TEXTURE), "Android_blue", 10,10,10).setFloor(floor);
+    public static Android getAndroidBlue(int floor, String name){
+        return (Android) new Android(new Texture(ANDROID_BLUE_TEXTURE), "Android_blue:" + name, 10,10,10).setFloor(floor);
     }
 
 }

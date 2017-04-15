@@ -5,6 +5,7 @@ import com.dimamon.roguelike10.config.GameConfig;
 import com.dimamon.roguelike10.entities.LibGdxable;
 import com.dimamon.roguelike10.entities.player.Player;
 import com.dimamon.roguelike10.entities.creatures.Creature;
+import com.dimamon.roguelike10.game.Turn;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +24,7 @@ import static com.dimamon.roguelike10.config.GameConfig.FLOOR_COUNT;
  *
  * Created by dimamon on 4/10/17.
  */
-public class GameMap implements LibGdxable {
+public class GameMap implements LibGdxable, Turn {
 
     private static List<GameFloor> floors;
     private Player player;
@@ -49,6 +50,10 @@ public class GameMap implements LibGdxable {
     public void dispose(){
         floors.stream().forEach(f -> f.dispose());
     }
+    @Override
+    public void turn() {
+        floors.get(player.getFloor()).turn();
+    }
 
     public static GameFloor getFloor(int n){
         return floors.get(n);
@@ -70,4 +75,6 @@ public class GameMap implements LibGdxable {
     public void putPlayerToFloor(int floor){
         addOnFloor(player, floor);
     }
+
+
 }

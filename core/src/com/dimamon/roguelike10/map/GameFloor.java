@@ -6,6 +6,7 @@ import com.dimamon.roguelike10.common.Log;
 import com.dimamon.roguelike10.entities.GameEntity;
 import com.dimamon.roguelike10.entities.LibGdxable;
 import com.dimamon.roguelike10.entities.creatures.Creature;
+import com.dimamon.roguelike10.game.Turn;
 import com.dimamon.roguelike10.map.gameTile.GameTile;
 import com.dimamon.roguelike10.map.gameTile.GameTileFactory;
 
@@ -17,7 +18,7 @@ import java.util.TreeSet;
 
 import static com.dimamon.roguelike10.config.GameConfig.*;
 
-public class GameFloor extends GameEntity implements LibGdxable {
+public class GameFloor extends GameEntity implements LibGdxable, Turn {
 
     //TODO: Use dynamic sorted structure
     private List<Creature> creatures;
@@ -75,6 +76,10 @@ public class GameFloor extends GameEntity implements LibGdxable {
         }
         creatures.stream().forEach(c -> c.dispose());
     }
+    @Override
+    public void turn() {
+        creatures.stream().forEach(c -> c.turn());
+    }
 
     public boolean canMoveTo(int x, int y){
         if(x < 0 || y < 0 || x >= FLOOR_SIZE_X || y >= FLOOR_SIZE_Y) return false;
@@ -85,12 +90,13 @@ public class GameFloor extends GameEntity implements LibGdxable {
 
     public boolean isOnPos(int x, int y){
         boolean result = creatures.stream().anyMatch(c -> c.getPos().x == x && c.getPos().y == y);
-        log.debug("Is on pos "+x+":"+y);
+        log.debug("Is on pos "+x+":"+y+"="+result);
         return result;
     }
 
     public void addCreature(Creature creature){
         creatures.add(creature);
     }
+
 
 }
