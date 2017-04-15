@@ -1,21 +1,20 @@
 package com.dimamon.roguelike10.map;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.utils.Logger;
 import com.dimamon.roguelike10.common.Log;
+import com.dimamon.roguelike10.config.GameConfig;
 import com.dimamon.roguelike10.entities.GameEntity;
 import com.dimamon.roguelike10.entities.LibGdxable;
 import com.dimamon.roguelike10.entities.creatures.Creature;
 import com.dimamon.roguelike10.game.Turn;
 import com.dimamon.roguelike10.map.gameTile.GameTile;
-import com.dimamon.roguelike10.map.gameTile.GameTileFactory;
+import com.dimamon.roguelike10.map.generator.CreatureGenerator;
+import com.dimamon.roguelike10.map.generator.FloorGenerator;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
-import java.util.Set;
-import java.util.TreeSet;
 
 import static com.dimamon.roguelike10.config.GameConfig.*;
 
@@ -32,25 +31,12 @@ public class GameFloor extends GameEntity implements LibGdxable, Turn {
     }
 
     private void initMap(){
+        floorMap = FloorGenerator.generateFloor();
 
-        //test stepLow
-        int putX = new Random().nextInt(FLOOR_SIZE_X-1)+2;
-        int putY = new Random().nextInt(FLOOR_SIZE_Y-1)+2;
-
-        for (int x = 0; x < FLOOR_SIZE_X; x++) {
-            for (int y = 0; y < FLOOR_SIZE_Y ; y++) {
-                floorMap[x][y] = GameTileFactory.getFloor();
-
-                //test
-                if(y == FLOOR_SIZE_Y-1) floorMap[x][y] =  GameTileFactory.getWall();
-                if(y == 0) floorMap[x][y] =  GameTileFactory.getWallUp();
-                if(x == 0) floorMap[x][y] =  GameTileFactory.getWallRight();
-                if(x == FLOOR_SIZE_X-1) floorMap[x][y] =  GameTileFactory.getWallLeft();
-
-                //put StepLow
-                if(x == putX && y == putY) floorMap[x][y] =  GameTileFactory.getStepLow();
-            }
-        }
+        //TODO SHOULD KNOW FLOOR
+        int floor = 0;
+        List<Creature> creaturesToAdd = CreatureGenerator.generateCreatures(5,floor);
+        addOnFloorRndSpace(creaturesToAdd,floor);
     }
 
     @Override
@@ -87,6 +73,16 @@ public class GameFloor extends GameEntity implements LibGdxable, Turn {
     @Override
     public void turn() {
         creatures.stream().forEach(c -> c.turn());
+    }
+
+    public void addOnFloorRndSpace(Creature creature, int floor){
+        creature.setPos(
+                new Random().nextInt(GameConfig.FLOOR_SIZE_X-1),
+                new Random().nextInt(GameConfig.FLOOR_SIZE_Y-1));
+        addCreature(creature);
+    }
+    public void addOnFloorRndSpace(List<Creature> creatures, int floor){
+        creatures.stream().forEach(c -> addOnFloorRndSpace(c,floor));
     }
 
     public boolean canMoveTo(int x, int y){
