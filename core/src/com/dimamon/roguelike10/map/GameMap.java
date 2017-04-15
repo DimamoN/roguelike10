@@ -3,7 +3,7 @@ package com.dimamon.roguelike10.map;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.dimamon.roguelike10.config.GameConfig;
 import com.dimamon.roguelike10.entities.LibGdxable;
-import com.dimamon.roguelike10.entities.Player;
+import com.dimamon.roguelike10.entities.player.Player;
 import com.dimamon.roguelike10.entities.creatures.Creature;
 
 import java.util.ArrayList;
@@ -47,9 +47,7 @@ public class GameMap implements LibGdxable {
         floors.get(player.getFloor()).update();
     }
     public void dispose(){
-        for(GameFloor f : floors){
-            f.dispose();
-        }
+        floors.stream().forEach(f -> f.dispose());
     }
 
     public static GameFloor getFloor(int n){

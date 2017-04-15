@@ -3,32 +3,31 @@ package com.dimamon.roguelike10.map;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.dimamon.roguelike10.entities.LibGdxable;
 import com.dimamon.roguelike10.entities.creatures.Creature;
+import com.dimamon.roguelike10.map.gameTile.GameTile;
+import com.dimamon.roguelike10.map.gameTile.GameTileFactory;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
 import static com.dimamon.roguelike10.config.GameConfig.*;
 
-/**
- * Created by dimamon on 4/9/17.
- */
 public class GameFloor implements LibGdxable {
 
-    private Set<Creature> creatures = new TreeSet<>();
+    private List<Creature> creatures;
     private static GameTile[][] floorMap = new GameTile[FLOOR_SIZE_X][FLOOR_SIZE_Y];
 
-
     public GameFloor() {
+        creatures = new ArrayList<>();
         initMap();
     }
 
-    /**
-     * Simply add floor texture
-     */
     private void initMap(){
         for (int x = 0; x < FLOOR_SIZE_X; x++) {
             for (int y = 0; y < FLOOR_SIZE_Y ; y++) {
-                floorMap[x][y] =  GameTileFactory.getFloor();
+                floorMap[x][y] = GameTileFactory.getFloor();
 
                 //test
                 if(y == FLOOR_SIZE_Y-1) floorMap[x][y] =  GameTileFactory.getWall();
@@ -57,6 +56,9 @@ public class GameFloor implements LibGdxable {
             }
         }
         creatures.stream().forEach(c -> c.update());
+
+        //test!
+        Collections.sort(creatures);
     }
     @Override
     public void dispose() {
@@ -68,10 +70,7 @@ public class GameFloor implements LibGdxable {
         creatures.stream().forEach(c -> c.dispose());
     }
 
-    /**
-     * Check : can unit move to pos(x,y)
-     * Edges of map handled
-     */
+
     public boolean canMoveTo(int x, int y){
         if(x < 0 || y < 0 || x >= FLOOR_SIZE_X || y >= FLOOR_SIZE_Y) return false;
         if(floorMap[x][y].isBlocking()) return false;

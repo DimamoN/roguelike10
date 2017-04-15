@@ -1,9 +1,10 @@
-package com.dimamon.roguelike10.entities;
+package com.dimamon.roguelike10.entities.player;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.dimamon.roguelike10.common.Direction;
+import com.dimamon.roguelike10.entities.LibGdxable;
 import com.dimamon.roguelike10.entities.creatures.Creature;
 
 /**
@@ -13,19 +14,13 @@ import com.dimamon.roguelike10.entities.creatures.Creature;
  */
 public class Player extends Creature implements LibGdxable {
 
-    private Creature creature;
-
     public Player(Creature creature) {
         super("player", creature.getTexture());
-        this.creature = creature;
     }
 
-    public Creature creature() {
-        return creature;
-    }
-
-    public void setControllableCreature(Creature controllableCreature) {
-        this.creature = controllableCreature;
+    @Override
+    public void update() {
+        updateUserInput();
     }
 
     /**
@@ -34,37 +29,21 @@ public class Player extends Creature implements LibGdxable {
     public void updateUserInput(){
 
         if(Gdx.input.isKeyJustPressed(Input.Keys.W) || Gdx.input.isKeyJustPressed(Input.Keys.UP)){
-            creature.move(Direction.UP);
+            move(Direction.UP);
         }
         if(Gdx.input.isKeyJustPressed(Input.Keys.S) || Gdx.input.isKeyJustPressed(Input.Keys.DOWN)){
-            creature.move(Direction.DOWN);
+            move(Direction.DOWN);
         }
         if(Gdx.input.isKeyJustPressed(Input.Keys.A) || Gdx.input.isKeyJustPressed(Input.Keys.LEFT)){
-            creature.move(Direction.LEFT);
+            move(Direction.LEFT);
         }
         if(Gdx.input.isKeyJustPressed(Input.Keys.D) || Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)){
-            creature.move(Direction.RIGHT);
+            move(Direction.RIGHT);
         }
     }
-
 
     public int getFloor() {
         return pos.floor;
     }
 
-    @Override
-    public void render(SpriteBatch batch) {
-        creature.render(batch);
-    }
-
-    @Override
-    public void update() {
-        updateUserInput();
-        creature.update();
-    }
-
-    @Override
-    public void dispose() {
-        creature.dispose();
-    }
 }

@@ -5,7 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.dimamon.roguelike10.entities.creatures.CreatureFactory;
-import com.dimamon.roguelike10.entities.Player;
+import com.dimamon.roguelike10.entities.player.Player;
 import com.dimamon.roguelike10.map.GameMap;
 
 public class RoguelikeApp extends ApplicationAdapter {
@@ -21,7 +21,7 @@ public class RoguelikeApp extends ApplicationAdapter {
 		//TODO : fix add on floor!
 
 		player = new Player(CreatureFactory.getAndroid(0));
-		player.creature().setPos(2,2);
+		player.setPos(2,2);
 
 		gameMap = new GameMap(player);
 		gameMap.putPlayerToFloor(0);

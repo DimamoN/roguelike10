@@ -1,4 +1,4 @@
-package com.dimamon.roguelike10.map;
+package com.dimamon.roguelike10.map.tiles;
 
 import com.badlogic.gdx.graphics.Texture;
 

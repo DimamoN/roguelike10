@@ -1,8 +1,7 @@
-package com.dimamon.roguelike10.map;
+package com.dimamon.roguelike10.map.gameTile;
 
-/**
- * Created by dimamon on 4/10/17.
- */
+import com.dimamon.roguelike10.map.tiles.TileFactory;
+
 
 public class GameTileFactory {
 
