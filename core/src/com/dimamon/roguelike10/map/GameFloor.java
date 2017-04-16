@@ -9,7 +9,8 @@ import com.dimamon.roguelike10.entities.creatures.Creature;
 import com.dimamon.roguelike10.game.Turn;
 import com.dimamon.roguelike10.map.gameTile.GameTile;
 import com.dimamon.roguelike10.map.generator.CreatureGenerator;
-import com.dimamon.roguelike10.map.generator.FloorGenerator;
+import com.dimamon.roguelike10.map.generator.floor.FloorGenerator;
+import com.dimamon.roguelike10.map.generator.floor.impl.GridFloorGenerator;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -23,15 +24,17 @@ public class GameFloor extends GameEntity implements LibGdxable, Turn {
     //TODO: Use dynamic sorted structure
     private List<Creature> creatures;
     private static GameTile[][] floorMap = new GameTile[FLOOR_SIZE_X][FLOOR_SIZE_Y];
+    private FloorGenerator floorGenerator;
 
     public GameFloor() {
         creatures = new ArrayList<>();
         this.log = new Log("Gamemap");
+        this.floorGenerator = new GridFloorGenerator();
         initMap();
     }
 
     private void initMap(){
-        floorMap = FloorGenerator.generateFloor();
+        floorMap = floorGenerator.getFloor();
 
         //TODO SHOULD KNOW FLOOR
         int floor = 0;

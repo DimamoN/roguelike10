@@ -1,7 +1,8 @@
-package com.dimamon.roguelike10.map.generator;
+package com.dimamon.roguelike10.map.generator.floor.impl;
 
 import com.dimamon.roguelike10.map.gameTile.GameTile;
 import com.dimamon.roguelike10.map.gameTile.GameTileFactory;
+import com.dimamon.roguelike10.map.generator.floor.AbstractFloorGenerator;
 
 import java.util.Random;
 
@@ -9,16 +10,10 @@ import static com.dimamon.roguelike10.config.GameConfig.FLOOR_SIZE_X;
 import static com.dimamon.roguelike10.config.GameConfig.FLOOR_SIZE_Y;
 
 
-public class FloorGenerator {
+public class SimpleFloorGenerator extends AbstractFloorGenerator {
 
-    private static GameTile[][] floorMap = new GameTile[FLOOR_SIZE_X][FLOOR_SIZE_Y];
-
-    public static GameTile[][] generateFloor(){
-        testGenerate();
-        return floorMap;
-    }
-
-    private static void testGenerate(){
+    @Override
+    protected GameTile[][] generateFloor() {
         //test stepLow
         int putX = new Random().nextInt(FLOOR_SIZE_X-1)+2;
         int putY = new Random().nextInt(FLOOR_SIZE_Y-1)+2;
@@ -37,5 +32,8 @@ public class FloorGenerator {
                 if(x == putX && y == putY) floorMap[x][y] =  GameTileFactory.getStepLow();
             }
         }
+
+        return floorMap;
     }
+
 }

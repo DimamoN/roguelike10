@@ -6,14 +6,27 @@ package com.dimamon.roguelike10.config;
 
 public class GameConfig {
 
+    /**
+     * WIDTH AND HEIGHT OF GAME SCREEN IN PIXELS
+     */
     public static final int HEIGHT = 480;
     public static final int WIDTH = 800;
 
     public static final int TEXTURE_SIZE = 32;
 
+    /**
+     * FLOOR SIZE IN BLOCKS (15:25)
+     */
     public static final int FLOOR_SIZE_X = WIDTH/TEXTURE_SIZE;
     public static final int FLOOR_SIZE_Y = HEIGHT/TEXTURE_SIZE;
 
+
+    /**
+     * DEEPS OF GAME MAP
+     */
     public static final int FLOOR_COUNT = 1;
+
+    public static final int CELL_SIZE = 5;
+
 
 }
