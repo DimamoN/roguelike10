@@ -8,6 +8,7 @@ import com.dimamon.roguelike10.entities.LibGdxable;
 import com.dimamon.roguelike10.entities.creatures.Creature;
 import com.dimamon.roguelike10.game.Turn;
 import com.dimamon.roguelike10.map.gameTile.GameTile;
+import com.dimamon.roguelike10.map.gameTile.GameTileFactory;
 import com.dimamon.roguelike10.map.generator.CreatureGenerator;
 import com.dimamon.roguelike10.map.generator.floor.FloorGenerator;
 import com.dimamon.roguelike10.map.generator.floor.impl.GridFloorGenerator;
@@ -32,14 +33,16 @@ public class GameFloor extends GameEntity implements LibGdxable, Turn {
         this.floorGenerator = new GridFloorGenerator();
         initMap();
     }
-
     private void initMap(){
         floorMap = floorGenerator.getFloor();
 
+        //test
+        floorMap[0][0] = GameTileFactory.getStepLow();
+
         //TODO SHOULD KNOW FLOOR
-        int floor = 0;
-        List<Creature> creaturesToAdd = CreatureGenerator.generateCreatures(5,floor);
-        addOnFloorRndSpace(creaturesToAdd,floor);
+//        int floor = 0;
+//        List<Creature> creaturesToAdd = CreatureGenerator.generateCreatures(5,floor);
+//        addOnFloorRndSpace(creaturesToAdd,floor);
     }
 
     @Override
@@ -84,6 +87,7 @@ public class GameFloor extends GameEntity implements LibGdxable, Turn {
                 new Random().nextInt(GameConfig.FLOOR_SIZE_Y-1));
         addCreature(creature);
     }
+
     public void addOnFloorRndSpace(List<Creature> creatures, int floor){
         creatures.stream().forEach(c -> addOnFloorRndSpace(c,floor));
     }
@@ -104,6 +108,5 @@ public class GameFloor extends GameEntity implements LibGdxable, Turn {
     public void addCreature(Creature creature){
         creatures.add(creature);
     }
-
 
 }
