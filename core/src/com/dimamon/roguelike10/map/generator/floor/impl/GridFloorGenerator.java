@@ -1,5 +1,6 @@
 package com.dimamon.roguelike10.map.generator.floor.impl;
 
+import com.dimamon.roguelike10.config.MapUtils;
 import com.dimamon.roguelike10.map.gameTile.GameTile;
 import com.dimamon.roguelike10.map.gameTile.GameTileFactory;
 import com.dimamon.roguelike10.map.generator.Coord;
@@ -12,41 +13,40 @@ import static com.dimamon.roguelike10.config.GameConfig.*;
 
 public class GridFloorGenerator extends AbstractFloorGenerator {
 
+    public static final int CELL_SIZE = 6;
+
+    public static final int CELL_COUNT_X = FLOOR_SIZE_X / CELL_SIZE;
+    public static final int CELL_COUNT_Y = FLOOR_SIZE_Y / CELL_SIZE;
+
+    Cell[][] cells = new Cell[CELL_COUNT_X][CELL_COUNT_Y];
+
+    GameTile rock = GameTileFactory.getRock();
+    GameTile floor = GameTileFactory.getFloor();
+
     /**
      * Firstly generate the floor map, and then put creatures!
      */
     @Override
     protected GameTile[][] generateFloor() {
 
-        //move to config
-        int cellCount = FLOOR_SIZE_X / CELL_SIZE + FLOOR_SIZE_Y / CELL_SIZE;
-        List<Cell> cells = new ArrayList<>();
-
         //INIT CELLS
-        for (int i = 0; i < cellCount ; i++) {
-            cells.add(new Cell());
-        }
 
-        //SET coords in CELLS
+        //DIVIDE TO GRID
         for (int x = 0; x < FLOOR_SIZE_X; x++) {
             for (int y = 0; y < FLOOR_SIZE_Y; y++) {
 
-                //Left
-                if((x % CELL_SIZE == 0) && (y % 5 != 0)){
-                    Cell c = new Cell();
-                    c.downLeft = new Coord(x,y);
-                    cells.add(c);
+                if(x % CELL_SIZE == 0){
+                    MapUtils.setLineXwithTile(x, rock, floorMap);
+                }
+                else if (y % CELL_SIZE == 0){
+                    MapUtils.setLineYwithTile(y, rock, floorMap);
+                }
+                else {
+                    floorMap[x][y] = floor;
                 }
 
-
-                floorMap[x][y] = GameTileFactory.getFloor();
             }
         }
-
-
-
-
-
 
         return floorMap;
     }
@@ -60,5 +60,13 @@ public class GridFloorGenerator extends AbstractFloorGenerator {
         Coord upLeft;
         Coord upRight;
         Coord downRight;
+
+        public boolean isIn(int x, int y){
+            if(x >= downLeft.getX() && x<= downRight.getX() &&
+               y >= downLeft.getY() && y <= upLeft.getY()){
+                return true;
+            }
+            else return false;
+        }
     }
 }

@@ -36,9 +36,6 @@ public class GameFloor extends GameEntity implements LibGdxable, Turn {
     private void initMap(){
         floorMap = floorGenerator.getFloor();
 
-        //test
-        floorMap[0][0] = GameTileFactory.getStepLow();
-
         //TODO SHOULD KNOW FLOOR
 //        int floor = 0;
 //        List<Creature> creaturesToAdd = CreatureGenerator.generateCreatures(5,floor);

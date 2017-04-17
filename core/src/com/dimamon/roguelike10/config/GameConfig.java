@@ -26,7 +26,4 @@ public class GameConfig {
      */
     public static final int FLOOR_COUNT = 1;
 
-    public static final int CELL_SIZE = 5;
-
-
 }
