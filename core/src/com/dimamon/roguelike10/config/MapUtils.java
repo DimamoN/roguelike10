@@ -1,6 +1,9 @@
 package com.dimamon.roguelike10.config;
 
 import com.dimamon.roguelike10.map.gameTile.GameTile;
+import com.dimamon.roguelike10.map.generator.Coord;
+
+import java.util.Random;
 
 import static com.dimamon.roguelike10.config.GameConfig.FLOOR_SIZE_X;
 import static com.dimamon.roguelike10.config.GameConfig.FLOOR_SIZE_Y;
@@ -59,6 +62,31 @@ public class MapUtils {
             }
         }
 
+        return floor;
+    }
+
+    public static GameTile[][] generateRoom(Coord coord, int MaxSize, GameTile tile, GameTile[][] floor){
+
+        Random rnd = new Random();
+        int roomSizeX = rnd.nextInt(MaxSize) + 1;
+        int roomSizeY = rnd.nextInt(MaxSize) + 1;
+
+        for (int x = 0; x < FLOOR_SIZE_X; x++) {
+            for (int y = 0; y < FLOOR_SIZE_Y; y++) {
+
+                if(x >= coord.x && x <= coord.x + roomSizeX &&
+                   y >= coord.y && y <= coord.y + roomSizeY){
+                    floor[x][y] = tile;
+                }
+
+            }
+        }
+
+        return floor;
+    }
+
+    public static GameTile[][] connectTiles(Coord from, Coord to, GameTile tile, GameTile[][] floor){
+        //todo
         return floor;
     }
 

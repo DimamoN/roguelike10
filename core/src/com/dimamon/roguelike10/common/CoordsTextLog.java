@@ -8,15 +8,17 @@ import com.dimamon.roguelike10.config.GameConfig;
 import com.dimamon.roguelike10.config.MapUtils;
 import com.dimamon.roguelike10.entities.LibGdxable;
 
+import static com.badlogic.gdx.math.MathUtils.*;
+
 /**
- *
- * TODO: SUPPORT SCALE
  * Created by dimamon on 4/17/17.
  */
 
 public class CoordsTextLog implements LibGdxable {
 
     BitmapFont font;
+    float scaleInterfaceX = 1;
+    float scaleInterfaceY = 1;
 
     public CoordsTextLog() {
         font = new BitmapFont();
@@ -25,15 +27,20 @@ public class CoordsTextLog implements LibGdxable {
     @Override
     public void render(SpriteBatch batch) {
         font.draw(batch,
-                "X: "+MathUtils.round(MapUtils.toMap(Gdx.input.getX()))+
-                " Y: "+MathUtils.round(MapUtils.toMap(GameConfig.HEIGHT - Gdx.input.getY())
+                "X: "+ round(MapUtils.toMap(
+                        round(Gdx.input.getX()/scaleInterfaceX)))+
+                " Y: "+ round(MapUtils.toMap(
+                        round(GameConfig.HEIGHT - Gdx.input.getY()/scaleInterfaceY))
                 ),
                 0, GameConfig.HEIGHT);
+
+        update();
     }
 
     @Override
     public void update() {
-
+        scaleInterfaceX = (float)Gdx.graphics.getWidth() / GameConfig.WIDTH;
+        scaleInterfaceY = (float)Gdx.graphics.getHeight() / GameConfig.HEIGHT;
     }
 
     @Override
