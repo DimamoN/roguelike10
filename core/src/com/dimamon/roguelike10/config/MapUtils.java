@@ -33,7 +33,19 @@ public class MapUtils {
         return realCoord / GameConfig.TEXTURE_SIZE;
     }
 
+    public static GameTile[][] safeAdd(Coord c, GameTile tile, GameTile[][] floor){
+        return safeAdd(c.x, c.y, tile, floor);
+    }
 
+    public static GameTile[][] safeAdd(int x, int y, GameTile tile, GameTile[][] floor){
+
+        if(x >= GameConfig.FLOOR_SIZE_X || y >= GameConfig.FLOOR_SIZE_Y) {
+            return floor;
+        } else {
+            floor[x][y] = tile;
+            return floor;
+        }
+    }
 
     public static GameTile[][] setLineXwithTile(int X, GameTile tile, GameTile[][] floor){
 
@@ -86,7 +98,21 @@ public class MapUtils {
     }
 
     public static GameTile[][] connectTiles(Coord from, Coord to, GameTile tile, GameTile[][] floor){
-        //todo
+
+        int deltaX = to.x - from.x;
+        int deltaY = to.y - from.x;
+
+        if(deltaX > 0 && deltaY == 0){
+            for (int x = from.x; x < to.x ; x++) {
+                    floor[x][from.y] = tile;
+            }
+        }
+        else if(deltaY > 0 && deltaX == 0){
+            for (int y = from.y; y < to.y ; y++) {
+                floor[from.x][y] = tile;
+            }
+        }
+
         return floor;
     }
 
