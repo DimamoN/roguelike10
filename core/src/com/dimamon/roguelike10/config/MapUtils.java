@@ -1,5 +1,6 @@
 package com.dimamon.roguelike10.config;
 
+import com.dimamon.roguelike10.common.Log;
 import com.dimamon.roguelike10.map.gameTile.GameTile;
 import com.dimamon.roguelike10.map.generator.Coord;
 
@@ -13,6 +14,8 @@ import static com.dimamon.roguelike10.config.GameConfig.FLOOR_SIZE_Y;
  */
 
 public class MapUtils {
+
+    private static Log log = new Log("map-utils");
 
     /**
      * Convert coordinate from GameFloor to real pixels
@@ -97,23 +100,52 @@ public class MapUtils {
         return floor;
     }
 
-    public static GameTile[][] connectTiles(Coord from, Coord to, GameTile tile, GameTile[][] floor){
+    public static boolean connectTiles(Coord from, Coord to, GameTile tile, GameTile[][] floor){
 
         int deltaX = to.x - from.x;
         int deltaY = to.y - from.x;
 
+        //Line x ->
         if(deltaX > 0 && deltaY == 0){
             for (int x = from.x; x < to.x ; x++) {
                     floor[x][from.y] = tile;
             }
+            log.debug("line x right");
+            return true;
         }
+        //Line y up
         else if(deltaY > 0 && deltaX == 0){
             for (int y = from.y; y < to.y ; y++) {
                 floor[from.x][y] = tile;
             }
+            log.debug("line y up");
+            return true;
+        }
+        //Line x <-
+        else if(deltaX > 0 && deltaY == 0){
+            for (int x = to.x; x < from.x ; x++) {
+                floor[x][from.y] = tile;
+            }
+            log.debug("line x left");
+            return true;
+        }
+        //Line y down
+        else if(deltaY < 0 && deltaX == 0){
+            for (int y = to.y; y < from.y ; y++) {
+                floor[from.x][y] = tile;
+            }
+            log.debug("line y down");
+            return true;
+        }
+        //Stairs
+        else if(deltaX > 0 && deltaY > 0){
+            //todo: STAIRS
+            log.error("stairs");
+            return false;
         }
 
-        return floor;
+        log.error("cant connect");
+        return false;
     }
 
 }

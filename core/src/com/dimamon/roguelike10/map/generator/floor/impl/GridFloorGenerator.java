@@ -1,5 +1,8 @@
 package com.dimamon.roguelike10.map.generator.floor.impl;
 
+import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.utils.Logger;
+import com.dimamon.roguelike10.common.Log;
 import com.dimamon.roguelike10.config.GameConfig;
 import com.dimamon.roguelike10.config.MapUtils;
 import com.dimamon.roguelike10.map.gameTile.GameTile;
@@ -15,16 +18,15 @@ import static com.dimamon.roguelike10.config.GameConfig.*;
 
 public class GridFloorGenerator extends AbstractFloorGenerator {
 
+    private Log log = new Log("grid-generator");
+
     public static final int CELL_SIZE = 6;
 
-    public static final int CELL_COUNT_X = FLOOR_SIZE_X / CELL_SIZE;
-    public static final int CELL_COUNT_Y = FLOOR_SIZE_Y / CELL_SIZE;
-
-    Cell[][] cells = new Cell[CELL_COUNT_X][CELL_COUNT_Y];
     List<Coord> roomsStart = new ArrayList<>();
 
     GameTile rock = GameTileFactory.getRock();
     GameTile floor = GameTileFactory.getFloor();
+    GameTile wall = GameTileFactory.getStepLow();
 
     /**
      * Firstly generate the floor map, and then put creatures!
@@ -32,49 +34,14 @@ public class GridFloorGenerator extends AbstractFloorGenerator {
     @Override
     protected GameTile[][] generateFloor() {
 
-        //INIT CELLS
-//        List<Cell> cells = new ArrayList<>();
-//
-//        int cellX = 0;
-//        int cellY = 0;
-//
-//        for (int x = 0; x < FLOOR_SIZE_X; x++) {
-//            for (int y = 0; y < FLOOR_SIZE_Y; y++) {
-//
-//                if(cellX == x) {
-//                    cells.add(new Cell(x,y));
-//                }
-//
-//            }
-//        }
-
-        //DIVIDE TO GRID
-        for (int x = 0; x < FLOOR_SIZE_X; x++) {
-            for (int y = 0; y < FLOOR_SIZE_Y; y++) {
-
-                //DRAW LINES
-//                if(x % CELL_SIZE == 0 ){
-//                    MapUtils.setLineXwithTile(x, rock, floorMap);
-//                }
-//                else if (y % CELL_SIZE == 0){
-//                    MapUtils.setLineYwithTile(y, rock, floorMap);
-//                }
-
-                //Set points
-                if(x % CELL_SIZE == 0 && y % CELL_SIZE == 0){
-                    floorMap[x][y] = floor;
-
-                    //test for room generator
-                    roomsStart.add(new Coord(x,y));
-                }
-                else {
-                    floorMap[x][y] = rock;
-                }
-            }
-        }
+        //Generate room starts
+        generateRoomGridRoomWithChance(0);
 
         //Generate rooms
         roomsStart.stream().forEach(r -> generateRoomFromCoord(r, floorMap));
+
+        //Generate corridors
+        generateCorridors(roomsStart, floorMap);
 
         return floorMap;
     }
@@ -83,40 +50,51 @@ public class GridFloorGenerator extends AbstractFloorGenerator {
         return new Coord(x,y);
     }
 
+    private void generateRoomGridRoomWithChance(int roomChance){
+
+        for (int x = 0; x < FLOOR_SIZE_X; x++) {
+            for (int y = 0; y < FLOOR_SIZE_Y; y++) {
+
+                //Set points
+                if(x % CELL_SIZE == 0 && y % CELL_SIZE == 0 && MathUtils.random(1,10) >= roomChance){
+
+                    floorMap[x][y] = floor;
+                    roomsStart.add(new Coord(x, y));
+                } else {
+                    floorMap[x][y] = rock;
+                }
+            }
+        }
+
+    }
+
     private void generateRoomFromCoord(Coord coord, GameTile[][] floorMap){
 
-        Random rnd = new Random();
-        int roomSizeX = rnd.nextInt(CELL_SIZE);
-        int roomSizeY = rnd.nextInt(CELL_SIZE);
+        int roomSizeX = MathUtils.random(2, CELL_SIZE);
+        int roomSizeY = MathUtils.random(2, CELL_SIZE);
 
         for (int x = coord.x; x < coord.x + roomSizeX; x++) {
             for (int y = coord.y; y < coord.y + roomSizeY; y++) {
-
                 MapUtils.safeAdd(x,y,floor,floorMap);
             }
         }
 
     }
 
-    /**
-     * Cell for GRID generator
-     * Contain down left coordinate
-     */
-    class Cell{
+    private void generateCorridors(List<Coord> roomsStart, GameTile[][] floorMap){
 
-        int x,y;
+        Coord cur = roomsStart.get(0);
+        Coord prev = roomsStart.get(0);
+        boolean status;
 
-        public Cell(int x, int y) {
-            this.x = x;
-            this.y = y;
-        }
+        for (int i = 0; i < roomsStart.size() ; i++) {
 
-        public boolean isIn(int X, int Y){
-            if(X >= x && X<= x + CELL_SIZE &&
-               Y >= y && Y <= y + CELL_SIZE){
-                return true;
-            }
-            else return false;
+            log.debug("from:" + prev + " to " + cur);
+            status = MapUtils.connectTiles(prev, cur, wall, floorMap);
+            log.debug("status: " + status);
+
+            prev = cur;
+            cur = roomsStart.get(i);
         }
     }
 
