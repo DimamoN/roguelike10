@@ -3,15 +3,16 @@ package com.dimamon.roguelike10.map;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.dimamon.roguelike10.common.Log;
 import com.dimamon.roguelike10.config.GameConfig;
+import com.dimamon.roguelike10.config.MapUtils;
 import com.dimamon.roguelike10.entities.GameEntity;
 import com.dimamon.roguelike10.entities.LibGdxable;
 import com.dimamon.roguelike10.entities.creatures.Creature;
 import com.dimamon.roguelike10.game.Turn;
 import com.dimamon.roguelike10.map.gameTile.GameTile;
-import com.dimamon.roguelike10.map.gameTile.GameTileFactory;
 import com.dimamon.roguelike10.map.generator.CreatureGenerator;
 import com.dimamon.roguelike10.map.generator.floor.FloorGenerator;
 import com.dimamon.roguelike10.map.generator.floor.impl.GridFloorGenerator;
+import com.dimamon.roguelike10.map.generator.floor.impl.SimpleFloorGenerator;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -31,15 +32,16 @@ public class GameFloor extends GameEntity implements LibGdxable, Turn {
         creatures = new ArrayList<>();
         this.log = new Log("Gamemap");
         this.floorGenerator = new GridFloorGenerator();
+//        this.floorGenerator = new SimpleFloorGenerator();
         initMap();
     }
     private void initMap(){
         floorMap = floorGenerator.getFloor();
 
         //TODO SHOULD KNOW FLOOR
-//        int floor = 0;
-//        List<Creature> creaturesToAdd = CreatureGenerator.generateCreatures(5,floor);
-//        addOnFloorRndSpace(creaturesToAdd,floor);
+        int floor = 0;
+        List<Creature> creaturesToAdd = CreatureGenerator.generateCreatures(5,floor);
+        addOnFloorRndSpace(creaturesToAdd,floor);
     }
 
     @Override
@@ -79,9 +81,7 @@ public class GameFloor extends GameEntity implements LibGdxable, Turn {
     }
 
     public void addOnFloorRndSpace(Creature creature, int floor){
-        creature.setPos(
-                new Random().nextInt(GameConfig.FLOOR_SIZE_X-1),
-                new Random().nextInt(GameConfig.FLOOR_SIZE_Y-1));
+        creature.setPos(MapUtils.getRandomFloorPos(this.floorMap, floor));
         addCreature(creature);
     }
 

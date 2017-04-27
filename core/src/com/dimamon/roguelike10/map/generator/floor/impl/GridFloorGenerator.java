@@ -26,7 +26,6 @@ public class GridFloorGenerator extends AbstractFloorGenerator {
 
     GameTile rock = GameTileFactory.getRock();
     GameTile floor = GameTileFactory.getFloor();
-    GameTile wall = GameTileFactory.getStepLow();
 
     /**
      * Firstly generate the floor map, and then put creatures!
@@ -35,7 +34,7 @@ public class GridFloorGenerator extends AbstractFloorGenerator {
     protected GameTile[][] generateFloor() {
 
         //Generate room starts
-        generateRoomGridRoomWithChance(0);
+        generateRoomGridRoomWithChance(6);
 
         //Generate rooms
         roomsStart.stream().forEach(r -> generateRoomFromCoord(r, floorMap));
@@ -46,17 +45,13 @@ public class GridFloorGenerator extends AbstractFloorGenerator {
         return floorMap;
     }
 
-    public static Coord coord(int x, int y){
-        return new Coord(x,y);
-    }
-
     private void generateRoomGridRoomWithChance(int roomChance){
-
         for (int x = 0; x < FLOOR_SIZE_X; x++) {
             for (int y = 0; y < FLOOR_SIZE_Y; y++) {
 
-                //Set points
-                if(x % CELL_SIZE == 0 && y % CELL_SIZE == 0 && MathUtils.random(1,10) >= roomChance){
+                //Set room starts
+                if(x % CELL_SIZE == 0 && y % CELL_SIZE == 0 &&
+                        MathUtils.random(1,10) <= roomChance){
 
                     floorMap[x][y] = floor;
                     roomsStart.add(new Coord(x, y));
@@ -83,19 +78,23 @@ public class GridFloorGenerator extends AbstractFloorGenerator {
 
     private void generateCorridors(List<Coord> roomsStart, GameTile[][] floorMap){
 
-        Coord cur = roomsStart.get(0);
-        Coord prev = roomsStart.get(0);
-        boolean status;
+        List<Coord> roomsRemain = roomsStart;
 
-        for (int i = 0; i < roomsStart.size() ; i++) {
+        //Get random room
+        Coord currentRoom = roomsRemain.get(MathUtils.random(0,roomsRemain.size()-1));
+        roomsRemain.remove(currentRoom);
 
-            log.debug("from:" + prev + " to " + cur);
-            status = MapUtils.connectTiles(prev, cur, wall, floorMap);
-            log.debug("status: " + status);
+        do {
+            //Get next room (random)
+            Coord nextRoom = roomsRemain.get(MathUtils.random(0,roomsRemain.size()-1));
 
-            prev = cur;
-            cur = roomsStart.get(i);
-        }
+//            log.debug("current room: " + currentRoom + " next room: " + nextRoom);
+            MapUtils.connectTiles(currentRoom, nextRoom, floor, floorMap);
+            currentRoom = nextRoom;
+            roomsRemain.remove(nextRoom);
+
+        } while (!roomsRemain.isEmpty());
+
     }
 
 }

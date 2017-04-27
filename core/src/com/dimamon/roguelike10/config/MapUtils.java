@@ -1,6 +1,8 @@
 package com.dimamon.roguelike10.config;
 
+import com.badlogic.gdx.math.MathUtils;
 import com.dimamon.roguelike10.common.Log;
+import com.dimamon.roguelike10.entities.creatures.params.Pos;
 import com.dimamon.roguelike10.map.gameTile.GameTile;
 import com.dimamon.roguelike10.map.generator.Coord;
 
@@ -34,6 +36,18 @@ public class MapUtils {
      */
     public static int toMap(int realCoord){
         return realCoord / GameConfig.TEXTURE_SIZE;
+    }
+
+    public static Pos getRandomFloorPos(GameTile[][] floor, int floorN){
+        do{
+            int x = MathUtils.random(GameConfig.FLOOR_SIZE_X - 1);
+            int y = MathUtils.random(GameConfig.FLOOR_SIZE_Y - 1);
+
+            if(!floor[x][y].isBlocking()){
+                return new Pos(x,y,floorN);
+            }
+
+        } while (true);
     }
 
     public static GameTile[][] safeAdd(Coord c, GameTile tile, GameTile[][] floor){
@@ -102,50 +116,35 @@ public class MapUtils {
 
     public static boolean connectTiles(Coord from, Coord to, GameTile tile, GameTile[][] floor){
 
-        int deltaX = to.x - from.x;
-        int deltaY = to.y - from.x;
+        int currentX = from.x;
+        int currentY = from.y;
 
-        //Line x ->
-        if(deltaX > 0 && deltaY == 0){
-            for (int x = from.x; x < to.x ; x++) {
-                    floor[x][from.y] = tile;
+        do{
+            //Go right
+            if(to.x > currentX){
+                floor[currentX][currentY] = tile;
+                currentX++;
             }
-            log.debug("line x right");
-            return true;
-        }
-        //Line y up
-        else if(deltaY > 0 && deltaX == 0){
-            for (int y = from.y; y < to.y ; y++) {
-                floor[from.x][y] = tile;
+            //Else go left
+            else if (to.x < currentX){
+                floor[currentX][currentY] = tile;
+                currentX--;
             }
-            log.debug("line y up");
-            return true;
-        }
-        //Line x <-
-        else if(deltaX > 0 && deltaY == 0){
-            for (int x = to.x; x < from.x ; x++) {
-                floor[x][from.y] = tile;
+            //Else go up
+            else if (to.y > currentY){
+                floor[currentX][currentY] = tile;
+                currentY++;
             }
-            log.debug("line x left");
-            return true;
-        }
-        //Line y down
-        else if(deltaY < 0 && deltaX == 0){
-            for (int y = to.y; y < from.y ; y++) {
-                floor[from.x][y] = tile;
+            //Else go down
+            else if (to.y < currentY){
+                floor[currentX][currentY] = tile;
+                currentY--;
             }
-            log.debug("line y down");
-            return true;
-        }
-        //Stairs
-        else if(deltaX > 0 && deltaY > 0){
-            //todo: STAIRS
-            log.error("stairs");
-            return false;
-        }
-
-        log.error("cant connect");
-        return false;
+            //On the spot
+            else {
+                return true;
+            }
+        }while (true);
     }
 
 }
