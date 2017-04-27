@@ -65,10 +65,17 @@ public class Player extends Creature implements LibGdxable {
             move(Direction.RIGHT);
             initTurn();
         }
+        if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)){
+            goToNextLevel();
+        }
     }
 
     private void initTurn(){
         map.turn();
+    }
+
+    private void goToNextLevel(){
+        map.goToNextLevel();
     }
 
     public void setMap(GameMap map) {

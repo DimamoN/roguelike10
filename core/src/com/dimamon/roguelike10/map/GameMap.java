@@ -1,11 +1,14 @@
 package com.dimamon.roguelike10.map;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.dimamon.roguelike10.common.Log;
 import com.dimamon.roguelike10.config.GameConfig;
 import com.dimamon.roguelike10.entities.LibGdxable;
 import com.dimamon.roguelike10.entities.player.Player;
 import com.dimamon.roguelike10.entities.creatures.Creature;
 import com.dimamon.roguelike10.game.Turn;
+import com.dimamon.roguelike10.map.generator.floor.FloorGenerator;
+import com.dimamon.roguelike10.map.generator.floor.impl.GridFloorGenerator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,14 +29,17 @@ import static com.dimamon.roguelike10.config.GameConfig.FLOOR_COUNT;
  */
 public class GameMap implements LibGdxable, Turn {
 
+    Log log = new Log("GameMap");
+
     private static List<GameFloor> floors;
     private Player player;
+    private FloorGenerator floorGenerator = new GridFloorGenerator();
 
     //Init all floors
     {
         floors = new ArrayList<>();
         for (int i = 0; i < FLOOR_COUNT; i++) {
-            floors.add(new GameFloor());
+            floors.add(new GameFloor(floorGenerator));
         }
     }
 
@@ -73,4 +79,26 @@ public class GameMap implements LibGdxable, Turn {
         floors.get(floor).addOnFloorRndSpace(player,floor);
     }
 
+    public void goToNextLevel() {
+        if(getFloor(player.getFloor()).isOnStepLow(player.getPos())){
+
+            int nextFloor = player.getFloor() + 1;
+
+            if(nextFloor >= GameConfig.FLOOR_COUNT){
+                log.error("No more floors");
+                return;
+            }
+
+            log.log("Go to next level!");
+
+            //remove from current floor
+            getFloor(player.getFloor()).removeCreature(player);
+
+            //put on next floor
+            putPlayerToFloor(nextFloor);
+
+            player.setFloor(nextFloor);
+            log.log("floor:" + player.getFloor());
+        }
+    }
 }

@@ -5,6 +5,7 @@ import com.dimamon.roguelike10.entities.LibGdxable;
 import com.dimamon.roguelike10.entities.creatures.Creature;
 import com.dimamon.roguelike10.entities.items.Item;
 import com.dimamon.roguelike10.map.tiles.Tile;
+import com.dimamon.roguelike10.map.tiles.TileFactory;
 
 import java.util.ArrayDeque;
 import java.util.Queue;
@@ -50,5 +51,11 @@ public class GameTile implements LibGdxable {
         for(Item item : items){
             item.dispose();
         }
+    }
+
+    public boolean isStepLow() {
+        if(background == TileFactory.getStepLow()){
+            return true;
+        } else return false;
     }
 }

@@ -30,11 +30,10 @@ public class GameFloor extends GameEntity implements LibGdxable, Turn {
     private static GameTile[][] floorMap = new GameTile[FLOOR_SIZE_X][FLOOR_SIZE_Y];
     private FloorGenerator floorGenerator;
 
-    public GameFloor() {
+    public GameFloor(FloorGenerator floorGenerator) {
         creatures = new ArrayList<>();
+        this.floorGenerator = floorGenerator;
         this.log = new Log("Gamemap");
-        this.floorGenerator = new GridFloorGenerator();
-//        this.floorGenerator = new SimpleFloorGenerator();
         initMap();
     }
 
@@ -120,4 +119,24 @@ public class GameFloor extends GameEntity implements LibGdxable, Turn {
         floorMap[pos.x][pos.y] = GameTileFactory.getStepLow();
     }
 
+    public boolean isOnStepLow(Pos pos) {
+        if(floorMap[pos.x][pos.y].isStepLow()) {
+            return true;
+        }
+        else return false;
+    }
+
+    public boolean removeCreature(Creature creature){
+
+        List<Creature> newcreatures = new ArrayList<>();
+
+        for(Creature c : creatures){
+            if(c != creature){
+                newcreatures.add(c);
+            }
+        }
+        creatures = newcreatures;
+
+        return creatures.size() > newcreatures.size();
+    }
 }

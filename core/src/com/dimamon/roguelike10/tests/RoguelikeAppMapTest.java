@@ -27,7 +27,7 @@ public class RoguelikeAppMapTest extends ApplicationAdapter {
 		batch = new SpriteBatch();
 		Gdx.app.setLogLevel(Application.LOG_DEBUG);
 		coordsTextLog = new CoordsTextLog();
-		floor = new GameFloor();
+//		floor = new GameFloor();
 	}
 
 	@Override
