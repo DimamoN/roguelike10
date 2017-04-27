@@ -7,8 +7,10 @@ import com.dimamon.roguelike10.config.MapUtils;
 import com.dimamon.roguelike10.entities.GameEntity;
 import com.dimamon.roguelike10.entities.LibGdxable;
 import com.dimamon.roguelike10.entities.creatures.Creature;
+import com.dimamon.roguelike10.entities.creatures.params.Pos;
 import com.dimamon.roguelike10.game.Turn;
 import com.dimamon.roguelike10.map.gameTile.GameTile;
+import com.dimamon.roguelike10.map.gameTile.GameTileFactory;
 import com.dimamon.roguelike10.map.generator.CreatureGenerator;
 import com.dimamon.roguelike10.map.generator.floor.FloorGenerator;
 import com.dimamon.roguelike10.map.generator.floor.impl.GridFloorGenerator;
@@ -35,13 +37,20 @@ public class GameFloor extends GameEntity implements LibGdxable, Turn {
 //        this.floorGenerator = new SimpleFloorGenerator();
         initMap();
     }
+
     private void initMap(){
+
+        //1) Generate tiles
         floorMap = floorGenerator.getFloor();
 
-        //TODO SHOULD KNOW FLOOR
+        //2) generate creatures
+        //TODO: GAMEFLOOR SHOULD KNOW FLOOR
         int floor = 0;
         List<Creature> creaturesToAdd = CreatureGenerator.generateCreatures(5,floor);
         addOnFloorRndSpace(creaturesToAdd,floor);
+
+        //3) Put steps to next level
+        setStepLow(floor);
     }
 
     @Override
@@ -104,6 +113,11 @@ public class GameFloor extends GameEntity implements LibGdxable, Turn {
 
     public void addCreature(Creature creature){
         creatures.add(creature);
+    }
+
+    private void setStepLow(int floor){
+        Pos pos = MapUtils.getRandomFloorPos(this.floorMap, floor);
+        floorMap[pos.x][pos.y] = GameTileFactory.getStepLow();
     }
 
 }

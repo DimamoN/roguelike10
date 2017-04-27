@@ -69,5 +69,8 @@ public class GameMap implements LibGdxable, Turn {
         addOnFloor(player, floor);
     }
 
+    public void putPlayerToFloorRandomSpace(int floor){
+        floors.get(floor).addOnFloorRndSpace(player,floor);
+    }
 
 }
