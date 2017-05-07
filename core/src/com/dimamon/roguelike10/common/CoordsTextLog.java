@@ -41,7 +41,7 @@ public class CoordsTextLog implements LibGdxable {
 
         // Block where mouse
         font.draw(batch,
-                "X: " + cursorX + " Y: " + cursorY + " Level: " + map.currentFloor()+1,
+                "X: " + cursorX + " Y: " + cursorY + " Level: " + (map.currentFloor()+1),
                 0, GameConfig.HEIGHT);
 
         // Player stats
@@ -55,8 +55,6 @@ public class CoordsTextLog implements LibGdxable {
         // GameCreature
         font.draw(batch, map.getCurrentFloor().getOnPos(new Pos(cursorX,cursorY)).toString(),
                 180,GameConfig.HEIGHT);
-
-
 
         update();
     }
