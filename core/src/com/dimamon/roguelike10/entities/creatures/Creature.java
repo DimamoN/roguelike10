@@ -206,9 +206,8 @@ public abstract class Creature extends GameEntityVisiblePos implements LibGdxabl
 
     @Override
     public String toString() {
-        return "Creature{" +
-                "attributes=" + attributes
-                + " " + super.toString() +'}';
+        return this.name +
+                " " + attributes;
     }
 
     public Statictics getStats() {

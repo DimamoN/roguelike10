@@ -1,6 +1,7 @@
 package com.dimamon.roguelike10.entities.creatures.params;
 
 import com.dimamon.roguelike10.config.GameConfig;
+import com.dimamon.roguelike10.sound.Sounds;
 
 /**
  * Attributes of creatures
@@ -41,7 +42,14 @@ public class Attributes {
     }
 
     public void attack(int power){
+
+        //todo: add dodging
+
         hp -= power;
+
+        if(!isAlive()){
+            Sounds.monsterDeath();
+        }
     }
 
     public boolean isAlive(){
@@ -50,7 +58,7 @@ public class Attributes {
 
     @Override
     public String toString() {
-        return "Attributes{" +
+        return "{" +
                 "str=" + str +
                 ", dex=" + dex +
                 ", mind=" + mind +

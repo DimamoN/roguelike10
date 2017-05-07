@@ -8,12 +8,18 @@ import java.util.Random;
 
 public class Sounds {
 
+    private static final Sound CAVE = Gdx.audio.newSound(Gdx.files.internal("sfx/cave.mp3"));
+
     private static final Sound STEP = Gdx.audio.newSound(Gdx.files.internal("sfx/step.mp3"));
     private static final Sound STEP2 = Gdx.audio.newSound(Gdx.files.internal("sfx/step2.mp3"));
     private static final Sound STEP3 = Gdx.audio.newSound(Gdx.files.internal("sfx/step3.mp3"));
 
-
+    private static final Sound DEATH = Gdx.audio.newSound(Gdx.files.internal("sfx/death.mp3"));
     private static final Sound ATTACK = Gdx.audio.newSound(Gdx.files.internal("sfx/hit07.mp3"));
+
+    public static final void ambient(){
+        CAVE.play(0.5f);
+    }
 
     public static final void step(){
 
@@ -26,12 +32,16 @@ public class Sounds {
         }
     }
 
+    public static final void monsterDeath(){
+        DEATH.play(0.5f);
+    }
+
     public static final void attack(){
-        ATTACK.play(0.9f);
+        ATTACK.play(0.4f);
     }
 
     public static final void attackMob(){
-        ATTACK.play(0.5f);
+        ATTACK.play(0.2f);
     }
 
     public static void dispose(){

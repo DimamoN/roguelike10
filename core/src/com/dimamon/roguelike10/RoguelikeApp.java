@@ -31,6 +31,8 @@ public class RoguelikeApp extends ApplicationAdapter {
 		player = new Player(CreatureFactory.getAndroidPower(0));
 		gameMap = new GameMap(player);
 		coordsTextLog = new CoordsTextLog(gameMap);
+
+		Sounds.ambient();
 	}
 
 	@Override
@@ -56,7 +58,6 @@ public class RoguelikeApp extends ApplicationAdapter {
 		batch.dispose();
 		Sounds.dispose();
 	}
-
 
 	/**
 	 * Input handle for test controls
@@ -90,5 +91,4 @@ public class RoguelikeApp extends ApplicationAdapter {
 		}
 
 	}
-
 }

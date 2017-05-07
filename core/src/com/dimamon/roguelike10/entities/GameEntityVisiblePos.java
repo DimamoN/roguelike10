@@ -18,8 +18,4 @@ public class GameEntityVisiblePos extends GameEntityVisible {
         this.pos = pos;
     }
 
-    @Override
-    public String toString() {
-        return pos.toString();
-    }
 }

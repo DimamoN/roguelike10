@@ -69,13 +69,13 @@ public class GameFloor extends GameEntity implements LibGdxable, Turn {
 
         addOnFloorRndSpace(creaturesToAdd,floorNum);
 
-        // Put steps to next level
-        setStepDown(floorNum);
-
         // If level >= 2 set stairsUp
         if(stepUp != null){
             setStepUp(stepUp);
         }
+
+        // Put steps to next level
+        setStepDown(floorNum);
     }
 
     @Override
@@ -204,8 +204,19 @@ public class GameFloor extends GameEntity implements LibGdxable, Turn {
     }
 
     private void setStepDown(int floor){
-        Pos pos = MapUtils.getRandomFloorPos(this.floorMap, floor);
-        stepDown = new Coord(pos.x,pos.y);
+
+        Pos pos;
+
+        if(floorNum == 0){
+            pos = MapUtils.getRandomFloorPos(this.floorMap, floor);
+            stepDown = new Coord(pos.x, pos.y);
+        } else {
+            do {
+                pos = MapUtils.getRandomFloorPos(this.floorMap, floor);
+                stepDown = new Coord(pos.x, pos.y);
+            } while (pos.x == stepUp.x && pos.y == stepUp.y);
+        }
+
         floorMap[pos.x][pos.y] = GameTileFactory.getStepLow();
     }
 
