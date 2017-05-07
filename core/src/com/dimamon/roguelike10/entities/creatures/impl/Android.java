@@ -2,6 +2,7 @@ package com.dimamon.roguelike10.entities.creatures.impl;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.dimamon.roguelike10.common.Act;
 import com.dimamon.roguelike10.common.Direction;
 import com.dimamon.roguelike10.config.GameConfig;
 import com.dimamon.roguelike10.config.MapUtils;
@@ -22,7 +23,7 @@ public class Android extends Creature {
 
     @Override
     public void turn() {
-        move(Direction.random());
+        act(Direction.random());
     }
 
     @Override

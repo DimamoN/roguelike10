@@ -64,4 +64,5 @@ public class GameTile implements LibGdxable {
             return true;
         } else return false;
     }
+
 }

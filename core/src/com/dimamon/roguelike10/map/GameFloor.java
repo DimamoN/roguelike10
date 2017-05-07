@@ -1,6 +1,7 @@
 package com.dimamon.roguelike10.map;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.dimamon.roguelike10.common.Action;
 import com.dimamon.roguelike10.common.Log;
 import com.dimamon.roguelike10.config.MapUtils;
 import com.dimamon.roguelike10.entities.GameEntity;
@@ -114,11 +115,23 @@ public class GameFloor extends GameEntity implements LibGdxable, Turn {
         creatures.stream().forEach(c -> addOnFloorRndSpace(c,floor));
     }
 
-    public boolean canMoveTo(int x, int y){
-        if(x < 0 || y < 0 || x >= FLOOR_SIZE_X || y >= FLOOR_SIZE_Y) return false;
-        if(floorMap[x][y].isBlocking()) return false;
-        if(isOnPos(x,y)) return false;
-        return true;
+    public Action actionTo(int x, int y){
+
+        // Check
+        if(x < 0 || y < 0 || x >= FLOOR_SIZE_X || y >= FLOOR_SIZE_Y) return Action.NONE;
+        if(floorMap[x][y].isBlocking()) return Action.NONE;
+        if(isOnPos(x,y)) return Action.NONE;
+
+        // Attack
+        Pos pos = new Pos(x,y, floorNum);
+        if(creatures.stream()
+                .filter(c -> c.getPos() == pos)
+                .count() > 0){
+            return Action.ATTACK;
+        }
+
+        //Move
+        return Action.MOVE;
     }
 
     public boolean isOnPos(int x, int y){

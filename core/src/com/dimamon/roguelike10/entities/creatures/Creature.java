@@ -2,6 +2,8 @@ package com.dimamon.roguelike10.entities.creatures;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.dimamon.roguelike10.common.Act;
+import com.dimamon.roguelike10.common.Action;
 import com.dimamon.roguelike10.common.Direction;
 import com.dimamon.roguelike10.common.Log;
 import com.dimamon.roguelike10.config.MapUtils;
@@ -59,58 +61,99 @@ public abstract class Creature extends GameEntityVisiblePos implements LibGdxabl
         log.debug("do turn");
     }
 
-    public void move(Direction direction) {
-        switch (direction){
-            case UP:{
-                if(canMove(direction)) {
-                    pos.y = ++pos.y;
-                    stats.updTurnCount();
-                }
+    //------------------------ACTIONS---------------------------------------
+    public Act choseAct(Direction direction) {
+
+        Action action;
+
+        switch (direction) {
+            case UP: {
+                action = GameMap.getFloor(pos.floor).actionTo(pos.x,pos.y+1);
                 break;
             }
-            case RIGHT:{
-                if(canMove(direction)) {
-                    pos.x = ++pos.x;
-                    stats.updTurnCount();
-                }
+            case RIGHT: {
+                action= GameMap.getFloor(pos.floor).actionTo(pos.x+1,pos.y);
                 break;
             }
             case DOWN: {
-                if(canMove(direction)) {
-                    pos.y = --pos.y;
-                    stats.updTurnCount();
-                }
+                action = GameMap.getFloor(pos.floor).actionTo(pos.x,pos.y-1);
+                break;
+            }
+            case LEFT: {
+                action = GameMap.getFloor(pos.floor).actionTo(pos.x-1,pos.y);
+                break;
+            }
+            case NONE: {
+                action = Action.NONE;
+                break;
+            }
+            default: {
+                log.error("No such direction");
+                action = Action.NONE;
+            }
+        }
+
+        return new Act(action, direction);
+    }
+
+    public void act(Direction direction){
+        act(choseAct(direction));
+    }
+
+    public void act(Act act){
+
+        log.debug("Act = " + act);
+
+        if(act.getAction() == Action.MOVE){
+            move(act.getDirection());
+        }
+
+        if(act.getAction() == Action.ATTACK){
+            attack(act.getDirection());
+        }
+
+    }
+
+    public void move(Direction direction) {
+
+        log.log("Trying to move: " +direction);
+
+        switch (direction){
+            case NONE: {
+                return;
+            }
+            case UP:{
+                pos.y = ++pos.y;
+                stats.updTurnCount();
+                break;
+            }
+            case RIGHT:{
+                pos.x = ++pos.x;
+                stats.updTurnCount();
+                break;
+            }
+            case DOWN: {
+                pos.y = --pos.y;
+                stats.updTurnCount();
                 break;
             }
             case LEFT:{
-                if(canMove(direction)) {
-                    pos.x = --pos.x;
-                    stats.updTurnCount();
-                }
+                pos.x = --pos.x;
+                stats.updTurnCount();
                 break;
             }
-            default: log.debug("no such direction");
-        }
-    }
-
-    public boolean canMove(Direction direction) {
-
-        switch (direction) {
-            case UP: return GameMap.getFloor(pos.floor)
-                    .canMoveTo(pos.x,pos.y+1);
-            case RIGHT: return GameMap.getFloor(pos.floor)
-                    .canMoveTo(pos.x+1,pos.y);
-            case DOWN: return GameMap.getFloor(pos.floor)
-                    .canMoveTo(pos.x,pos.y-1);
-            case LEFT: return GameMap.getFloor(pos.floor)
-                    .canMoveTo(pos.x-1,pos.y);
             default: {
-                log.error("no such direction");
-                return false;
+                log.debug("No such direction");
             }
         }
     }
 
+    public void attack(Direction direction){
+
+        log.log("Attacking : " + direction);
+        //not yet implemented
+    }
+    
     public Creature setFloor(int floor){
         this.pos.floor = floor;
         return this;

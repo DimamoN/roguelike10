@@ -10,7 +10,7 @@ import java.util.Random;
  */
 
 public enum Direction {
-    UP, LEFT, DOWN, RIGHT;
+    UP, LEFT, DOWN, RIGHT, NONE;
 
 
     private static final List<Direction> VALUES =

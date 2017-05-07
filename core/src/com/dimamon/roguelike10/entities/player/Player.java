@@ -48,19 +48,19 @@ public class Player extends Creature implements LibGdxable {
             //TODO: Нажатие кнопкки должно начинать ход!
             //а не ход, после перемещения игрока
 
-            move(Direction.UP);
+            act(Direction.UP);
             initTurn();
         }
         if(Gdx.input.isKeyJustPressed(Input.Keys.S) || Gdx.input.isKeyJustPressed(Input.Keys.DOWN)){
-            move(Direction.DOWN);
+            act(Direction.DOWN);
             initTurn();
         }
         if(Gdx.input.isKeyJustPressed(Input.Keys.A) || Gdx.input.isKeyJustPressed(Input.Keys.LEFT)){
-            move(Direction.LEFT);
+            act(Direction.LEFT);
             initTurn();
         }
         if(Gdx.input.isKeyJustPressed(Input.Keys.D) || Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)){
-            move(Direction.RIGHT);
+            act(Direction.RIGHT);
             initTurn();
         }
         if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)){
