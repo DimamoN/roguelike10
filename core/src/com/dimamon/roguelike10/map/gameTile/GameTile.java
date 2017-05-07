@@ -58,4 +58,10 @@ public class GameTile implements LibGdxable {
             return true;
         } else return false;
     }
+
+    public boolean isStepUp() {
+        if(background == TileFactory.getStepUp()){
+            return true;
+        } else return false;
+    }
 }

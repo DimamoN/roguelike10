@@ -13,6 +13,7 @@ import com.dimamon.roguelike10.entities.creatures.CreatureFactory;
 import com.dimamon.roguelike10.entities.player.Player;
 import com.dimamon.roguelike10.map.GameFloor;
 import com.dimamon.roguelike10.map.GameMap;
+import com.dimamon.roguelike10.map.generator.Coord;
 import com.dimamon.roguelike10.map.generator.floor.impl.GridFloorGenerator;
 import com.dimamon.roguelike10.map.generator.floor.impl.SimpleFloorGenerator;
 import com.dimamon.roguelike10.sound.Sounds;
@@ -28,7 +29,7 @@ public class RoguelikeAppMapTest extends ApplicationAdapter {
 		batch = new SpriteBatch();
 		Gdx.app.setLogLevel(Application.LOG_DEBUG);
 		coordsTextLog = new CoordsTextLog();
-		floor = new GameFloor(new GridFloorGenerator());
+		floor = new GameFloor(new GridFloorGenerator(), Coord.random());
 	}
 
 	@Override

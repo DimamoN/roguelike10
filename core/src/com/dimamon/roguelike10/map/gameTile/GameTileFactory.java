@@ -31,6 +31,10 @@ public class GameTileFactory {
         return new GameTile(TileFactory.getStepLow());
     }
 
+    public static GameTile getStepUp(){
+        return new GameTile(TileFactory.getStepUp());
+    }
+
     public static GameTile getRock(){
         return new GameTile(TileFactory.getRock());
     }

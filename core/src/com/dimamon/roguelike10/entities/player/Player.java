@@ -2,11 +2,7 @@ package com.dimamon.roguelike10.entities.player;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.dimamon.roguelike10.common.Direction;
-import com.dimamon.roguelike10.config.GameConfig;
 import com.dimamon.roguelike10.entities.LibGdxable;
 import com.dimamon.roguelike10.entities.creatures.Creature;
 import com.dimamon.roguelike10.map.GameMap;
@@ -66,7 +62,7 @@ public class Player extends Creature implements LibGdxable {
             initTurn();
         }
         if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)){
-            goToNextLevel();
+            onStairs();
         }
     }
 
@@ -74,8 +70,8 @@ public class Player extends Creature implements LibGdxable {
         map.turn();
     }
 
-    private void goToNextLevel(){
-        map.goToNextLevel();
+    private void onStairs(){
+        map.onStairs();
     }
 
     public void setMap(GameMap map) {

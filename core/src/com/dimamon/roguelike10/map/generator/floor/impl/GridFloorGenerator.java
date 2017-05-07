@@ -33,13 +33,16 @@ public class GridFloorGenerator extends AbstractFloorGenerator {
     @Override
     protected GameTile[][] generateFloor() {
 
-        //Generate room starts
+        // Generate room starts
         generateRoomGridRoomWithChance(5);
 
-        //Generate rooms
+        // Add room with stepUp coord
+        roomsStart.add(stepUp);
+
+        // Generate rooms
         roomsStart.stream().forEach(r -> generateRoomFromCoord(r, floorMap));
 
-        //Generate corridors
+        // Generate corridors
         generateCorridors(roomsStart, floorMap);
 
         return floorMap;

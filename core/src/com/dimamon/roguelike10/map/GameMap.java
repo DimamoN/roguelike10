@@ -7,6 +7,7 @@ import com.dimamon.roguelike10.entities.LibGdxable;
 import com.dimamon.roguelike10.entities.player.Player;
 import com.dimamon.roguelike10.entities.creatures.Creature;
 import com.dimamon.roguelike10.game.Turn;
+import com.dimamon.roguelike10.map.generator.Coord;
 import com.dimamon.roguelike10.map.generator.floor.FloorGenerator;
 import com.dimamon.roguelike10.map.generator.floor.impl.GridFloorGenerator;
 
@@ -43,12 +44,6 @@ public class GameMap implements LibGdxable, Turn {
         setCurrentFloor(0);
     }
 
-    private int currentFloor(){
-        return player.getFloor();
-    }
-    public void setCurrentFloor(int floor){
-        currentFloor = floors.get(floor);
-    }
 
     public void render(SpriteBatch batch){
         currentFloor.render(batch);
@@ -61,59 +56,78 @@ public class GameMap implements LibGdxable, Turn {
     }
     @Override
     public void turn() {
-        log.log("Current floor : " + player.getFloor());
+        log.log("Current floor : " + currentFloor());
         GameFloor currentFloor = floors.get(currentFloor());
         currentFloor.turn();
     }
 
-
-
     public static GameFloor getFloor(int n){
         return floors.get(n);
     }
+    public void onStairs() {
 
-    /**
-     * Add a creature to a selected floor
-     */
-    public void addOnFloor(Creature creature, int floor){
-        floors.get(floor).addCreature(creature);
-    }
-
-    public void putPlayerToFloor(int floor){
-        addOnFloor(player, floor);
-    }
-
-    public void putPlayerToFloorRandomSpace(int floor){
-        floors.get(floor).addOnFloorRndSpace(player,floor);
-    }
-
-    public void goToNextLevel() {
         if(getFloor(player.getFloor()).isOnStepLow(player.getPos())){
-
             int nextFloor = player.getFloor() + 1;
-
             if(nextFloor >= GameConfig.FLOOR_COUNT){
                 log.error("No more floors");
                 return;
             }
-
-            log.log("Go to next level!");
-
+            log.log("Going down, to " + nextFloor);
             // Remove from current floor
             getFloor(player.getFloor()).removeCreature(player);
-
             // Put on next floor
             putPlayerToFloor(nextFloor);
             player.setFloor(nextFloor);
-
-            log.log("floor:" + player.getFloor());
+            setCurrentFloor(nextFloor);
+        }
+        else if(getFloor(player.getFloor()).isOnStepUp(player.getPos())){
+            int nextFloor = player.getFloor() - 1;
+            if(nextFloor < 0){
+                log.error("No more floors");
+                return;
+            }
+            log.log("Going up, to " + nextFloor);
+            // Remove from current floor
+            getFloor(player.getFloor()).removeCreature(player);
+            // Put on next floor
+            putPlayerToFloor(nextFloor);
+            player.setFloor(nextFloor);
+            setCurrentFloor(nextFloor);
         }
     }
+    public void putPlayerToFloorRandomSpace(int floor){
+        floors.get(floor).addOnFloorRndSpace(player,floor);
+    }
+    public void setCurrentFloor(int floor){
+        currentFloor = floors.get(floor);
+    }
 
+    //---------------------------------------PRIVATE---------------------------------------------
+    private int currentFloor(){
+        return player.getFloor();
+    }
     private void initFloors(){
         floors = new ArrayList<>();
+
+        GameFloor cur;
+        GameFloor prev = null;
+
         for (int i = 0; i < FLOOR_COUNT; i++) {
-            floors.add(new GameFloor(floorGenerator));
+
+            if(i == 0){
+                cur = new GameFloor(floorGenerator, null);
+            } else {
+                cur = new GameFloor(floorGenerator, prev.getStepDown());
+            }
+
+            prev = cur;
+            floors.add(cur);
         }
+    }
+    private void addOnFloor(Creature creature, int floor){
+        floors.get(floor).addCreature(creature);
+    }
+    private void putPlayerToFloor(int floor){
+        addOnFloor(player, floor);
     }
 }

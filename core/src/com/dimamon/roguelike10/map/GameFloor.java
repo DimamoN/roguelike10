@@ -2,7 +2,6 @@ package com.dimamon.roguelike10.map;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.dimamon.roguelike10.common.Log;
-import com.dimamon.roguelike10.config.GameConfig;
 import com.dimamon.roguelike10.config.MapUtils;
 import com.dimamon.roguelike10.entities.GameEntity;
 import com.dimamon.roguelike10.entities.LibGdxable;
@@ -11,17 +10,19 @@ import com.dimamon.roguelike10.entities.creatures.params.Pos;
 import com.dimamon.roguelike10.game.Turn;
 import com.dimamon.roguelike10.map.gameTile.GameTile;
 import com.dimamon.roguelike10.map.gameTile.GameTileFactory;
+import com.dimamon.roguelike10.map.generator.Coord;
 import com.dimamon.roguelike10.map.generator.CreatureGenerator;
 import com.dimamon.roguelike10.map.generator.floor.FloorGenerator;
-import com.dimamon.roguelike10.map.generator.floor.impl.GridFloorGenerator;
-import com.dimamon.roguelike10.map.generator.floor.impl.SimpleFloorGenerator;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Random;
 
-import static com.dimamon.roguelike10.config.GameConfig.*;
+import static com.dimamon.roguelike10.config.GameConfig.FLOOR_SIZE_X;
+import static com.dimamon.roguelike10.config.GameConfig.FLOOR_SIZE_Y;
+import static com.dimamon.roguelike10.config.GameConfig.HEIGHT;
+import static com.dimamon.roguelike10.config.GameConfig.TEXTURE_SIZE;
+import static com.dimamon.roguelike10.config.GameConfig.WIDTH;
 
 public class GameFloor extends GameEntity implements LibGdxable, Turn {
 
@@ -30,26 +31,41 @@ public class GameFloor extends GameEntity implements LibGdxable, Turn {
     private GameTile[][] floorMap = new GameTile[FLOOR_SIZE_X][FLOOR_SIZE_Y];
     private FloorGenerator floorGenerator;
 
-    public GameFloor(FloorGenerator floorGenerator) {
-        creatures = new ArrayList<>();
+    /**
+     * Coords of stairs for going to another levels
+     */
+    private Coord stepUp;
+    private Coord stepDown;
+
+    public GameFloor(FloorGenerator floorGenerator, Coord stepUp) {
+
+        this.creatures = new ArrayList<>();
         this.floorGenerator = floorGenerator;
         this.log = new Log("Gamemap");
-        initMap();
+
+        initMap(stepUp);
     }
 
-    private void initMap(){
+    private void initMap(Coord stepUp){
+
+        this.stepUp = stepUp;
 
         //1) Generate tiles
-        floorMap = floorGenerator.getFloor();
+        floorMap = floorGenerator.getFloor(stepUp);
 
         //2) generate creatures
         //TODO: GAMEFLOOR SHOULD KNOW FLOOR
         int floor = 0;
-        List<Creature> creaturesToAdd = CreatureGenerator.generateCreatures(15,floor);
+        List<Creature> creaturesToAdd = CreatureGenerator.generateCreatures(5,floor);
         addOnFloorRndSpace(creaturesToAdd,floor);
 
         //3) Put steps to next level
-        setStepLow(floor);
+        setStepDown(floor);
+        
+        if(stepUp != null){
+            setStepUp(stepUp);
+        }
+
     }
 
     @Override
@@ -114,17 +130,20 @@ public class GameFloor extends GameEntity implements LibGdxable, Turn {
         creatures.add(creature);
     }
 
-    private void setStepLow(int floor){
-        Pos pos = MapUtils.getRandomFloorPos(this.floorMap, floor);
-        floorMap[pos.x][pos.y] = GameTileFactory.getStepLow();
-    }
-
+    //TODO: CAN REFACTOR TO "IS ON TILE"
     public boolean isOnStepLow(Pos pos) {
         if(floorMap[pos.x][pos.y].isStepLow()) {
             return true;
         }
         else return false;
     }
+    public boolean isOnStepUp(Pos pos) {
+        if(floorMap[pos.x][pos.y].isStepUp()) {
+            return true;
+        }
+        else return false;
+    }
+
 
     public boolean removeCreature(Creature creature){
 
@@ -138,5 +157,25 @@ public class GameFloor extends GameEntity implements LibGdxable, Turn {
         creatures = newcreatures;
 
         return creatures.size() > newcreatures.size();
+    }
+
+    //-----------------STAIRS----------------------------------------------------
+    public Coord getStepUp() {
+        return stepUp;
+    }
+
+    public Coord getStepDown() {
+        return stepDown;
+    }
+
+    private void setStepDown(int floor){
+        Pos pos = MapUtils.getRandomFloorPos(this.floorMap, floor);
+        stepDown = new Coord(pos.x,pos.y);
+        floorMap[pos.x][pos.y] = GameTileFactory.getStepLow();
+    }
+
+    public void setStepUp(Coord stepUp) {
+        this.stepUp = stepUp;
+        floorMap[stepUp.x][stepUp.y] = GameTileFactory.getStepUp();
     }
 }
