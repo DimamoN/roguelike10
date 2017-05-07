@@ -14,30 +14,34 @@ public class PosUtils {
 
     public static Pos plusDir(Pos pos, Direction direction){
 
+        Pos newPos = new Pos();
+        newPos.x = pos.x;
+        newPos.y = pos.y;
+
         if(pos == null){
             log.error("NO POS");
-            pos = new Pos();
+            newPos = new Pos();
         }
 
         switch (direction){
             case NONE: return pos;
             case UP: {
-                pos.y++;
-                return pos;
+                newPos.y++;
+                return newPos;
             }
             case DOWN: {
-                pos.y--;
-                return pos;
+                newPos.y--;
+                return newPos;
             }
             case RIGHT: {
-                pos.x++;
-                return pos;
+                newPos.x++;
+                return newPos;
             }
             case LEFT: {
-                pos.x--;
-                return pos;
+                newPos.x--;
+                return newPos;
             }
-            default: return pos;
+            default: return newPos;
         }
 
     }

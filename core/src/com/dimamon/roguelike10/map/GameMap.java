@@ -105,12 +105,13 @@ public class GameMap implements LibGdxable, Turn {
         currentFloor = floors.get(floor);
     }
 
+    public GameFloor getCurrentFloor() {
+        return currentFloor;
+    }
+
     //---------------------------------------PRIVATE---------------------------------------------
     private int currentFloor(){
         return player.getFloor();
-    }
-    public GameFloor getCurrentFloor() {
-        return currentFloor;
     }
     private void initFloors(){
         floors = new ArrayList<>();

@@ -27,10 +27,10 @@ public class RoguelikeApp extends ApplicationAdapter {
 	public void create () {
 		batch = new SpriteBatch();
 		Gdx.app.setLogLevel(Application.LOG_DEBUG);
-		coordsTextLog = new CoordsTextLog();
 
 		player = new Player(CreatureFactory.getAndroidPower(0));
 		gameMap = new GameMap(player);
+		coordsTextLog = new CoordsTextLog(player);
 	}
 
 	@Override

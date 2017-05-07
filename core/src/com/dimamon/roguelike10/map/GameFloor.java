@@ -115,8 +115,6 @@ public class GameFloor extends GameEntity implements LibGdxable, Turn {
         creatures = creatures.stream().filter
                 (c -> c.checkLife()).collect(Collectors.toList());
 
-        log.debug(creatures.toString());
-
         creatures.stream().forEach(c -> c.turn());
     }
 

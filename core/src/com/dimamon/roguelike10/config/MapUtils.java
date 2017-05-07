@@ -134,6 +134,11 @@ public class MapUtils {
             }
             //Else go up
             else if (to.y > currentY){
+
+                //test
+                log.debug("X:" + currentX);
+                log.debug("Y:" + currentY);
+
                 floor[currentX][currentY] = tile;
                 currentY++;
             }

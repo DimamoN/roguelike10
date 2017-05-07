@@ -83,7 +83,7 @@ public abstract class Creature extends GameEntityVisiblePos implements LibGdxabl
                 break;
             }
             case RIGHT: {
-                action= GameMap.getFloor(pos.floor).actionTo(pos.x+1,pos.y);
+                action = GameMap.getFloor(pos.floor).actionTo(pos.x+1,pos.y);
                 break;
             }
             case DOWN: {
@@ -119,14 +119,15 @@ public abstract class Creature extends GameEntityVisiblePos implements LibGdxabl
         if(act.getAction() == Action.MOVE){
             move(act.getDirection());
         }
-
-        if(act.getAction() == Action.ATTACK){
+        else if(act.getAction() == Action.ATTACK){
             attack(act.getDirection());
         }
 
     }
 
     public void move(Direction direction) {
+
+        log.debug("Moving " + direction);
 
         switch (direction){
             case UP:{
@@ -206,4 +207,14 @@ public abstract class Creature extends GameEntityVisiblePos implements LibGdxabl
         return other.pos.y - this.pos.y;
     }
 
+    @Override
+    public String toString() {
+        return "Creature{" +
+                "attributes=" + attributes
+                + " " + super.toString() +'}';
+    }
+
+    public Statictics getStats() {
+        return stats;
+    }
 }

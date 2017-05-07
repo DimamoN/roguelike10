@@ -17,4 +17,9 @@ public class GameEntityVisiblePos extends GameEntityVisible {
     public void setPos(Pos pos) {
         this.pos = pos;
     }
+
+    @Override
+    public String toString() {
+        return pos.toString();
+    }
 }

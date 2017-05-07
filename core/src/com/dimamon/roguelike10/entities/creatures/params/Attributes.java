@@ -36,6 +36,10 @@ public class Attributes {
         return mind;
     }
 
+    public int getHp() {
+        return hp;
+    }
+
     public void attack(int power){
         hp -= power;
     }
@@ -53,4 +57,5 @@ public class Attributes {
                 ", hp=" + hp +
                 '}';
     }
+
 }
