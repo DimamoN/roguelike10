@@ -109,6 +109,9 @@ public class GameMap implements LibGdxable, Turn {
     private int currentFloor(){
         return player.getFloor();
     }
+    public GameFloor getCurrentFloor() {
+        return currentFloor;
+    }
     private void initFloors(){
         floors = new ArrayList<>();
 
@@ -118,9 +121,9 @@ public class GameMap implements LibGdxable, Turn {
         for (int i = 0; i < FLOOR_COUNT; i++) {
 
             if(i == 0){
-                cur = new GameFloor(floorGenerator, i, null);
+                cur = new GameFloor(this, floorGenerator, i, null);
             } else {
-                cur = new GameFloor(floorGenerator, i,  prev.getStepDown());
+                cur = new GameFloor(this, floorGenerator, i,  prev.getStepDown());
             }
 
             prev = cur;

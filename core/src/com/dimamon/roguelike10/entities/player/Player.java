@@ -15,13 +15,8 @@ import com.dimamon.roguelike10.sound.Sounds;
  */
 public class Player extends Creature implements LibGdxable {
 
-    /**
-     * Only reference to a map, to init turn
-     */
-    private GameMap map;
-
     public Player(Creature creature) {
-        super("Player", creature.getTexture());
+        super("Player", creature);
     }
 
     @Override

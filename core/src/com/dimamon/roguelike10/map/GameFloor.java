@@ -18,6 +18,7 @@ import com.dimamon.roguelike10.map.generator.floor.FloorGenerator;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.dimamon.roguelike10.config.GameConfig.FLOOR_SIZE_X;
 import static com.dimamon.roguelike10.config.GameConfig.FLOOR_SIZE_Y;
@@ -27,6 +28,10 @@ import static com.dimamon.roguelike10.config.GameConfig.WIDTH;
 
 public class GameFloor extends GameEntity implements LibGdxable, Turn {
 
+    /**
+     * Reference to map
+     */
+    private GameMap map;
     private int floorNum;
 
     //TODO: Use dynamic sorted structure
@@ -40,8 +45,9 @@ public class GameFloor extends GameEntity implements LibGdxable, Turn {
     private Coord stepUp;
     private Coord stepDown;
 
-    public GameFloor(FloorGenerator floorGenerator, int floorNum, Coord stepUp) {
+    public GameFloor(GameMap map, FloorGenerator floorGenerator, int floorNum, Coord stepUp) {
 
+        this.map = map;
         this.floorNum = floorNum;
         this.creatures = new ArrayList<>();
         this.floorGenerator = floorGenerator;
@@ -59,6 +65,8 @@ public class GameFloor extends GameEntity implements LibGdxable, Turn {
 
         // Generate creatures
         List<Creature> creaturesToAdd = CreatureGenerator.generateCreatures(5,floorNum);
+        creaturesToAdd.stream().forEach(c -> c.setMap(map));
+
         addOnFloorRndSpace(creaturesToAdd,floorNum);
 
         // Put steps to next level
@@ -89,7 +97,7 @@ public class GameFloor extends GameEntity implements LibGdxable, Turn {
         }
         creatures.stream().forEach(c -> c.update());
 
-        //test!
+        //dirty
         Collections.sort(creatures);
     }
     @Override
@@ -103,6 +111,12 @@ public class GameFloor extends GameEntity implements LibGdxable, Turn {
     }
     @Override
     public void turn() {
+        //todo: make destroy system
+        creatures = creatures.stream().filter
+                (c -> c.checkLife()).collect(Collectors.toList());
+
+        log.debug(creatures.toString());
+
         creatures.stream().forEach(c -> c.turn());
     }
 
@@ -137,6 +151,16 @@ public class GameFloor extends GameEntity implements LibGdxable, Turn {
                 (c -> c.getPos().x == x && c.getPos().y == y);
 //        log.debug("Is on pos "+x+":"+y+"="+result);
         return result;
+    }
+
+    public List<Creature> getOnPos(Pos pos){
+
+        //Collectors toList - from 24 API LEVEL
+        List<Creature> creaturesOnPos = creatures.stream().filter(
+                (c -> c.getPos().x == pos.x && c.getPos().y == pos.y))
+                .collect(Collectors.toList());
+
+        return creaturesOnPos;
     }
 
     public void addCreature(Creature creature){

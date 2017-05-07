@@ -5,6 +5,7 @@ import com.badlogic.gdx.utils.Logger;
 import com.dimamon.roguelike10.common.Log;
 import com.dimamon.roguelike10.config.GameConfig;
 import com.dimamon.roguelike10.config.MapUtils;
+import com.dimamon.roguelike10.map.GameMap;
 import com.dimamon.roguelike10.map.gameTile.GameTile;
 import com.dimamon.roguelike10.map.gameTile.GameTileFactory;
 import com.dimamon.roguelike10.map.generator.Coord;

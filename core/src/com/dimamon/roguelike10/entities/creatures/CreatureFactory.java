@@ -17,6 +17,10 @@ public class CreatureFactory {
         return (Demon) new Demon(new Texture(DEMON_TEXTURE), "Small Demon", 10,10,10).setFloor(floor);
     }
 
+    public static Android getAndroidPower(int floor) {
+        return (Android) new Android(new Texture(ANDROID_TEXTURE), "Android", 100, 100, 100).setFloor(floor);
+    }
+
     public static Android getAndroid(int floor){
         return (Android) new Android(new Texture(ANDROID_TEXTURE), "Android", 10,10,10).setFloor(floor);
     }

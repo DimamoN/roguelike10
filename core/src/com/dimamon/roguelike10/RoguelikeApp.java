@@ -29,7 +29,7 @@ public class RoguelikeApp extends ApplicationAdapter {
 		Gdx.app.setLogLevel(Application.LOG_DEBUG);
 		coordsTextLog = new CoordsTextLog();
 
-		player = new Player(CreatureFactory.getAndroid(0));
+		player = new Player(CreatureFactory.getAndroidPower(0));
 		gameMap = new GameMap(player);
 	}
 

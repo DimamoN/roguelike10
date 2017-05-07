@@ -21,6 +21,9 @@ public class GameConfig {
     public static final int FLOOR_SIZE_Y = HEIGHT/TEXTURE_SIZE;
 
 
+    public static final int DEFAULT_HP = 10;
+    public static final int DEFAULT_ATTACK = 10;
+
     /**
      * DEEPS OF GAME MAP
      */

@@ -6,7 +6,9 @@ import com.dimamon.roguelike10.common.Act;
 import com.dimamon.roguelike10.common.Action;
 import com.dimamon.roguelike10.common.Direction;
 import com.dimamon.roguelike10.common.Log;
+import com.dimamon.roguelike10.config.GameConfig;
 import com.dimamon.roguelike10.config.MapUtils;
+import com.dimamon.roguelike10.config.PosUtils;
 import com.dimamon.roguelike10.entities.GameEntityVisiblePos;
 import com.dimamon.roguelike10.entities.LibGdxable;
 import com.dimamon.roguelike10.entities.Moving;
@@ -15,8 +17,11 @@ import com.dimamon.roguelike10.entities.creatures.params.Pos;
 import com.dimamon.roguelike10.entities.player.Player;
 import com.dimamon.roguelike10.game.Statictics;
 import com.dimamon.roguelike10.game.Turn;
+import com.dimamon.roguelike10.map.GameFloor;
 import com.dimamon.roguelike10.map.GameMap;
 import com.dimamon.roguelike10.sound.Sounds;
+
+import java.util.List;
 
 
 /**
@@ -24,6 +29,10 @@ import com.dimamon.roguelike10.sound.Sounds;
  */
 public abstract class Creature extends GameEntityVisiblePos implements LibGdxable, Moving, Comparable<Creature>,Turn {
 
+    /**
+     * Only reference to a map, to init turn
+     */
+    protected GameMap map;
     protected Attributes attributes;
     protected Statictics stats;
 
@@ -37,10 +46,10 @@ public abstract class Creature extends GameEntityVisiblePos implements LibGdxabl
     }
 
     //FOR PLAYER (THINK ABOUT IT)
-    public Creature(String name, Texture texture) {
+    public Creature(String name, Creature creature) {
         this.name = name;
-        this.texture = texture;
-        this.attributes = new Attributes();
+        this.texture = creature.getTexture();
+        this.attributes = creature.getAttributes();
         this.pos = new Pos();
         this.log = new Log(name);
         this.stats = new Statictics();
@@ -151,36 +160,40 @@ public abstract class Creature extends GameEntityVisiblePos implements LibGdxabl
 
         if(this instanceof Player){
             Sounds.attack();
+
+            List<Creature> creaturesToAttack = map.getCurrentFloor()
+                    .getOnPos(PosUtils.plusDir(pos, direction));
+
+            creaturesToAttack.stream().forEach
+                    (c -> c.attackThis(GameConfig.DEFAULT_ATTACK));
         }
+
 
     }
 
+    //-----------------------ATTACK AND LIFE---------------------------------
+    /**
+     * Attack this creature
+     */
+    public void attackThis(int power){
+        attributes.attack(power);
+    }
 
+    public boolean checkLife(){
+        return attributes.isAlive();
+    }
 
     public Creature setFloor(int floor){
         this.pos.floor = floor;
         return this;
     }
 
-    public void setPos(int x, int y){
-        this.pos.x = x;
-        this.pos.y = y;
-    }
-
-    public Pos getPos() {
-        return pos;
+    public void setMap(GameMap map) {
+        this.map = map;
     }
 
     public Attributes getAttributes() {
         return attributes;
-    }
-
-    public Texture getTexture() {
-        return texture;
-    }
-
-    public String getName() {
-        return name;
     }
 
     /**
@@ -192,6 +205,5 @@ public abstract class Creature extends GameEntityVisiblePos implements LibGdxabl
     public int compareTo(Creature other) {
         return other.pos.y - this.pos.y;
     }
-
 
 }
