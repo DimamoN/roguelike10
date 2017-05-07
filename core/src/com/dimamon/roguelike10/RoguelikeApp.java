@@ -6,6 +6,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.dimamon.roguelike10.common.CoordsTextLog;
 import com.dimamon.roguelike10.common.Log;
 import com.dimamon.roguelike10.entities.creatures.CreatureFactory;
 import com.dimamon.roguelike10.entities.player.Player;
@@ -16,6 +17,8 @@ public class RoguelikeApp extends ApplicationAdapter {
 
 	private Log log = new Log("Main");
 
+	private CoordsTextLog coordsTextLog;
+
 	private SpriteBatch batch;
 	private Player player;
 	private GameMap gameMap;
@@ -24,6 +27,7 @@ public class RoguelikeApp extends ApplicationAdapter {
 	public void create () {
 		batch = new SpriteBatch();
 		Gdx.app.setLogLevel(Application.LOG_DEBUG);
+		coordsTextLog = new CoordsTextLog();
 
 		player = new Player(CreatureFactory.getAndroid(0));
 		gameMap = new GameMap(player);
@@ -37,6 +41,7 @@ public class RoguelikeApp extends ApplicationAdapter {
 		batch.begin();
 
 		gameMap.render(batch);
+		coordsTextLog.render(batch);
 
 		batch.end();
 	}

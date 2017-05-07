@@ -120,22 +120,21 @@ public class GameFloor extends GameEntity implements LibGdxable, Turn {
         // Check
         if(x < 0 || y < 0 || x >= FLOOR_SIZE_X || y >= FLOOR_SIZE_Y) return Action.NONE;
         if(floorMap[x][y].isBlocking()) return Action.NONE;
-        if(isOnPos(x,y)) return Action.NONE;
 
         // Attack
-        Pos pos = new Pos(x,y, floorNum);
-        if(creatures.stream()
-                .filter(c -> c.getPos() == pos)
-                .count() > 0){
-            return Action.ATTACK;
-        }
+        if(isOnPos(x,y)) return Action.ATTACK;
 
         //Move
         return Action.MOVE;
     }
 
+    public boolean isOnPos(Pos pos){
+        return isOnPos(pos.x,pos.y);
+    }
+
     public boolean isOnPos(int x, int y){
-        boolean result = creatures.stream().anyMatch(c -> c.getPos().x == x && c.getPos().y == y);
+        boolean result = creatures.stream().anyMatch
+                (c -> c.getPos().x == x && c.getPos().y == y);
 //        log.debug("Is on pos "+x+":"+y+"="+result);
         return result;
     }

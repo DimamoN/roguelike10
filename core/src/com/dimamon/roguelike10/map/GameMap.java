@@ -60,7 +60,6 @@ public class GameMap implements LibGdxable, Turn {
     }
     @Override
     public void turn() {
-        log.log("Current floor : " + currentFloor());
         GameFloor currentFloor = floors.get(currentFloor());
         currentFloor.turn();
     }

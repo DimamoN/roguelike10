@@ -114,6 +114,8 @@ public class MapUtils {
         return floor;
     }
 
+
+    //todo: fix exceptions - ArrayIndexOutOfBoundsException: 25
     public static boolean connectTiles(Coord from, Coord to, GameTile tile, GameTile[][] floor){
 
         int currentX = from.x;

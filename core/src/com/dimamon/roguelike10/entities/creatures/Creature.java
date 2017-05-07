@@ -12,9 +12,11 @@ import com.dimamon.roguelike10.entities.LibGdxable;
 import com.dimamon.roguelike10.entities.Moving;
 import com.dimamon.roguelike10.entities.creatures.params.Attributes;
 import com.dimamon.roguelike10.entities.creatures.params.Pos;
+import com.dimamon.roguelike10.entities.player.Player;
 import com.dimamon.roguelike10.game.Statictics;
 import com.dimamon.roguelike10.game.Turn;
 import com.dimamon.roguelike10.map.GameMap;
+import com.dimamon.roguelike10.sound.Sounds;
 
 
 /**
@@ -102,7 +104,8 @@ public abstract class Creature extends GameEntityVisiblePos implements LibGdxabl
 
     public void act(Act act){
 
-        log.debug("Act = " + act);
+//        log.debug("Act = " + act);
+        stats.updTurnCount();
 
         if(act.getAction() == Action.MOVE){
             move(act.getDirection());
@@ -116,30 +119,24 @@ public abstract class Creature extends GameEntityVisiblePos implements LibGdxabl
 
     public void move(Direction direction) {
 
-        log.log("Trying to move: " +direction);
-
         switch (direction){
-            case NONE: {
-                return;
-            }
             case UP:{
                 pos.y = ++pos.y;
-                stats.updTurnCount();
                 break;
             }
             case RIGHT:{
                 pos.x = ++pos.x;
-                stats.updTurnCount();
                 break;
             }
             case DOWN: {
                 pos.y = --pos.y;
-                stats.updTurnCount();
                 break;
             }
             case LEFT:{
                 pos.x = --pos.x;
-                stats.updTurnCount();
+                break;
+            }
+            case NONE:{
                 break;
             }
             default: {
@@ -151,9 +148,15 @@ public abstract class Creature extends GameEntityVisiblePos implements LibGdxabl
     public void attack(Direction direction){
 
         log.log("Attacking : " + direction);
-        //not yet implemented
+
+        if(this instanceof Player){
+            Sounds.attack();
+        }
+
     }
-    
+
+
+
     public Creature setFloor(int floor){
         this.pos.floor = floor;
         return this;
