@@ -26,6 +26,8 @@ import static com.dimamon.roguelike10.config.GameConfig.WIDTH;
 
 public class GameFloor extends GameEntity implements LibGdxable, Turn {
 
+    private int floorNum;
+
     //TODO: Use dynamic sorted structure
     private List<Creature> creatures;
     private GameTile[][] floorMap = new GameTile[FLOOR_SIZE_X][FLOOR_SIZE_Y];
@@ -37,8 +39,9 @@ public class GameFloor extends GameEntity implements LibGdxable, Turn {
     private Coord stepUp;
     private Coord stepDown;
 
-    public GameFloor(FloorGenerator floorGenerator, Coord stepUp) {
+    public GameFloor(FloorGenerator floorGenerator, int floorNum, Coord stepUp) {
 
+        this.floorNum = floorNum;
         this.creatures = new ArrayList<>();
         this.floorGenerator = floorGenerator;
         this.log = new Log("Gamemap");
@@ -50,22 +53,20 @@ public class GameFloor extends GameEntity implements LibGdxable, Turn {
 
         this.stepUp = stepUp;
 
-        //1) Generate tiles
+        // Generate tiles
         floorMap = floorGenerator.getFloor(stepUp);
 
-        //2) generate creatures
-        //TODO: GAMEFLOOR SHOULD KNOW FLOOR
-        int floor = 0;
-        List<Creature> creaturesToAdd = CreatureGenerator.generateCreatures(5,floor);
-        addOnFloorRndSpace(creaturesToAdd,floor);
+        // Generate creatures
+        List<Creature> creaturesToAdd = CreatureGenerator.generateCreatures(5,floorNum);
+        addOnFloorRndSpace(creaturesToAdd,floorNum);
 
-        //3) Put steps to next level
-        setStepDown(floor);
-        
+        // Put steps to next level
+        setStepDown(floorNum);
+
+        // If level >= 2 set stairsUp
         if(stepUp != null){
             setStepUp(stepUp);
         }
-
     }
 
     @Override

@@ -26,10 +26,7 @@ public class RoguelikeApp extends ApplicationAdapter {
 		Gdx.app.setLogLevel(Application.LOG_DEBUG);
 
 		player = new Player(CreatureFactory.getAndroid(0));
-		//TODO : fix add on floor!
 		gameMap = new GameMap(player);
-		gameMap.putPlayerToFloorRandomSpace(0);
-		player.setMap(gameMap);
 	}
 
 	@Override
@@ -84,7 +81,7 @@ public class RoguelikeApp extends ApplicationAdapter {
 
 		//GENERATE FLOOR
 		if(Gdx.input.isKeyJustPressed(Input.Keys.G)){
-			log.log("Generate current floor");
+			log.log("Regenerate current floor");
 		}
 
 	}

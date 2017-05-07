@@ -18,9 +18,8 @@ public class CreatureGenerator {
         List<Creature> creatures = new ArrayList<>();
 
         for(int i = 0; i <count; i++){
-            creatures.add(CreatureFactory.getAndroidBlue(floor,i+""));
+            creatures.add(CreatureFactory.getAndroidBlue(floor,"android-"+i));
         }
-
         return creatures;
     }
 

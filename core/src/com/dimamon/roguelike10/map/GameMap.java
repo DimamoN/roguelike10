@@ -39,9 +39,13 @@ public class GameMap implements LibGdxable, Turn {
     private Player player;
 
     public GameMap(Player player) {
+
         this.player = player;
+        player.setMap(this);
+
         initFloors();
         setCurrentFloor(0);
+        putPlayerToFloorRandomSpace(0);
     }
 
 
@@ -115,9 +119,9 @@ public class GameMap implements LibGdxable, Turn {
         for (int i = 0; i < FLOOR_COUNT; i++) {
 
             if(i == 0){
-                cur = new GameFloor(floorGenerator, null);
+                cur = new GameFloor(floorGenerator, i, null);
             } else {
-                cur = new GameFloor(floorGenerator, prev.getStepDown());
+                cur = new GameFloor(floorGenerator, i,  prev.getStepDown());
             }
 
             prev = cur;
