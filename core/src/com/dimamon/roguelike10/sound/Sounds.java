@@ -27,7 +27,11 @@ public class Sounds {
     }
 
     public static final void attack(){
-        ATTACK.play();
+        ATTACK.play(0.9f);
+    }
+
+    public static final void attackMob(){
+        ATTACK.play(0.5f);
     }
 
     public static void dispose(){

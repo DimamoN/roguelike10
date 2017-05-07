@@ -157,19 +157,16 @@ public abstract class Creature extends GameEntityVisiblePos implements LibGdxabl
 
     public void attack(Direction direction){
 
-        log.log("Attacking : " + direction);
-
         if(this instanceof Player){
             Sounds.attack();
-
-            List<Creature> creaturesToAttack = map.getCurrentFloor()
-                    .getOnPos(PosUtils.plusDir(pos, direction));
-
-            creaturesToAttack.stream().forEach
-                    (c -> c.attackThis(GameConfig.DEFAULT_ATTACK));
+        } else {
+            Sounds.attackMob();
         }
 
-
+        List<Creature> creaturesToAttack = map.getCurrentFloor()
+                .getOnPos(PosUtils.plusDir(pos, direction));
+        creaturesToAttack.stream().forEach
+                (c -> c.attackThis(GameConfig.DEFAULT_ATTACK));
     }
 
     //-----------------------ATTACK AND LIFE---------------------------------

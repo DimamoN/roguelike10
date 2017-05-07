@@ -110,7 +110,7 @@ public class GameMap implements LibGdxable, Turn {
     }
 
     //---------------------------------------PRIVATE---------------------------------------------
-    private int currentFloor(){
+    public int currentFloor(){
         return player.getFloor();
     }
     private void initFloors(){
@@ -136,5 +136,9 @@ public class GameMap implements LibGdxable, Turn {
     }
     private void putPlayerToFloor(int floor){
         addOnFloor(player, floor);
+    }
+
+    public Player getPlayer() {
+        return player;
     }
 }
