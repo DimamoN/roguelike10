@@ -27,7 +27,7 @@ public class GameFloor extends GameEntity implements LibGdxable, Turn {
 
     //TODO: Use dynamic sorted structure
     private List<Creature> creatures;
-    private static GameTile[][] floorMap = new GameTile[FLOOR_SIZE_X][FLOOR_SIZE_Y];
+    private GameTile[][] floorMap = new GameTile[FLOOR_SIZE_X][FLOOR_SIZE_Y];
     private FloorGenerator floorGenerator;
 
     public GameFloor(FloorGenerator floorGenerator) {
@@ -45,7 +45,7 @@ public class GameFloor extends GameEntity implements LibGdxable, Turn {
         //2) generate creatures
         //TODO: GAMEFLOOR SHOULD KNOW FLOOR
         int floor = 0;
-        List<Creature> creaturesToAdd = CreatureGenerator.generateCreatures(5,floor);
+        List<Creature> creaturesToAdd = CreatureGenerator.generateCreatures(15,floor);
         addOnFloorRndSpace(creaturesToAdd,floor);
 
         //3) Put steps to next level

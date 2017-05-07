@@ -24,6 +24,6 @@ public class GameConfig {
     /**
      * DEEPS OF GAME MAP
      */
-    public static final int FLOOR_COUNT = 5  ;
+    public static final int FLOOR_COUNT = 5 ;
 
 }

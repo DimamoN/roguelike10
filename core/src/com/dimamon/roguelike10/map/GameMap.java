@@ -29,41 +29,49 @@ import static com.dimamon.roguelike10.config.GameConfig.FLOOR_COUNT;
  */
 public class GameMap implements LibGdxable, Turn {
 
-    Log log = new Log("GameMap");
+    private Log log = new Log("GameMap");
 
     private static List<GameFloor> floors;
-    private Player player;
+    private GameFloor currentFloor;
     private FloorGenerator floorGenerator = new GridFloorGenerator();
 
-    //Init all floors
-    {
-        floors = new ArrayList<>();
-        for (int i = 0; i < FLOOR_COUNT; i++) {
-            floors.add(new GameFloor(floorGenerator));
-        }
-    }
+    private Player player;
 
     public GameMap(Player player) {
         this.player = player;
+        initFloors();
+        setCurrentFloor(0);
+    }
+
+    private int currentFloor(){
+        return player.getFloor();
+    }
+    public void setCurrentFloor(int floor){
+        currentFloor = floors.get(floor);
     }
 
     public void render(SpriteBatch batch){
-        floors.get(player.getFloor()).render(batch);
+        currentFloor.render(batch);
     }
     public void update() {
-        floors.get(player.getFloor()).update();
+        currentFloor.update();
     }
     public void dispose(){
         floors.stream().forEach(f -> f.dispose());
     }
     @Override
     public void turn() {
-        floors.get(player.getFloor()).turn();
+        log.log("Current floor : " + player.getFloor());
+        GameFloor currentFloor = floors.get(currentFloor());
+        currentFloor.turn();
     }
+
+
 
     public static GameFloor getFloor(int n){
         return floors.get(n);
     }
+
     /**
      * Add a creature to a selected floor
      */
@@ -91,14 +99,21 @@ public class GameMap implements LibGdxable, Turn {
 
             log.log("Go to next level!");
 
-            //remove from current floor
+            // Remove from current floor
             getFloor(player.getFloor()).removeCreature(player);
 
-            //put on next floor
+            // Put on next floor
             putPlayerToFloor(nextFloor);
-
             player.setFloor(nextFloor);
+
             log.log("floor:" + player.getFloor());
+        }
+    }
+
+    private void initFloors(){
+        floors = new ArrayList<>();
+        for (int i = 0; i < FLOOR_COUNT; i++) {
+            floors.add(new GameFloor(floorGenerator));
         }
     }
 }

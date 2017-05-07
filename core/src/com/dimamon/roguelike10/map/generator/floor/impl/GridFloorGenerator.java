@@ -34,7 +34,7 @@ public class GridFloorGenerator extends AbstractFloorGenerator {
     protected GameTile[][] generateFloor() {
 
         //Generate room starts
-        generateRoomGridRoomWithChance(6);
+        generateRoomGridRoomWithChance(5);
 
         //Generate rooms
         roomsStart.stream().forEach(r -> generateRoomFromCoord(r, floorMap));

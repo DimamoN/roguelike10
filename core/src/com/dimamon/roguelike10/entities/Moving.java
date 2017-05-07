@@ -5,7 +5,7 @@ import com.dimamon.roguelike10.common.Direction;
 
 public interface Moving {
 
-    public void move(Direction direction);
-    public boolean canMove(Direction direction);
+    void move(Direction direction);
+    boolean canMove(Direction direction);
 
 }
