@@ -25,6 +25,11 @@ public class GameConfig {
     public static final int DEFAULT_ATTACK = 10;
 
     /**
+     * In percent
+     */
+    public static final int DEFAULT_DODGE_CHANCE = 10;
+
+    /**
      * DEEPS OF GAME MAP
      */
     public static final int FLOOR_COUNT = 5 ;

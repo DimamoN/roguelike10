@@ -1,5 +1,7 @@
 package com.dimamon.roguelike10.entities.creatures.params;
 
+import com.badlogic.gdx.math.MathUtils;
+import com.dimamon.roguelike10.common.Log;
 import com.dimamon.roguelike10.config.GameConfig;
 import com.dimamon.roguelike10.sound.Sounds;
 
@@ -40,16 +42,24 @@ public class Attributes {
     public int getHp() {
         return hp;
     }
+    
+    //-------------------------ATTACKING------------------------------------
 
     public void attack(int power){
 
-        //todo: add dodging
-
-        hp -= power;
+        if(canDodge()){
+            Sounds.dodge();
+        } else {
+            hp -= power;
+        }
 
         if(!isAlive()){
             Sounds.monsterDeath();
         }
+    }
+
+    private boolean canDodge(){
+        return MathUtils.random(0,100) < GameConfig.DEFAULT_DODGE_CHANCE + dex;
     }
 
     public boolean isAlive(){

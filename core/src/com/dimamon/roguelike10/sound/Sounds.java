@@ -16,6 +16,7 @@ public class Sounds {
 
     private static final Sound DEATH = Gdx.audio.newSound(Gdx.files.internal("sfx/death.mp3"));
     private static final Sound ATTACK = Gdx.audio.newSound(Gdx.files.internal("sfx/hit07.mp3"));
+    private static final Sound DODGE = Gdx.audio.newSound(Gdx.files.internal("sfx/dodge.wav"));
 
     public static final void ambient(){
         CAVE.play(0.5f);
@@ -51,4 +52,7 @@ public class Sounds {
         ATTACK.dispose();
     }
 
+    public static final void dodge(){
+        DODGE.play();
+    }
 }
