@@ -42,19 +42,23 @@ public class Attributes {
     public int getHp() {
         return hp;
     }
-    
+
     //-------------------------ATTACKING------------------------------------
 
-    public void attack(int power){
+    /**
+     * @param power
+     * @return true - attack
+     *         false - dodge
+     */
+    public boolean attack(int power){
 
         if(canDodge()){
             Sounds.dodge();
+            return false;
         } else {
             hp -= power;
-        }
-
-        if(!isAlive()){
-            Sounds.monsterDeath();
+            if(!isAlive()) Sounds.monsterDeath();
+            return true;
         }
     }
 

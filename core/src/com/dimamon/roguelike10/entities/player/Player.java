@@ -29,7 +29,7 @@ public class Player extends Creature implements LibGdxable {
     }
     @Override
     public void turn() {
-        log.log("Turn ["+stats.turnCount+"]");
+//        log.log("Turn ["+stats.turnCount+"]");
         Sounds.step();
     }
 

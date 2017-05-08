@@ -114,14 +114,18 @@ public class MapUtils {
         return floor;
     }
 
-
-    //todo: fix exceptions - ArrayIndexOutOfBoundsException: 25
     public static boolean connectTiles(Coord from, Coord to, GameTile tile, GameTile[][] floor){
 
         int currentX = from.x;
         int currentY = from.y;
 
         do{
+
+            if(currentX >= GameConfig.FLOOR_SIZE_X || currentY >= GameConfig.FLOOR_SIZE_Y){
+                log.error("Connection tiles error");
+                return false;
+            }
+
             //Go right
             if(to.x > currentX){
                 floor[currentX][currentY] = tile;
@@ -134,11 +138,6 @@ public class MapUtils {
             }
             //Else go up
             else if (to.y > currentY){
-
-                //test
-                log.debug("X:" + currentX);
-                log.debug("Y:" + currentY);
-
                 floor[currentX][currentY] = tile;
                 currentY++;
             }

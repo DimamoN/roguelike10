@@ -127,7 +127,7 @@ public abstract class Creature extends GameEntityVisiblePos implements LibGdxabl
 
     public void move(Direction direction) {
 
-        log.debug("Moving " + direction);
+//        log.debug("Moving " + direction);
 
         switch (direction){
             case UP:{
@@ -174,7 +174,12 @@ public abstract class Creature extends GameEntityVisiblePos implements LibGdxabl
      * Attack this creature
      */
     public void attackThis(int power){
-        attributes.attack(power);
+        boolean wasHit = attributes.attack(power);
+        if(wasHit){
+            log.log("Was hit with " + power + " damage");
+        } else {
+            log.log("Successfully dodge " + power + " damage");
+        }
     }
 
     public boolean checkLife(){
