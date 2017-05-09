@@ -2,6 +2,7 @@ package com.dimamon.roguelike10.entities.items;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.dimamon.roguelike10.config.GameConfig;
+import com.dimamon.roguelike10.entities.items.end.EndTerminal;
 import com.dimamon.roguelike10.entities.items.heals.Heal;
 import com.dimamon.roguelike10.map.tiles.Tile;
 import com.dimamon.roguelike10.map.tiles.TileFactory;
@@ -24,8 +25,8 @@ public class ItemsFactory {
         return new Heal("Small repair pack", GameConfig.DEFAULT_HEAL, heal);
     }
 
-    public static Item getEnd(){
-        return new Item("End", end);
+    public static Item getEndTerminal(){
+        return new EndTerminal("End", end);
     }
 
 }

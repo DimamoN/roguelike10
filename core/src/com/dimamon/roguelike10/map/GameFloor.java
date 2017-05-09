@@ -73,14 +73,14 @@ public class GameFloor extends GameEntity implements LibGdxable, Turn {
 
         // If level >= 2 set stairsUp
         if(stepUp != null){
-            setStepUp(stepUp);
+            setupStairsUp(stepUp);
         }
 
         // Put steps to next level
         if(floorNum < GameConfig.FLOOR_COUNT-1){
-            setStepDown();
+            setupStairsDown();
         } else {
-            setEnd();
+            setupEndTerminal();
         }
     }
 
@@ -217,7 +217,7 @@ public class GameFloor extends GameEntity implements LibGdxable, Turn {
         return stepDown;
     }
 
-    private void setStepDown(){
+    private void setupStairsDown(){
 
         Pos pos;
 
@@ -234,14 +234,14 @@ public class GameFloor extends GameEntity implements LibGdxable, Turn {
         floorMap[pos.x][pos.y] = GameTileFactory.getStepLow();
     }
 
-    public void setStepUp(Coord stepUp) {
+    public void setupStairsUp(Coord stepUp) {
         this.stepUp = stepUp;
         floorMap[stepUp.x][stepUp.y] = GameTileFactory.getStepUp();
     }
 
-    private void setEnd() {
+    private void setupEndTerminal() {
         Pos pos = MapUtils.getRandomFloorPos(floorMap, floorNum);
-        floorMap[pos.x][pos.y].put(ItemsFactory.getEnd());
+        floorMap[pos.x][pos.y].put(ItemsFactory.getEndTerminal());
     }
 
     //-----------------ITEMS-----------------------------------------------------
