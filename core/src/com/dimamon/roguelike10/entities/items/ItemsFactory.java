@@ -14,7 +14,7 @@ public class ItemsFactory {
     }
 
     public static Item getEnd(){
-        return new Heal("End", TileFactory.getEnd().getTexture());
+        return new Item("End", TileFactory.getEnd().getTexture());
     }
 
 }

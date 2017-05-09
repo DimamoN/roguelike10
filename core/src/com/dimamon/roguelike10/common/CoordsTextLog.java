@@ -58,6 +58,10 @@ public class CoordsTextLog implements LibGdxable {
         font.draw(batch, map.getCurrentFloor().getOnPos(new Pos(cursorX,cursorY)).toString(),
                 180,GameConfig.HEIGHT);
 
+        // Items (todo: fix render null, if out of the map)
+        font.draw(batch, map.getCurrentFloor().getOnPosItems(new Pos(cursorX,cursorY)) + "",
+                GameConfig.WIDTH/2,GameConfig.HEIGHT);
+
         update();
     }
 

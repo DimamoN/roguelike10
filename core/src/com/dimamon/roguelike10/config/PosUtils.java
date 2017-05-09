@@ -45,4 +45,11 @@ public class PosUtils {
         }
 
     }
+
+    public static boolean isInGameField(Pos pos) {
+        if(pos.x < GameConfig.FLOOR_SIZE_X && pos.y < GameConfig.FLOOR_SIZE_Y
+                && pos.x >= 0 && pos.y >= 0){
+            return true;
+        } else return false;
+    }
 }

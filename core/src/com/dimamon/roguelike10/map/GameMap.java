@@ -24,7 +24,7 @@ import static com.dimamon.roguelike10.config.GameConfig.FLOOR_COUNT;
  *  FLOOR 0  <- START HERE
  *  FLOOR 1
  *  FLOOR 2
- *  FLOOR_COUNT
+ *  FLOOR_COUNT <- END HERE
  *
  * Created by dimamon on 4/10/17.
  */

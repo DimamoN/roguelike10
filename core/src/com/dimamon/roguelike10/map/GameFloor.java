@@ -5,10 +5,13 @@ import com.dimamon.roguelike10.common.Action;
 import com.dimamon.roguelike10.common.Log;
 import com.dimamon.roguelike10.config.GameConfig;
 import com.dimamon.roguelike10.config.MapUtils;
+import com.dimamon.roguelike10.config.PosUtils;
 import com.dimamon.roguelike10.entities.GameEntity;
 import com.dimamon.roguelike10.entities.LibGdxable;
 import com.dimamon.roguelike10.entities.creatures.Creature;
 import com.dimamon.roguelike10.entities.creatures.params.Pos;
+import com.dimamon.roguelike10.entities.items.Item;
+import com.dimamon.roguelike10.entities.items.ItemsFactory;
 import com.dimamon.roguelike10.game.Turn;
 import com.dimamon.roguelike10.map.gameTile.GameTile;
 import com.dimamon.roguelike10.map.gameTile.GameTileFactory;
@@ -19,13 +22,11 @@ import com.dimamon.roguelike10.map.generator.floor.FloorGenerator;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Queue;
 import java.util.stream.Collectors;
 
 import static com.dimamon.roguelike10.config.GameConfig.FLOOR_SIZE_X;
 import static com.dimamon.roguelike10.config.GameConfig.FLOOR_SIZE_Y;
-import static com.dimamon.roguelike10.config.GameConfig.HEIGHT;
-import static com.dimamon.roguelike10.config.GameConfig.TEXTURE_SIZE;
-import static com.dimamon.roguelike10.config.GameConfig.WIDTH;
 
 public class GameFloor extends GameEntity implements LibGdxable, Turn {
 
@@ -76,13 +77,11 @@ public class GameFloor extends GameEntity implements LibGdxable, Turn {
         }
 
         // Put steps to next level
-        if(floorNum <= GameConfig.FLOOR_COUNT){
-            setStepDown(floorNum);
+        if(floorNum < GameConfig.FLOOR_COUNT-1){
+            setStepDown();
         } else {
             setEnd();
         }
-
-
     }
 
 
@@ -169,6 +168,13 @@ public class GameFloor extends GameEntity implements LibGdxable, Turn {
         return creaturesOnPos;
     }
 
+    public Queue<Item> getOnPosItems(Pos pos){
+        if(PosUtils.isInGameField(pos)){
+            return floorMap[pos.x][pos.y].getItems();
+        }
+        return null;
+    }
+
     public void addCreature(Creature creature){
         creatures.add(creature);
     }
@@ -211,16 +217,16 @@ public class GameFloor extends GameEntity implements LibGdxable, Turn {
         return stepDown;
     }
 
-    private void setStepDown(int floor){
+    private void setStepDown(){
 
         Pos pos;
 
         if(floorNum == 0){
-            pos = MapUtils.getRandomFloorPos(this.floorMap, floor);
+            pos = MapUtils.getRandomFloorPos(this.floorMap, floorNum);
             stepDown = new Coord(pos.x, pos.y);
         } else {
             do {
-                pos = MapUtils.getRandomFloorPos(this.floorMap, floor);
+                pos = MapUtils.getRandomFloorPos(this.floorMap, floorNum);
                 stepDown = new Coord(pos.x, pos.y);
             } while (pos.x == stepUp.x && pos.y == stepUp.y);
         }
@@ -234,6 +240,9 @@ public class GameFloor extends GameEntity implements LibGdxable, Turn {
     }
 
     private void setEnd() {
+        Pos pos = MapUtils.getRandomFloorPos(this.floorMap, floorNum);
+        log.log("PUT TERM ON FLOOR " + floorNum + " "  + pos);
+        floorMap[pos.x][pos.y].put(ItemsFactory.getHeal());
     }
 
 }

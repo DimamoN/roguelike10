@@ -38,6 +38,14 @@ public class GameTile implements LibGdxable {
         if(!items.isEmpty()) items.peek().render(batch,x,y);
     }
 
+    public void put(Item item){
+        items.add(item);
+    }
+
+    public Queue<Item> getItems() {
+        return items;
+    }
+
     //TODO: REMOVE!
     @Override
     public void render(SpriteBatch batch) {
