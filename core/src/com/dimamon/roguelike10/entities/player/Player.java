@@ -5,6 +5,10 @@ import com.badlogic.gdx.Input;
 import com.dimamon.roguelike10.common.Direction;
 import com.dimamon.roguelike10.entities.LibGdxable;
 import com.dimamon.roguelike10.entities.creatures.Creature;
+import com.dimamon.roguelike10.entities.creatures.params.Pos;
+import com.dimamon.roguelike10.entities.items.Item;
+import com.dimamon.roguelike10.entities.items.ItemsFactory;
+import com.dimamon.roguelike10.entities.items.heals.Heal;
 import com.dimamon.roguelike10.map.GameMap;
 import com.dimamon.roguelike10.sound.Sounds;
 
@@ -15,8 +19,14 @@ import com.dimamon.roguelike10.sound.Sounds;
  */
 public class Player extends Creature implements LibGdxable {
 
+    /**
+     * What player can do
+     */
+    private PlayerAbilities playerAbilities;
+
     public Player(Creature creature) {
         super("Player", creature);
+        playerAbilities = new PlayerAbilities();
     }
 
     @Override
@@ -61,6 +71,14 @@ public class Player extends Creature implements LibGdxable {
         if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)){
             onStairs();
         }
+        if(Gdx.input.isKeyJustPressed(Input.Keys.P)){
+            pickItem();
+        }
+
+        //TEST
+        if(Gdx.input.isKeyJustPressed(Input.Keys.O)){
+            map.getCurrentFloor().putItem(pos, ItemsFactory.getHeal());
+        }
     }
 
     private void initTurn(){
@@ -77,6 +95,33 @@ public class Player extends Creature implements LibGdxable {
 
     public int getFloor() {
         return pos.floor;
+    }
+
+    public void pickItem(){
+        Item item = map.getCurrentFloor().pickItem(pos);
+        if(item != null){
+            useItem(item);
+        }
+    }
+
+    /**
+     * Main usage of the items by player
+     * @param item
+     */
+    private void useItem(Item item){
+        if(item instanceof Heal){
+            playerAbilities.heal(item);
+        }
+    }
+
+
+    class PlayerAbilities{
+
+        public void heal(Item item){
+            Heal heal = (Heal) item;
+            log.log("Healing with: " + heal.getName());
+            attributes.addHp(heal.getPower());
+        }
     }
 
 }

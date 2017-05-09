@@ -14,17 +14,20 @@ public class Attributes {
     //Main attributes
     protected int str,dex,mind;
 
+    protected int maxHp;
     protected int hp;
 
     public Attributes(){
         this.hp = GameConfig.DEFAULT_HP;
+        this.maxHp = hp;
     }
 
     public Attributes(int str, int dex, int mind) {
         this.str = str;
         this.dex = dex;
         this.mind = mind;
-        hp = GameConfig.DEFAULT_HP + str;
+        this.hp = GameConfig.DEFAULT_HP + str;
+        this.maxHp = hp;
     }
 
     public int getStr() {
@@ -41,6 +44,17 @@ public class Attributes {
 
     public int getHp() {
         return hp;
+    }
+
+    /**
+     * Safe add hp
+     * @param add
+     */
+    public void addHp(int add){
+        hp += add;
+        if(hp > maxHp){
+            hp = maxHp;
+        }
     }
 
     //-------------------------ATTACKING------------------------------------

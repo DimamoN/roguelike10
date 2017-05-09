@@ -73,4 +73,7 @@ public class GameTile implements LibGdxable {
         } else return false;
     }
 
+    public Item pick() {
+        return items.poll();
+    }
 }

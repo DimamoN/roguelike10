@@ -22,7 +22,7 @@ public class CreatureFactory {
     }
 
     public static Android getAndroidPower(int floor) {
-        return (Android) new Android(android, "Android", 100, 100, 100).setFloor(floor);
+        return (Android) new Android(android, "Android", 30, 30, 30).setFloor(floor);
     }
 
     public static Android getAndroid(int floor){

@@ -241,8 +241,18 @@ public class GameFloor extends GameEntity implements LibGdxable, Turn {
 
     private void setEnd() {
         Pos pos = MapUtils.getRandomFloorPos(floorMap, floorNum);
-        log.log("PUT TERM ON FLOOR " + floorNum + " "  + pos);
-        floorMap[pos.x][pos.y].put(ItemsFactory.getHeal());
+        floorMap[pos.x][pos.y].put(ItemsFactory.getEnd());
+    }
+
+    //-----------------ITEMS-----------------------------------------------------
+
+    public void putItem(Pos pos, Item item){
+        floorMap[pos.x][pos.y].put(item);
+    }
+
+    public Item pickItem(Pos pos){
+        Item item = floorMap[pos.x][pos.y].pick();
+        return item;
     }
 
 }

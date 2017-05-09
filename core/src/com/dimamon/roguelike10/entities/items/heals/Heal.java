@@ -9,8 +9,14 @@ import com.dimamon.roguelike10.entities.items.Item;
 
 public class Heal extends Item {
 
-    public Heal(String name, Texture texture) {
+    private int power;
+
+    public Heal(String name, int power, Texture texture) {
         super(name, texture);
+        this.power = power;
     }
 
+    public int getPower() {
+        return power;
+    }
 }
