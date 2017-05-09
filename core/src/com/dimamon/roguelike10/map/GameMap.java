@@ -113,7 +113,7 @@ public class GameMap implements LibGdxable, Turn {
     public int currentFloor(){
         return player.getFloor();
     }
-    private void initFloors(){
+    public void initFloors(){
         floors = new ArrayList<>();
 
         GameFloor cur;

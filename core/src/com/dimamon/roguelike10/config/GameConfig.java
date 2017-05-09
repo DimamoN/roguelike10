@@ -11,8 +11,8 @@ public class GameConfig {
      * 1) 800 x 480  (25:15 blocks)
      * 2) 1280 x 720 (40:22) + 0,5
      */
-    //public static final int HEIGHT = 480;
-    //public static final int WIDTH = 800;
+//    public static final int HEIGHT = 480;
+//    public static final int WIDTH = 800;
 
     public static final int HEIGHT = 720;
     public static final int WIDTH = 1280;
@@ -35,12 +35,11 @@ public class GameConfig {
     /**
      * DEEPS OF GAME MAP
      */
-    public static final int FLOOR_COUNT = 5 ;
+    public static final int FLOOR_COUNT = 10;
 
     public static final int DEFAULT_HP = 10;
     public static final int DEFAULT_ATTACK = 10;
     public static final int DEFAULT_HEAL = 10;
-
     /**
      * In percent
      */

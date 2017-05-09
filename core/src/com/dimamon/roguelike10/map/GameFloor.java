@@ -84,7 +84,6 @@ public class GameFloor extends GameEntity implements LibGdxable, Turn {
         }
     }
 
-
     @Override
     public void render(SpriteBatch batch) {
 
@@ -119,9 +118,20 @@ public class GameFloor extends GameEntity implements LibGdxable, Turn {
     @Override
     public void turn() {
         //todo: make destroy system
-        creatures = creatures.stream().filter
-                (c -> c.checkLife()).collect(Collectors.toList());
+        List<Creature> lifeCreatures = new ArrayList<>();
 
+        //Check life of creatures
+        //And update all creatures on life creatures
+        for(Creature creature: creatures){
+            if(creature.checkLife()){
+                lifeCreatures.add(creature);
+            } else {
+                //Dead in this turn
+                log.log("Creature "+creature.getName()+" is dead");
+                putItem(creature.getPos(),ItemsFactory.getHeal());
+            }
+        }
+        creatures = lifeCreatures;
         creatures.stream().forEach(c -> c.turn());
     }
 
@@ -253,6 +263,36 @@ public class GameFloor extends GameEntity implements LibGdxable, Turn {
     public Item pickItem(Pos pos){
         Item item = floorMap[pos.x][pos.y].pick();
         return item;
+    }
+
+    //--------------------TEST METHODS------------------------------------------------------
+    public void initMap(){
+
+        cleanCreatures();
+
+        // Generate tiles
+        floorMap = floorGenerator.getFloor(stepUp);
+
+        // Generate creatures
+        List<Creature> creaturesToAdd = CreatureGenerator.generateCreatures(floorNum);
+        creaturesToAdd.stream().forEach(c -> c.setMap(map));
+
+        addOnFloorRndSpace(creaturesToAdd,floorNum);
+
+        // If level >= 2 set stairsUp
+        if(stepUp != null){
+            setupStairsUp(stepUp);
+        }
+
+        // Put steps to next level
+        if(floorNum < GameConfig.FLOOR_COUNT-1){
+            setupStairsDown();
+        } else {
+            setupEndTerminal();
+        }
+    }
+    public void cleanCreatures(){
+        creatures.clear();
     }
 
 }

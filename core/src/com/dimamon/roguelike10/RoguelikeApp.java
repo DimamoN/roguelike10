@@ -88,6 +88,7 @@ public class RoguelikeApp extends ApplicationAdapter {
 		//GENERATE FLOOR
 		if(Gdx.input.isKeyJustPressed(Input.Keys.G)){
 			log.log("Regenerate current floor");
+			gameMap.getCurrentFloor().initMap();
 		}
 
 	}
