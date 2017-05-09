@@ -3,6 +3,7 @@ package com.dimamon.roguelike10.map;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.dimamon.roguelike10.common.Action;
 import com.dimamon.roguelike10.common.Log;
+import com.dimamon.roguelike10.config.GameConfig;
 import com.dimamon.roguelike10.config.MapUtils;
 import com.dimamon.roguelike10.entities.GameEntity;
 import com.dimamon.roguelike10.entities.LibGdxable;
@@ -75,14 +76,21 @@ public class GameFloor extends GameEntity implements LibGdxable, Turn {
         }
 
         // Put steps to next level
-        setStepDown(floorNum);
+        if(floorNum <= GameConfig.FLOOR_COUNT){
+            setStepDown(floorNum);
+        } else {
+            setEnd();
+        }
+
+
     }
+
 
     @Override
     public void render(SpriteBatch batch) {
 
-        for (int x = 0; x < WIDTH / TEXTURE_SIZE; x++) {
-            for (int y = 0; y < HEIGHT / TEXTURE_SIZE; y++) {
+        for (int x = 0; x < FLOOR_SIZE_X; x++) {
+            for (int y = 0; y < FLOOR_SIZE_Y; y++) {
                 floorMap[x][y].render(batch, x, y);
             }
         }
@@ -90,8 +98,8 @@ public class GameFloor extends GameEntity implements LibGdxable, Turn {
     }
     @Override
     public void update() {
-        for (int x = 0; x < WIDTH / TEXTURE_SIZE; x++) {
-            for (int y = 0; y < HEIGHT / TEXTURE_SIZE; y++) {
+        for (int x = 0; x < FLOOR_SIZE_X; x++) {
+            for (int y = 0; y < FLOOR_SIZE_Y; y++) {
                 floorMap[x][y].update();
             }
         }
@@ -224,4 +232,8 @@ public class GameFloor extends GameEntity implements LibGdxable, Turn {
         this.stepUp = stepUp;
         floorMap[stepUp.x][stepUp.y] = GameTileFactory.getStepUp();
     }
+
+    private void setEnd() {
+    }
+
 }

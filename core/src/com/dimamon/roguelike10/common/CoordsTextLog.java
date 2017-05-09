@@ -1,9 +1,9 @@
 package com.dimamon.roguelike10.common;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.MathUtils;
 import com.dimamon.roguelike10.config.GameConfig;
 import com.dimamon.roguelike10.config.MapUtils;
 import com.dimamon.roguelike10.entities.LibGdxable;
@@ -21,6 +21,7 @@ public class CoordsTextLog implements LibGdxable {
 
     GameMap map;
     Player player;
+    Color fontColor = new Color(0.5f,0.3f,0f,1f);
 
     BitmapFont font;
     float scaleInterfaceX = 1;
@@ -34,6 +35,7 @@ public class CoordsTextLog implements LibGdxable {
         this.map = map;
         this.player = map.getPlayer();
         font = new BitmapFont();
+        font.setColor(fontColor);
     }
 
     @Override

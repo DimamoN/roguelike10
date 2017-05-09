@@ -8,17 +8,26 @@ public class GameConfig {
 
     /**
      * WIDTH AND HEIGHT OF GAME SCREEN IN PIXELS
+     * 1) 800 x 480  (25:15 blocks)
+     * 2) 1280 x 720 (40:22) + 0,5
      */
-    public static final int HEIGHT = 480;
-    public static final int WIDTH = 800;
+    //public static final int HEIGHT = 480;
+    //public static final int WIDTH = 800;
+
+    public static final int HEIGHT = 720;
+    public static final int WIDTH = 1280;
 
     public static final int TEXTURE_SIZE = 32;
 
     /**
-     * FLOOR SIZE IN BLOCKS (15:25)
+     * OFFSET FROM TOP, IN BLOCKS
+     */
+    public static final int INTERFACE_OFFSET = 1;
+    /**
+     * FLOOR SIZE IN BLOCKS
      */
     public static final int FLOOR_SIZE_X = WIDTH/TEXTURE_SIZE;
-    public static final int FLOOR_SIZE_Y = HEIGHT/TEXTURE_SIZE;
+    public static final int FLOOR_SIZE_Y = HEIGHT/TEXTURE_SIZE - INTERFACE_OFFSET;
 
 
     public static final int DEFAULT_HP = 10;
