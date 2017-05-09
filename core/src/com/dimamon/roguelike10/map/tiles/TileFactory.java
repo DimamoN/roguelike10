@@ -21,11 +21,6 @@ public class TileFactory {
     private static final String STEP_LOW = "tiles/stepLow.png";
     private static final String STEP_UP = "tiles/stepUp.png";
 
-    // ITEMS
-    private static final String HEAL = "tiles/items/heal.png";
-    private static final String END = "tiles/items/end.png";
-
-
     //--------------------------TILES-------------------------------------------------
 
     private static final Tile floor = new Tile(new Texture(FLOOR_TEXTURE),"road1.png", false);
@@ -36,9 +31,6 @@ public class TileFactory {
     private static final Tile rock = new Tile(new Texture(ROCK_TEXTURE),"road1.png", true);
     private static final Tile stepLow = new Tile(new Texture(STEP_LOW),"stepLow.png", false);
     private static final Tile stepUp = new Tile(new Texture(STEP_UP),"stepUp.png", false);
-
-    private static final Tile heal = new Tile(new Texture(HEAL),"heal.png", false);
-    private static final Tile end = new Tile(new Texture(END),"end.png", false);
 
 
     public static Tile getFloor(){
@@ -72,14 +64,5 @@ public class TileFactory {
     public static Tile getStepUp() {
         return stepUp;
     }
-
-    public static Tile getHeal() {
-        return heal;
-    }
-
-    public static Tile getEnd() {
-        return end;
-    }
-
 
 }

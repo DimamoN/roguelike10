@@ -13,20 +13,24 @@ public class CreatureFactory {
     private static final String ANDROID_TEXTURE = "creatures/android.png";
     private static final String ANDROID_BLUE_TEXTURE = "creatures/android_blue.png";
 
+    private static Texture demon = new Texture(DEMON_TEXTURE);
+    private static Texture android = new Texture(ANDROID_TEXTURE);
+    private static Texture android_blue = new Texture(ANDROID_BLUE_TEXTURE);
+
     public static Demon getDemon(int floor){
-        return (Demon) new Demon(new Texture(DEMON_TEXTURE), "Small Demon", 10,10,10).setFloor(floor);
+        return (Demon) new Demon(demon, "Small Demon", 10,10,10).setFloor(floor);
     }
 
     public static Android getAndroidPower(int floor) {
-        return (Android) new Android(new Texture(ANDROID_TEXTURE), "Android", 100, 100, 100).setFloor(floor);
+        return (Android) new Android(android, "Android", 100, 100, 100).setFloor(floor);
     }
 
     public static Android getAndroid(int floor){
-        return (Android) new Android(new Texture(ANDROID_TEXTURE), "Android", 10,10,10).setFloor(floor);
+        return (Android) new Android(android, "Android", 10,10,10).setFloor(floor);
     }
 
     public static Android getAndroidBlue(int floor, String name){
-        return (Android) new Android(new Texture(ANDROID_BLUE_TEXTURE), "Android_blue:" + name, 10,10,10).setFloor(floor);
+        return (Android) new Android(android_blue, "Android_blue:" + name, 10,10,10).setFloor(floor);
     }
 
 }

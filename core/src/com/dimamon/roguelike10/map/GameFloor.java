@@ -222,11 +222,11 @@ public class GameFloor extends GameEntity implements LibGdxable, Turn {
         Pos pos;
 
         if(floorNum == 0){
-            pos = MapUtils.getRandomFloorPos(this.floorMap, floorNum);
+            pos = MapUtils.getRandomFloorPos(floorMap, floorNum);
             stepDown = new Coord(pos.x, pos.y);
         } else {
             do {
-                pos = MapUtils.getRandomFloorPos(this.floorMap, floorNum);
+                pos = MapUtils.getRandomFloorPos(floorMap, floorNum);
                 stepDown = new Coord(pos.x, pos.y);
             } while (pos.x == stepUp.x && pos.y == stepUp.y);
         }
@@ -240,7 +240,7 @@ public class GameFloor extends GameEntity implements LibGdxable, Turn {
     }
 
     private void setEnd() {
-        Pos pos = MapUtils.getRandomFloorPos(this.floorMap, floorNum);
+        Pos pos = MapUtils.getRandomFloorPos(floorMap, floorNum);
         log.log("PUT TERM ON FLOOR " + floorNum + " "  + pos);
         floorMap[pos.x][pos.y].put(ItemsFactory.getHeal());
     }

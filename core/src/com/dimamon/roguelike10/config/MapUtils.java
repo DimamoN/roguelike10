@@ -4,6 +4,7 @@ import com.badlogic.gdx.math.MathUtils;
 import com.dimamon.roguelike10.common.Log;
 import com.dimamon.roguelike10.entities.creatures.params.Pos;
 import com.dimamon.roguelike10.map.gameTile.GameTile;
+import com.dimamon.roguelike10.map.gameTile.GameTileFactory;
 import com.dimamon.roguelike10.map.generator.Coord;
 
 import java.util.Random;
@@ -114,6 +115,16 @@ public class MapUtils {
         return floor;
     }
 
+
+    /**
+     * WARNING! MAKE DUBLICATES!
+     * @param from
+     * @param to
+     * @param tile
+     * @param floor
+     * @return
+     */
+    @Deprecated
     public static boolean connectTiles(Coord from, Coord to, GameTile tile, GameTile[][] floor){
 
         int currentX = from.x;
@@ -144,6 +155,45 @@ public class MapUtils {
             //Else go down
             else if (to.y < currentY){
                 floor[currentX][currentY] = tile;
+                currentY--;
+            }
+            //On the spot
+            else {
+                return true;
+            }
+        }while (true);
+    }
+
+    public static boolean connectTilesWithFloor(Coord from, Coord to, GameTile[][] floor){
+
+        int currentX = from.x;
+        int currentY = from.y;
+
+        do{
+
+            if(currentX >= GameConfig.FLOOR_SIZE_X || currentY >= GameConfig.FLOOR_SIZE_Y){
+                log.error("Connection tiles error");
+                return false;
+            }
+
+            //Go right
+            if(to.x > currentX){
+                floor[currentX][currentY] = GameTileFactory.getFloor();
+                currentX++;
+            }
+            //Else go left
+            else if (to.x < currentX){
+                floor[currentX][currentY] = GameTileFactory.getFloor();
+                currentX--;
+            }
+            //Else go up
+            else if (to.y > currentY){
+                floor[currentX][currentY] = GameTileFactory.getFloor();
+                currentY++;
+            }
+            //Else go down
+            else if (to.y < currentY){
+                floor[currentX][currentY] = GameTileFactory.getFloor();
                 currentY--;
             }
             //On the spot

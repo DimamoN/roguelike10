@@ -25,9 +25,6 @@ public class GridFloorGenerator extends AbstractFloorGenerator {
 
     List<Coord> roomsStart = new ArrayList<>();
 
-    GameTile rock = GameTileFactory.getRock();
-    GameTile floor = GameTileFactory.getFloor();
-
     /**
      * Firstly generate the floor map, and then put creatures!
      */
@@ -56,11 +53,10 @@ public class GridFloorGenerator extends AbstractFloorGenerator {
                 //Set room starts
                 if(x % CELL_SIZE == 0 && y % CELL_SIZE == 0 &&
                         MathUtils.random(1,10) <= roomChance){
-
-                    floorMap[x][y] = floor;
+                    floorMap[x][y] = GameTileFactory.getFloor();
                     roomsStart.add(new Coord(x, y));
                 } else {
-                    floorMap[x][y] = rock;
+                    floorMap[x][y] =  GameTileFactory.getRock();
                 }
             }
         }
@@ -74,7 +70,7 @@ public class GridFloorGenerator extends AbstractFloorGenerator {
 
         for (int x = coord.x; x < coord.x + roomSizeX; x++) {
             for (int y = coord.y; y < coord.y + roomSizeY; y++) {
-                MapUtils.safeAdd(x,y,floor,floorMap);
+                MapUtils.safeAdd(x,y,GameTileFactory.getFloor(),floorMap);
             }
         }
 
@@ -93,7 +89,7 @@ public class GridFloorGenerator extends AbstractFloorGenerator {
             Coord nextRoom = roomsRemain.get(MathUtils.random(0,roomsRemain.size()-1));
 
 //            log.debug("current room: " + currentRoom + " next room: " + nextRoom);
-            MapUtils.connectTiles(currentRoom, nextRoom, floor, floorMap);
+            MapUtils.connectTilesWithFloor(currentRoom, nextRoom, floorMap);
             currentRoom = nextRoom;
             roomsRemain.remove(nextRoom);
 
