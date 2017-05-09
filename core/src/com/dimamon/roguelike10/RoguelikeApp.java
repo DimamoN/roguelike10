@@ -28,7 +28,7 @@ public class RoguelikeApp extends ApplicationAdapter {
 		batch = new SpriteBatch();
 		Gdx.app.setLogLevel(Application.LOG_DEBUG);
 
-		player = new Player(CreatureFactory.getAndroidPower(0));
+		player = new Player(CreatureFactory.getAndroidBlackPower(0));
 		gameMap = new GameMap(player);
 		coordsTextLog = new CoordsTextLog(gameMap);
 

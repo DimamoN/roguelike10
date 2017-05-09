@@ -66,7 +66,7 @@ public class GameFloor extends GameEntity implements LibGdxable, Turn {
         floorMap = floorGenerator.getFloor(stepUp);
 
         // Generate creatures
-        List<Creature> creaturesToAdd = CreatureGenerator.generateCreatures(5,floorNum);
+        List<Creature> creaturesToAdd = CreatureGenerator.generateCreatures(floorNum);
         creaturesToAdd.stream().forEach(c -> c.setMap(map));
 
         addOnFloorRndSpace(creaturesToAdd,floorNum);
