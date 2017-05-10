@@ -18,11 +18,13 @@ public class Sounds {
     private static final Sound ATTACK = Gdx.audio.newSound(Gdx.files.internal("sfx/hit07.mp3"));
     private static final Sound DODGE = Gdx.audio.newSound(Gdx.files.internal("sfx/dodge.wav"));
 
-    public static final void ambient(){
+    private static final Sound PICK = Gdx.audio.newSound(Gdx.files.internal("sfx/pick.mp3"));
+
+    public static void ambient(){
         CAVE.play(0.5f);
     }
 
-    public static final void step(){
+    public static void step(){
 
         int i = new Random().nextInt(3);
         switch (i) {
@@ -33,16 +35,20 @@ public class Sounds {
         }
     }
 
-    public static final void monsterDeath(){
+    public static void monsterDeath(){
         DEATH.play(0.5f);
     }
 
-    public static final void attack(){
+    public static void attack(){
         ATTACK.play(0.4f);
     }
 
-    public static final void attackMob(){
+    public static void attackMob(){
         ATTACK.play(0.2f);
+    }
+
+    public static void pick(){
+        PICK.play(0.8f);
     }
 
     public static void dispose(){

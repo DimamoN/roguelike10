@@ -102,6 +102,7 @@ public class Player extends Creature implements LibGdxable {
     public void pickItem(){
         Item item = map.getCurrentFloor().pickItem(pos);
         if(item != null){
+            Sounds.pick();
             useItem(item);
         }
     }
