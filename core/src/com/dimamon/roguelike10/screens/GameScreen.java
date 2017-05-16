@@ -29,7 +29,7 @@ public class GameScreen extends AbstractScreen{
         super(app);
         batch = new SpriteBatch();
         player = new Player(CreatureFactory.getAndroidBlackPower(0), app);
-        gameMap = new GameMap(player);
+        gameMap = new GameMap(player, app);
         coordsTextLog = new CoordsTextLog(gameMap);
     }
 

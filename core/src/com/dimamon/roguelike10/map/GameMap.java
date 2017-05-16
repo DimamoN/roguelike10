@@ -1,6 +1,7 @@
 package com.dimamon.roguelike10.map;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.dimamon.roguelike10.App;
 import com.dimamon.roguelike10.common.Log;
 import com.dimamon.roguelike10.config.GameConfig;
 import com.dimamon.roguelike10.entities.LibGdxable;
@@ -30,6 +31,8 @@ import static com.dimamon.roguelike10.config.GameConfig.FLOOR_COUNT;
  */
 public class GameMap implements LibGdxable, Turn {
 
+    public App app;
+
     private Log log = new Log("GameMap");
 
     private static List<GameFloor> floors;
@@ -38,10 +41,12 @@ public class GameMap implements LibGdxable, Turn {
 
     private Player player;
 
-    public GameMap(Player player) {
+    public GameMap(Player player, App app) {
 
         this.player = player;
         player.setMap(this);
+
+        this.app = app;
 
         initFloors();
         setCurrentFloor(0);
@@ -141,4 +146,5 @@ public class GameMap implements LibGdxable, Turn {
     public Player getPlayer() {
         return player;
     }
+
 }

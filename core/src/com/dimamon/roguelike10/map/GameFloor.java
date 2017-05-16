@@ -1,6 +1,7 @@
 package com.dimamon.roguelike10.map;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.dimamon.roguelike10.App;
 import com.dimamon.roguelike10.common.Action;
 import com.dimamon.roguelike10.common.Log;
 import com.dimamon.roguelike10.config.GameConfig;
@@ -19,6 +20,7 @@ import com.dimamon.roguelike10.map.gameTile.GameTileFactory;
 import com.dimamon.roguelike10.map.generator.Coord;
 import com.dimamon.roguelike10.map.generator.CreatureGenerator;
 import com.dimamon.roguelike10.map.generator.floor.FloorGenerator;
+import com.dimamon.roguelike10.screens.LoseScreen;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -32,7 +34,7 @@ import static com.dimamon.roguelike10.config.GameConfig.FLOOR_SIZE_Y;
 public class GameFloor extends GameEntity implements LibGdxable, Turn {
 
     /**
-     * Reference to map
+     * Reference to map (and app instance)
      */
     private GameMap map;
     private int floorNum;
@@ -130,7 +132,7 @@ public class GameFloor extends GameEntity implements LibGdxable, Turn {
                 //Dead in this turn
                 if(creature instanceof Player){
                     log.log("You dead");
-                    //todo: set Lose screen
+                    map.app.setScreen(new LoseScreen(map.app));
 
                 } else {
                     log.log("Creature "+creature.getName()+" is dead");
