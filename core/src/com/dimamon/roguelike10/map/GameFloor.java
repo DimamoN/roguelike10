@@ -241,14 +241,34 @@ public class GameFloor extends GameEntity implements LibGdxable, Turn {
 
         Pos pos;
 
+        //For first floor
         if(floorNum == 0){
             pos = MapUtils.getRandomFloorPos(floorMap, floorNum);
             stepDown = new Coord(pos.x, pos.y);
         } else {
+            //For 2, and other floors
+
+            boolean isOkStairDistance;
+            boolean isCollide;
+
+            //Do while coords are bad (not collide with stepUp)
+            //And distance between UP and DOWN less than GameConfig.STAIRS_DISTANCE
             do {
+                isCollide = false;
+                isOkStairDistance = false;
+
                 pos = MapUtils.getRandomFloorPos(floorMap, floorNum);
+
+                if(MapUtils.getDistance(stepUp, pos.getCoord()) >= GameConfig.STAIRS_DISTANCE){
+                    isOkStairDistance = true;
+                }
+
+                if(pos.x == stepUp.x && pos.y == stepUp.y){
+                    isCollide = true;
+                }
+
                 stepDown = new Coord(pos.x, pos.y);
-            } while (pos.x == stepUp.x && pos.y == stepUp.y);
+            } while (!isOkStairDistance || isCollide);
         }
 
         floorMap[pos.x][pos.y] = GameTileFactory.getStepLow();

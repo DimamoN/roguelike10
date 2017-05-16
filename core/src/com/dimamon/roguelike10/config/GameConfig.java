@@ -47,4 +47,8 @@ public class GameConfig {
      */
     public static final int DEFAULT_DODGE_CHANCE = 10;
 
+    /**
+     * Minimum distance between stairs up and stairs down
+     */
+    public static final int STAIRS_DISTANCE = 25;
 }

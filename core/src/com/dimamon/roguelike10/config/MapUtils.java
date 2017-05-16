@@ -203,4 +203,23 @@ public class MapUtils {
         }while (true);
     }
 
+    /**
+     * Return the sum of x and y distance between coords
+     *
+     * @param from
+     * @param to
+     * @return
+     */
+    public static int getDistance(Coord from, Coord to){
+
+        if(from == null || to == null){
+            return 999;
+        }
+
+        int distanceX = Math.abs(to.x - from.x);
+        int distanceY = Math.abs(to.y - from.y);
+
+        return distanceX+distanceY;
+    }
+
 }

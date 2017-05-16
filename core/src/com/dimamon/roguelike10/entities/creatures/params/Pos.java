@@ -1,5 +1,7 @@
 package com.dimamon.roguelike10.entities.creatures.params;
 
+import com.dimamon.roguelike10.map.generator.Coord;
+
 /**
  * Position of creature
  * Created by dimamon on 4/15/17.
@@ -22,6 +24,10 @@ public class Pos {
         this.x = x;
         this.y = y;
         this.floor = floor;
+    }
+
+    public Coord getCoord(){
+        return new Coord(x,y);
     }
 
     @Override
