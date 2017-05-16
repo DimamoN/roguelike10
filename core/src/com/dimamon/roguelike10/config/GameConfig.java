@@ -32,6 +32,8 @@ public class GameConfig {
 
     //------------------GAME PLAY-------------------------------------------------
 
+    public static final long AUTOMOVE_TIME = 150l;
+
     /**
      * DEEPS OF GAME MAP
      */

@@ -51,7 +51,9 @@ public class CoordsTextLog implements LibGdxable {
                 " dex:"+player.getAttributes().getStr()+
                 " mind:"+player.getAttributes().getMind()+
                 " HP:"+player.getAttributes().getHp()+
-                " Turn: "+player.getStats().turnCount,
+                " Turn: "+player.getStats().getTurnCount()+
+                " Hit: "+ player.getStats().getHit()+
+                " Dodge: "+ player.getStats().getDodge(),
                 0, GameConfig.HEIGHT - 20);
 
         // GameCreature

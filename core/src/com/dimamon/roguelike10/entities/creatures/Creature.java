@@ -15,9 +15,8 @@ import com.dimamon.roguelike10.entities.Moving;
 import com.dimamon.roguelike10.entities.creatures.params.Attributes;
 import com.dimamon.roguelike10.entities.creatures.params.Pos;
 import com.dimamon.roguelike10.entities.player.Player;
-import com.dimamon.roguelike10.game.Statictics;
+import com.dimamon.roguelike10.game.Statistics;
 import com.dimamon.roguelike10.game.Turn;
-import com.dimamon.roguelike10.map.GameFloor;
 import com.dimamon.roguelike10.map.GameMap;
 import com.dimamon.roguelike10.sound.Sounds;
 
@@ -34,7 +33,7 @@ public abstract class Creature extends GameEntityVisiblePos implements LibGdxabl
      */
     protected GameMap map;
     protected Attributes attributes;
-    protected Statictics stats;
+    protected Statistics stats;
 
     public Creature(Texture texture, String name, int str, int dex, int mind) {
         this.texture = texture;
@@ -42,7 +41,7 @@ public abstract class Creature extends GameEntityVisiblePos implements LibGdxabl
         this.attributes = new Attributes(str,dex,mind);
         this.pos = new Pos();
         this.log = new Log(name);
-        this.stats = new Statictics();
+        this.stats = new Statistics();
     }
 
     //FOR PLAYER (THINK ABOUT IT)
@@ -52,7 +51,7 @@ public abstract class Creature extends GameEntityVisiblePos implements LibGdxabl
         this.attributes = creature.getAttributes();
         this.pos = new Pos();
         this.log = new Log(name);
-        this.stats = new Statictics();
+        this.stats = new Statistics();
     }
 
     @Override
@@ -176,8 +175,12 @@ public abstract class Creature extends GameEntityVisiblePos implements LibGdxabl
     public void attackThis(int power){
         boolean wasHit = attributes.attack(power);
         if(wasHit){
-            log.log("Was hit with " + power + " damage");
+
+            //todo: should know who attack
+//            stats.updHitCount();
+//            log.log("Was hit with " + power + " damage");
         } else {
+            stats.updDodgeCount();
             log.log("Successfully dodge " + power + " damage");
         }
     }
@@ -215,7 +218,7 @@ public abstract class Creature extends GameEntityVisiblePos implements LibGdxabl
                 " " + attributes;
     }
 
-    public Statictics getStats() {
+    public Statistics getStats() {
         return stats;
     }
 }
