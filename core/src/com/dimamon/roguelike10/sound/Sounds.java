@@ -36,7 +36,7 @@ public class Sounds {
     }
 
     public static void monsterDeath(){
-        DEATH.play(0.5f);
+        DEATH.play(0.3f);
     }
 
     public static void attack(){
@@ -44,7 +44,7 @@ public class Sounds {
     }
 
     public static void attackMob(){
-        ATTACK.play(0.2f);
+        ATTACK.play(0.1f);
     }
 
     public static void pick(){
@@ -59,6 +59,6 @@ public class Sounds {
     }
 
     public static final void dodge(){
-        DODGE.play();
+        DODGE.play(0.5f);
     }
 }
