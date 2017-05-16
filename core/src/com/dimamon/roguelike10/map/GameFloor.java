@@ -12,6 +12,7 @@ import com.dimamon.roguelike10.entities.creatures.Creature;
 import com.dimamon.roguelike10.entities.creatures.params.Pos;
 import com.dimamon.roguelike10.entities.items.Item;
 import com.dimamon.roguelike10.entities.items.ItemsFactory;
+import com.dimamon.roguelike10.entities.player.Player;
 import com.dimamon.roguelike10.game.Turn;
 import com.dimamon.roguelike10.map.gameTile.GameTile;
 import com.dimamon.roguelike10.map.gameTile.GameTileFactory;
@@ -127,7 +128,14 @@ public class GameFloor extends GameEntity implements LibGdxable, Turn {
                 lifeCreatures.add(creature);
             } else {
                 //Dead in this turn
-                log.log("Creature "+creature.getName()+" is dead");
+                if(creature instanceof Player){
+                    log.log("You dead");
+                    //todo: set Lose screen
+
+                } else {
+                    log.log("Creature "+creature.getName()+" is dead");
+                }
+
                 putItem(creature.getPos(),ItemsFactory.getHeal());
             }
         }

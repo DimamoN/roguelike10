@@ -4,19 +4,25 @@ import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.dimamon.roguelike10.common.Log;
-import com.dimamon.roguelike10.screens.GameOverScreen;
+import com.dimamon.roguelike10.screens.LoseScreen;
 import com.dimamon.roguelike10.screens.GameScreen;
 import com.dimamon.roguelike10.screens.WinScreen;
 import com.dimamon.roguelike10.sound.Sounds;
 
-public class RoguelikeApp extends Game {
+/**
+ * Main application class
+ * Contains screens
+ */
+public class App extends Game {
 
 	private Log log = new Log("App");
 
-	//SCREENS
+	/**
+	 * Screens
+	 */
 	GameScreen gameScreen;
 	WinScreen winScreen;
-	GameOverScreen gameOverScreen;
+	LoseScreen loseScreen;
 
 	@Override
 	public void create () {
@@ -24,7 +30,7 @@ public class RoguelikeApp extends Game {
 
 		gameScreen = new GameScreen(this);
 		winScreen = new WinScreen(this);
-		gameOverScreen = new GameOverScreen(this);
+		loseScreen = new LoseScreen(this);
 
 		this.setScreen(gameScreen);
 	}
@@ -38,7 +44,7 @@ public class RoguelikeApp extends Game {
 	public void dispose () {
 		gameScreen.dispose();
 		winScreen.dispose();
-		gameOverScreen.dispose();
+//		gameScreen.dispose();
 		Sounds.dispose();
 	}
 

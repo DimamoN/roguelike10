@@ -1,16 +1,16 @@
 package com.dimamon.roguelike10.screens;
 
 import com.badlogic.gdx.Screen;
-import com.dimamon.roguelike10.RoguelikeApp;
+import com.dimamon.roguelike10.App;
 
 /**
  * Created by dimamon on 5/16/17.
  */
 public class AbstractScreen implements Screen {
 
-    private RoguelikeApp app;
+    protected App app;
 
-    public AbstractScreen(RoguelikeApp app) {
+    public AbstractScreen(App app) {
         this.app = app;
     }
 

@@ -4,7 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.dimamon.roguelike10.RoguelikeApp;
+import com.dimamon.roguelike10.App;
 import com.dimamon.roguelike10.common.CoordsTextLog;
 import com.dimamon.roguelike10.common.Log;
 import com.dimamon.roguelike10.entities.creatures.CreatureFactory;
@@ -25,10 +25,10 @@ public class GameScreen extends AbstractScreen{
     private Player player;
     private GameMap gameMap;
 
-    public GameScreen(final RoguelikeApp app) {
+    public GameScreen(final App app) {
         super(app);
         batch = new SpriteBatch();
-        player = new Player(CreatureFactory.getAndroidBlackPower(0));
+        player = new Player(CreatureFactory.getAndroidBlackPower(0), app);
         gameMap = new GameMap(player);
         coordsTextLog = new CoordsTextLog(gameMap);
     }
@@ -63,7 +63,6 @@ public class GameScreen extends AbstractScreen{
         gameMap.dispose();
         player.dispose();
         batch.dispose();
-        Sounds.dispose();
     }
 
     /**

@@ -3,6 +3,7 @@ package com.dimamon.roguelike10.entities.player;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.utils.TimeUtils;
+import com.dimamon.roguelike10.App;
 import com.dimamon.roguelike10.common.Direction;
 import com.dimamon.roguelike10.config.GameConfig;
 import com.dimamon.roguelike10.entities.LibGdxable;
@@ -11,6 +12,7 @@ import com.dimamon.roguelike10.entities.items.Item;
 import com.dimamon.roguelike10.entities.items.end.EndTerminal;
 import com.dimamon.roguelike10.entities.items.heals.Heal;
 import com.dimamon.roguelike10.map.GameMap;
+import com.dimamon.roguelike10.screens.WinScreen;
 import com.dimamon.roguelike10.sound.Sounds;
 
 /**
@@ -25,14 +27,17 @@ public class Player extends Creature implements LibGdxable {
      */
     long moveTime = 0l;
 
+    App app;
+
     /**
      * What player can do
      */
     private PlayerAbilities playerAbilities;
 
-    public Player(Creature creature) {
+    public Player(Creature creature, App app) {
         super("Player", creature);
         playerAbilities = new PlayerAbilities();
+        this.app = app;
     }
 
     @Override
@@ -45,7 +50,6 @@ public class Player extends Creature implements LibGdxable {
     }
     @Override
     public void turn() {
-//        log.log("Turn ["+stats.turnCount+"]");
         Sounds.step();
     }
 
@@ -54,26 +58,8 @@ public class Player extends Creature implements LibGdxable {
      */
     public void updateUserInput(){
 
-//        if(Gdx.input.isKeyJustPressed(Input.Keys.W) || Gdx.input.isKeyJustPressed(Input.Keys.UP)){
-//
-//            //TODO: Нажатие кнопкки должно начинать ход!
-//            //а не ход, после перемещения игрока
-//
-//            act(Direction.UP);
-//            initTurn();
-//        }
-//        if(Gdx.input.isKeyJustPressed(Input.Keys.S) || Gdx.input.isKeyJustPressed(Input.Keys.DOWN)){
-//            act(Direction.DOWN);
-//            initTurn();
-//        }
-//        if(Gdx.input.isKeyJustPressed(Input.Keys.A) || Gdx.input.isKeyJustPressed(Input.Keys.LEFT)){
-//            act(Direction.LEFT);
-//            initTurn();
-//        }
-//        if(Gdx.input.isKeyJustPressed(Input.Keys.D) || Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)){
-//            act(Direction.RIGHT);
-//            initTurn();
-//        }
+        //TODO: Нажатие кнопкки должно начинать ход!
+        //а не ход, после перемещения игрока
 
         if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)){
             onStairs();
@@ -147,9 +133,8 @@ public class Player extends Creature implements LibGdxable {
             playerAbilities.heal(item);
         } else if (item instanceof EndTerminal){
 
-            //TEST GAME OVER
             log.log("YOU WIN!");
-            Gdx.app.exit();
+            app.setScreen(new WinScreen(app));
         }
     }
 

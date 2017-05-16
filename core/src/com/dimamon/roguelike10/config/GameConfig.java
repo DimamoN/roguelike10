@@ -37,7 +37,7 @@ public class GameConfig {
     /**
      * DEEPS OF GAME MAP
      */
-    public static final int FLOOR_COUNT = 10;
+    public static final int FLOOR_COUNT = 2;
 
     public static final int DEFAULT_HP = 10;
     public static final int DEFAULT_ATTACK = 10;

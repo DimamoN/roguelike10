@@ -20,6 +20,9 @@ public class Sounds {
 
     private static final Sound PICK = Gdx.audio.newSound(Gdx.files.internal("sfx/pick.mp3"));
 
+    private static final Sound WIN = Gdx.audio.newSound(Gdx.files.internal("sfx/win.mp3"));
+    private static final Sound LOSE = Gdx.audio.newSound(Gdx.files.internal("sfx/lose.mp3"));
+
     public static void ambient(){
         CAVE.play(0.5f);
     }
@@ -56,9 +59,23 @@ public class Sounds {
         STEP2.dispose();
         STEP3.dispose();
         ATTACK.dispose();
+        DODGE.dispose();
+        DEATH.dispose();
+        PICK.dispose();
+        WIN.dispose();
+        LOSE.dispose();
     }
 
-    public static final void dodge(){
+    public static void dodge(){
         DODGE.play(0.5f);
     }
+
+    public static void win(){
+        WIN.play(0.5f);
+    }
+
+    public static void lose(){
+        LOSE.play(0.5f);
+    }
+
 }
