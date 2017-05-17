@@ -78,4 +78,7 @@ public class Sounds {
         LOSE.play(0.5f);
     }
 
+    public static void click() {
+        //TODO
+    }
 }
