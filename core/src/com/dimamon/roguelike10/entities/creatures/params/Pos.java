@@ -1,5 +1,6 @@
 package com.dimamon.roguelike10.entities.creatures.params;
 
+import com.dimamon.roguelike10.config.GameConfig;
 import com.dimamon.roguelike10.map.generator.Coord;
 
 /**
@@ -29,6 +30,8 @@ public class Pos {
     public Coord getCoord(){
         return new Coord(x,y);
     }
+
+
 
     @Override
     public boolean equals(Object o) {

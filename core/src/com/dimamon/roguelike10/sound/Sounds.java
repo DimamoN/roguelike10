@@ -23,6 +23,9 @@ public class Sounds {
     private static final Sound WIN = Gdx.audio.newSound(Gdx.files.internal("sfx/win.mp3"));
     private static final Sound LOSE = Gdx.audio.newSound(Gdx.files.internal("sfx/lose.mp3"));
 
+    private static final Sound CLICK = Gdx.audio.newSound(Gdx.files.internal("sfx/click.mp3"));
+
+
     public static void ambient(){
         CAVE.play(0.5f);
     }
@@ -79,6 +82,6 @@ public class Sounds {
     }
 
     public static void click() {
-        //TODO
+        CLICK.play(0.5f);
     }
 }

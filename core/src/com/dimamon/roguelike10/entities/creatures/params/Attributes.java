@@ -17,6 +17,8 @@ public class Attributes {
     protected int maxHp;
     protected int hp;
 
+    protected int vision;
+
     public Attributes(){
         this.hp = GameConfig.DEFAULT_HP;
         this.maxHp = hp;
@@ -28,6 +30,7 @@ public class Attributes {
         this.mind = mind;
         this.hp = GameConfig.DEFAULT_HP + str;
         this.maxHp = hp;
+        this.vision = GameConfig.DEFAULT_VISION_DISTANCE + mind/3;
     }
 
     public int getStr() {
@@ -44,6 +47,10 @@ public class Attributes {
 
     public int getHp() {
         return hp;
+    }
+
+    public int getVision() {
+        return vision;
     }
 
     /**

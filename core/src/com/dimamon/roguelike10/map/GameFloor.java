@@ -23,8 +23,10 @@ import com.dimamon.roguelike10.map.generator.floor.FloorGenerator;
 import com.dimamon.roguelike10.screens.LoseScreen;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.Queue;
 import java.util.stream.Collectors;
 
@@ -120,6 +122,7 @@ public class GameFloor extends GameEntity implements LibGdxable, Turn {
     }
     @Override
     public void turn() {
+
         //todo: make destroy system
         List<Creature> lifeCreatures = new ArrayList<>();
 
@@ -142,6 +145,8 @@ public class GameFloor extends GameEntity implements LibGdxable, Turn {
             }
         }
         creatures = lifeCreatures;
+
+        //Creatures make turn's
         creatures.stream().forEach(c -> c.turn());
     }
 
@@ -170,7 +175,6 @@ public class GameFloor extends GameEntity implements LibGdxable, Turn {
     public boolean isOnPos(Pos pos){
         return isOnPos(pos.x,pos.y);
     }
-
     public boolean isOnPos(int x, int y){
         boolean result = creatures.stream().anyMatch
                 (c -> c.getPos().x == x && c.getPos().y == y);
@@ -213,7 +217,6 @@ public class GameFloor extends GameEntity implements LibGdxable, Turn {
         else return false;
     }
 
-
     public boolean removeCreature(Creature creature){
 
         List<Creature> newcreatures = new ArrayList<>();
@@ -226,6 +229,32 @@ public class GameFloor extends GameEntity implements LibGdxable, Turn {
         creatures = newcreatures;
 
         return creatures.size() > newcreatures.size();
+    }
+
+    /**
+     * TODO: NEAREST, NOT ANY
+     *
+     * @param creature
+     * @return nearest enemy
+     */
+    public Creature nearestEnemy(Creature creature) {
+
+        Pos left = creature.getLeftVisCorner();
+        Pos right = creature.getRightVisCorner();
+
+        //Remove to avoid bug - find self
+        List<Creature> creaturesWithoutOne = new ArrayList<>();
+        creaturesWithoutOne.addAll(creatures);
+        creaturesWithoutOne.remove(creature);
+
+        Optional<Creature> enemy = creaturesWithoutOne.stream().filter(
+                c -> PosUtils.isIn(c.getPos(), left, right)).findAny();
+
+        if(enemy.isPresent()){
+            return enemy.get();
+        }
+
+        return null;
     }
 
     //-----------------STAIRS----------------------------------------------------

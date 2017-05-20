@@ -1,14 +1,8 @@
 package com.dimamon.roguelike10.entities.creatures.impl;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.dimamon.roguelike10.common.Act;
 import com.dimamon.roguelike10.common.Direction;
-import com.dimamon.roguelike10.config.GameConfig;
-import com.dimamon.roguelike10.config.MapUtils;
 import com.dimamon.roguelike10.entities.creatures.Creature;
-
-import java.util.Random;
 
 /**
  * Created by dimamon on 4/9/17.
@@ -23,7 +17,7 @@ public class Android extends Creature {
 
     @Override
     public void turn() {
-        act(Direction.random());
+        handleTurn();
     }
 
     @Override
@@ -35,4 +29,18 @@ public class Android extends Creature {
     public String toString() {
         return super.toString();
     }
+
+    /**
+     * Handle turn
+     * If creature saw the enemy - go and attack
+     * Else - move random
+     */
+    private void handleTurn(){
+        if(findEnemy() != null){
+            log.log("ENEMY FOUND! :"+ findEnemy().toString());
+        }else{
+            act(Direction.random());
+        }
+    }
+
 }

@@ -17,6 +17,7 @@ import com.dimamon.roguelike10.entities.creatures.params.Pos;
 import com.dimamon.roguelike10.entities.player.Player;
 import com.dimamon.roguelike10.game.Statistics;
 import com.dimamon.roguelike10.game.Turn;
+import com.dimamon.roguelike10.map.GameFloor;
 import com.dimamon.roguelike10.map.GameMap;
 import com.dimamon.roguelike10.sound.Sounds;
 
@@ -168,6 +169,11 @@ public abstract class Creature extends GameEntityVisiblePos implements LibGdxabl
                 (c -> c.attackThis(GameConfig.DEFAULT_ATTACK));
     }
 
+    public Creature findEnemy(){
+        GameFloor currentFloor = GameMap.getFloor(pos.floor);
+        return currentFloor.nearestEnemy(this);
+    }
+
     //-----------------------ATTACK AND LIFE---------------------------------
     /**
      * Attack this creature
@@ -200,6 +206,16 @@ public abstract class Creature extends GameEntityVisiblePos implements LibGdxabl
 
     public Attributes getAttributes() {
         return attributes;
+    }
+
+    public Pos getLeftVisCorner(){
+        return PosUtils.safeCreate(pos.x - this.getAttributes().getVision(),
+                pos.y - this.getAttributes().getVision());
+    }
+
+    public Pos getRightVisCorner(){
+        return PosUtils.safeCreate(pos.x + this.getAttributes().getVision(),
+                pos.y + this.getAttributes().getVision());
     }
 
     /**

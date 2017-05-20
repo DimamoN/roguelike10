@@ -5,13 +5,15 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
 import com.dimamon.roguelike10.App;
 import com.dimamon.roguelike10.config.GameConfig;
+
 /**
- * Created by dimamon on 5/17/17.
+ * First screen, loads assets
  */
 public class LoadingScreen extends AbstractScreen {
 
@@ -96,9 +98,10 @@ public class LoadingScreen extends AbstractScreen {
         app.assets.load("sfx/step2.mp3", Sound.class);
         app.assets.load("sfx/step3.mp3", Sound.class);
         app.assets.load("sfx/win.mp3", Sound.class);
+        app.assets.load("sfx/click.mp3", Sound.class);
 
         //Font
-//        app.assets.load("fonts/micra.ttf", BitmapFont.class);
+//        app.assets.load("fonts/font.fnt", BitmapFont.class);
 
         app.assets.load("ui/uiskin.atlas", TextureAtlas.class);
         app.assets.load("ui/uiskin.png", Texture.class);
