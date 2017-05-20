@@ -216,6 +216,9 @@ public class GameFloor extends GameEntity implements LibGdxable, Turn {
         }
         else return false;
     }
+    public boolean canMove(Pos pos){
+        return !floorMap[pos.x][pos.y].isBlocking();
+    }
 
     public boolean removeCreature(Creature creature){
 

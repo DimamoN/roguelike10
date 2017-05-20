@@ -2,7 +2,9 @@ package com.dimamon.roguelike10.entities.creatures.impl;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.dimamon.roguelike10.common.Direction;
+import com.dimamon.roguelike10.config.PosUtils;
 import com.dimamon.roguelike10.entities.creatures.Creature;
+import com.dimamon.roguelike10.map.GameMap;
 
 /**
  * Created by dimamon on 4/9/17.
@@ -36,8 +38,20 @@ public class Android extends Creature {
      * Else - move random
      */
     private void handleTurn(){
-        if(findEnemy() != null){
-            log.log("ENEMY FOUND! :"+ findEnemy().toString());
+
+        Creature enemy = findEnemy();
+
+        if(enemy != null){
+            Direction dir = PosUtils.getDirection(pos, enemy.getPos());
+
+            if(GameMap.getFloor(pos.floor).canMove(PosUtils.plusDir(pos, dir))){
+                log.log("ENEMY FOUND! :"+ enemy.getName() + " go " + dir);
+                act(dir);
+            } else {
+                Direction random = Direction.random();
+                log.log("ENEMY FOUND! :"+ enemy.getName() + " but stuck, so go " + random);
+                act(random);
+            }
         }else{
             act(Direction.random());
         }

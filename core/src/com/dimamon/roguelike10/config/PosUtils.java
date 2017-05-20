@@ -20,14 +20,14 @@ public class PosUtils {
         //CHECK X
         if(x < GameConfig.FLOOR_SIZE_X && x > 0){
             resultX = x;
-        } else if (x < 0){
+        } else if (x <= 0){
             resultX = 0;
         } else resultX = GameConfig.FLOOR_SIZE_X;
 
         //CHECK Y
         if(y < GameConfig.FLOOR_SIZE_Y && y > 0){
             resultY = y;
-        } else if (y < 0){
+        } else if (y <= 0){
             resultY = 0;
         } else resultY = GameConfig.FLOOR_SIZE_Y;
 
@@ -84,10 +84,29 @@ public class PosUtils {
 
     }
 
+    public static Pos delta(Pos pos1, Pos pos2){
+        return new Pos(pos2.x - pos1.x, pos2.y - pos1.y);
+    }
+
     public static boolean isInGameField(Pos pos) {
         if(pos.x < GameConfig.FLOOR_SIZE_X && pos.y < GameConfig.FLOOR_SIZE_Y
                 && pos.x >= 0 && pos.y >= 0){
             return true;
         } else return false;
+    }
+
+    public static Direction getDirection(Pos from, Pos to){
+
+        Pos delta = delta(from,to);
+
+        if(delta.x > 0) return Direction.RIGHT;
+        else if (delta.x < 0) return Direction.LEFT;
+        else if (delta.y > 0) return Direction.UP;
+        else if (delta.y < 0) return Direction.DOWN;
+        else {
+            log.log("else");
+            return Direction.random();
+        }
+        //maybe should return none
     }
 }
