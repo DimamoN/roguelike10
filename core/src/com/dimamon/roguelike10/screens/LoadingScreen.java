@@ -5,15 +5,11 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.utils.Json;
 import com.dimamon.roguelike10.App;
 import com.dimamon.roguelike10.config.GameConfig;
-import com.sun.xml.internal.txw2.Document;
-
 /**
  * Created by dimamon on 5/17/17.
  */

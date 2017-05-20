@@ -29,6 +29,7 @@ public class App extends Game {
 
 	private Log log = new Log("App");
 
+	// State
 	public OrthographicCamera camera;
 	public BitmapFont font24;
 
