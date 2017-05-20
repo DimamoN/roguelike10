@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.dimamon.roguelike10.App;
+import com.dimamon.roguelike10.common.GdxClear;
 import com.dimamon.roguelike10.config.GameConfig;
 import com.dimamon.roguelike10.sound.Sounds;
 
@@ -37,12 +38,9 @@ public class LoseScreen extends AbstractScreen {
     @Override
     public void render(float delta) {
         handleInput();
-        Gdx.gl.glClearColor(0, 0, 0, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        GdxClear.clearScreen();
         batch.begin();
-
         font.draw(batch,"YOU LOSE! Press SPACE to play again, Q to exit", GameConfig.WIDTH/2,GameConfig.HEIGHT/2);
-
         batch.end();
     }
 

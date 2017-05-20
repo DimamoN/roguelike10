@@ -1,5 +1,7 @@
 package com.dimamon.roguelike10.config;
 
+import com.badlogic.gdx.graphics.Color;
+
 /**
  * Created by dimamon on 4/9/17.
  */
@@ -41,7 +43,7 @@ public class GameConfig {
 
     public static final int DEFAULT_HP = 10;
     public static final int DEFAULT_ATTACK = 10;
-    public static final int DEFAULT_HEAL = 10;
+    public static final int DEFAULT_HEAL = 5;
     /**
      * In percent
      */
@@ -56,4 +58,10 @@ public class GameConfig {
      * Minimum distance between stairs up and stairs down
      */
     public static final int STAIRS_DISTANCE = 25;
+
+
+    //-----------VISUAL------------------------------
+
+    public static final Color GAME_SCREEN_BACKGROUND = new Color(0.50f, 0.35f, 0.1f, 1f);
+
 }

@@ -12,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.dimamon.roguelike10.App;
+import com.dimamon.roguelike10.common.GdxClear;
 import com.dimamon.roguelike10.common.Log;
 import com.dimamon.roguelike10.config.GameConfig;
 import com.dimamon.roguelike10.sound.Sounds;
@@ -84,9 +85,7 @@ public class MainMenuScreen extends AbstractScreen{
 
     @Override
     public void render(float delta) {
-        Gdx.gl.glClearColor(0.9f, 0.8f, 0.9f, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
+        GdxClear.clearScreen();
         stage.draw();
 
         update(delta);
