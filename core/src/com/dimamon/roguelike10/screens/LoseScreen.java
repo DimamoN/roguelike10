@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.dimamon.roguelike10.App;
 import com.dimamon.roguelike10.common.GdxClear;
 import com.dimamon.roguelike10.config.GameConfig;
+import com.dimamon.roguelike10.game.gameLog.StaticGameLog;
 import com.dimamon.roguelike10.sound.Sounds;
 
 public class LoseScreen extends AbstractScreen {
@@ -20,6 +21,7 @@ public class LoseScreen extends AbstractScreen {
     @Override
     public void show() {
         Sounds.lose();
+        StaticGameLog.reset();
     }
 
     @Override

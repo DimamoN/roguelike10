@@ -53,7 +53,7 @@ public class GameScreen extends AbstractScreen{
         gameMap.render(app.batch);
         gameLogRenderer.render(app.batch);
         coordsTextLog.render(app.batch);
-        app.drawBackground(0.1f);
+        app.drawBackground(0.06f);
 
         app.batch.end();
     }

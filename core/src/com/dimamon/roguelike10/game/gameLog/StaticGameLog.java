@@ -32,4 +32,8 @@ public class StaticGameLog {
         return messagesLog.peekLast();
     }
 
+    public static void reset(){
+        messagesLog.clear();
+    }
+
 }

@@ -166,6 +166,7 @@ public class Player extends Creature implements LibGdxable {
             addToLog("You win!");
             app.setScreen(new WinScreen(app));
         }
+        initTurn();
     }
 
     class PlayerAbilities{
