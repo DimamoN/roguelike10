@@ -45,6 +45,7 @@ public class WinScreen extends AbstractScreen {
         win.draw(app.batch,0.75f);
         font.draw(app.batch,"YOU WIN! Press SPACE to play again, Q to exit",
                 GameConfig.WIDTH/2 - 50,GameConfig.HEIGHT/2);
+        app.drawBackground(0.1f);
         app.batch.end();
     }
 

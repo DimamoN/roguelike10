@@ -11,23 +11,10 @@ import com.dimamon.roguelike10.common.GdxClear;
 import com.dimamon.roguelike10.config.GameConfig;
 import com.dimamon.roguelike10.sound.Sounds;
 
-/**
- * Created by dimamon on 5/16/17.
- */
 public class LoseScreen extends AbstractScreen {
-
-    Color fontColor = new Color(0.5f,0.3f,0f,1f);
-    BitmapFont font;
-
-    private SpriteBatch batch;
 
     public LoseScreen(final App app) {
         super(app);
-
-        font = new BitmapFont();
-        font.setColor(fontColor);
-
-        batch = new SpriteBatch();
     }
 
     @Override
@@ -39,9 +26,11 @@ public class LoseScreen extends AbstractScreen {
     public void render(float delta) {
         handleInput();
         GdxClear.clearScreen();
-        batch.begin();
-        font.draw(batch,"YOU LOSE! Press SPACE to play again, Q to exit", GameConfig.WIDTH/2,GameConfig.HEIGHT/2);
-        batch.end();
+
+        app.batch.begin();
+        app.font24.draw(app.batch,"YOU LOSE! Press SPACE to play again, Q to exit", GameConfig.WIDTH/3,GameConfig.HEIGHT/2);
+        app.drawBackground(0.1f);
+        app.batch.end();
     }
 
     private void handleInput(){
@@ -57,7 +46,5 @@ public class LoseScreen extends AbstractScreen {
 
     @Override
     public void dispose() {
-        font.dispose();
-        batch.dispose();
     }
 }

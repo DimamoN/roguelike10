@@ -12,6 +12,7 @@ import com.badlogic.gdx.math.MathUtils;
 import com.dimamon.roguelike10.App;
 import com.dimamon.roguelike10.common.GdxClear;
 import com.dimamon.roguelike10.config.GameConfig;
+import com.dimamon.roguelike10.entities.TextureFactory;
 
 /**
  * First screen, loads assets
@@ -46,7 +47,8 @@ public class LoadingScreen extends AbstractScreen {
         shapeRenderer.end();
 
         app.batch.begin();
-        app.font24.draw(app.batch, "LOADING", 32,20);
+        app.drawBackground(0.3f);
+        app.font24.draw(app.batch, "LOADING...", GameConfig.WIDTH/2, 40);
         app.batch.end();
 
     }
@@ -104,6 +106,10 @@ public class LoadingScreen extends AbstractScreen {
 
         app.assets.load("ui/uiskin.atlas", TextureAtlas.class);
         app.assets.load("ui/uiskin.png", Texture.class);
+
+        // Backgrounds
+        app.assets.load("ui/sand.jpg", Texture.class);
+
 //        app.assets.load("ui/uiskin.json", Document.class);
     }
 

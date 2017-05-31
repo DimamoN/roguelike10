@@ -12,6 +12,7 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeType;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.dimamon.roguelike10.common.Log;
 import com.dimamon.roguelike10.config.GameConfig;
+import com.dimamon.roguelike10.entities.TextureFactory;
 import com.dimamon.roguelike10.screens.LoadingScreen;
 import com.dimamon.roguelike10.screens.LoseScreen;
 import com.dimamon.roguelike10.screens.GameScreen;
@@ -93,6 +94,16 @@ public class App extends Game {
 //		gameScreen.dispose();
 		Sounds.dispose();
 		assets.dispose();
+	}
+
+	/**
+	 * Use for draw background on screens (after batch.start)
+	 * @param transparency
+	 */
+	public void drawBackground(float transparency){
+		batch.setColor(1f,1f,1f,transparency);
+		batch.draw(TextureFactory.getSand(), 0,0);
+		batch.setColor(1f,1f,1f,1f);
 	}
 
 }

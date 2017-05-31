@@ -27,7 +27,7 @@ public class StaticGameLog {
 
     public static String getLastMessage(){
         if(messagesLog.peekLast() == null){
-            return "Nothing hapent";
+            return "Nothing hapents";
         }
         return messagesLog.peekLast();
     }

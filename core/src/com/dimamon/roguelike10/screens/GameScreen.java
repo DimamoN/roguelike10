@@ -22,7 +22,6 @@ public class GameScreen extends AbstractScreen{
     private Log log = new Log("Game");
 
     private CoordsTextLog coordsTextLog;
-    private SpriteBatch batch;
     private Player player;
     private GameMap gameMap;
 
@@ -30,7 +29,6 @@ public class GameScreen extends AbstractScreen{
 
     public GameScreen(final App app) {
         super(app);
-        batch = new SpriteBatch();
         player = new Player(CreatureFactory.getAndroidBlackPower(0), app);
         gameMap = new GameMap(player, app);
         coordsTextLog = new CoordsTextLog(gameMap);
@@ -49,13 +47,15 @@ public class GameScreen extends AbstractScreen{
         update();
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        batch.begin();
 
-        gameMap.render(batch);
-        gameLogRenderer.render(batch);
-        coordsTextLog.render(batch);
+        app.batch.begin();
 
-        batch.end();
+        gameMap.render(app.batch);
+        gameLogRenderer.render(app.batch);
+        coordsTextLog.render(app.batch);
+        app.drawBackground(0.1f);
+
+        app.batch.end();
     }
 
     public void update (){
@@ -67,7 +67,6 @@ public class GameScreen extends AbstractScreen{
     public void dispose () {
         gameMap.dispose();
         player.dispose();
-        batch.dispose();
     }
 
     /**

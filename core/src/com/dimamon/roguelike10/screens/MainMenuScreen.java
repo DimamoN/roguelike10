@@ -15,11 +15,10 @@ import com.dimamon.roguelike10.App;
 import com.dimamon.roguelike10.common.GdxClear;
 import com.dimamon.roguelike10.common.Log;
 import com.dimamon.roguelike10.config.GameConfig;
+import com.dimamon.roguelike10.entities.TextureFactory;
 import com.dimamon.roguelike10.sound.Sounds;
 
-/**
- * Created by dimamon on 5/16/17.
- */
+
 public class MainMenuScreen extends AbstractScreen{
 
     private Log log = new Log("Menu");
@@ -29,6 +28,9 @@ public class MainMenuScreen extends AbstractScreen{
     ShapeRenderer shapeRenderer;
     Stage stage;
 
+    private static int BUTTON_WIDTH = 350;
+    private static int BUTTON_HEIGHT = 100;
+
     public MainMenuScreen(App app) {
         super(app);
         this.stage = new Stage(new StretchViewport(GameConfig.WIDTH, GameConfig.HEIGHT,app.camera));
@@ -37,15 +39,10 @@ public class MainMenuScreen extends AbstractScreen{
 
     @Override
     public void show() {
-
         Gdx.input.setInputProcessor(stage);
         stage.clear();
 
         skin = new Skin();
-
-        System.out.println("SKIN!!!" + skin);
-        System.out.println("Font : " + app.font24);
-
         skin.add("default-font", app.font24);
         skin.addRegions(app.assets.get("ui/uiskin.atlas", TextureAtlas.class));
         skin.load(Gdx.files.internal("ui/uiskin.json"));
@@ -55,8 +52,8 @@ public class MainMenuScreen extends AbstractScreen{
 
     private void initButtons(){
         buttonPlay = new TextButton("Play",skin,"default");
-        buttonPlay.setPosition(110,260);
-        buttonPlay.setSize(280,60);
+        buttonPlay.setPosition(GameConfig.WIDTH/2 - buttonPlay.getWidth(),GameConfig.HEIGHT/2);
+        buttonPlay.setSize(BUTTON_WIDTH,BUTTON_HEIGHT);
         buttonPlay.addAction(Actions.moveBy(0,-20,.5f));
         buttonPlay.addListener(new ClickListener(){
 
@@ -68,8 +65,10 @@ public class MainMenuScreen extends AbstractScreen{
         });
 
         buttonExit = new TextButton("Exit", skin, "default");
-        buttonExit.setPosition(110,190);
-        buttonExit.setSize(280,60);
+        buttonExit.setPosition(GameConfig.WIDTH/2 - buttonExit.getWidth(),
+                GameConfig.HEIGHT/2 - BUTTON_HEIGHT);
+
+        buttonExit.setSize(BUTTON_WIDTH,BUTTON_HEIGHT);
         buttonExit.addAction(Actions.moveBy(0,-20,.5f));
         buttonExit.addListener(new ClickListener(){
             @Override
@@ -87,6 +86,10 @@ public class MainMenuScreen extends AbstractScreen{
     public void render(float delta) {
         GdxClear.clearScreen();
         stage.draw();
+
+        app.batch.begin();
+        app.drawBackground(0.1f);
+        app.batch.end();
 
         update(delta);
     }
