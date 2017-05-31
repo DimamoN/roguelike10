@@ -1,7 +1,6 @@
 package com.dimamon.roguelike10.entities.creatures.params;
 
 import com.badlogic.gdx.math.MathUtils;
-import com.dimamon.roguelike10.common.Log;
 import com.dimamon.roguelike10.config.GameConfig;
 import com.dimamon.roguelike10.sound.Sounds;
 
@@ -12,7 +11,8 @@ import com.dimamon.roguelike10.sound.Sounds;
 public class Attributes {
 
     //Main attributes
-    protected int str,dex,mind;
+    //strength, dexterity, perception
+    protected int str,dex,perc;
 
     protected int maxHp;
     protected int hp;
@@ -24,13 +24,13 @@ public class Attributes {
         this.maxHp = hp;
     }
 
-    public Attributes(int str, int dex, int mind) {
+    public Attributes(int str, int dex, int perc) {
         this.str = str;
         this.dex = dex;
-        this.mind = mind;
+        this.perc = perc;
         this.hp = GameConfig.DEFAULT_HP + str;
         this.maxHp = hp;
-        this.vision = GameConfig.DEFAULT_VISION_DISTANCE + mind/3;
+        this.vision = GameConfig.DEFAULT_VISION_DISTANCE + perc /3;
     }
 
     public int getStr() {
@@ -41,8 +41,8 @@ public class Attributes {
         return dex;
     }
 
-    public int getMind() {
-        return mind;
+    public int getPerc() {
+        return perc;
     }
 
     public int getHp() {
@@ -96,7 +96,7 @@ public class Attributes {
         return "{" +
                 "str=" + str +
                 ", dex=" + dex +
-                ", mind=" + mind +
+                ", perc=" + perc +
                 ", hp=" + hp +
                 '}';
     }

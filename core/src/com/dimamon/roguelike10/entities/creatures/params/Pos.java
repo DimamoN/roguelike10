@@ -53,12 +53,17 @@ public class Pos {
         return result;
     }
 
+//    @Override
+//    public String toString() {
+//        return "Pos{" +
+//                "x=" + x +
+//                ", y=" + y +
+//                ", floor=" + floor +
+//                '}';
+//    }
+
     @Override
     public String toString() {
-        return "Pos{" +
-                "x=" + x +
-                ", y=" + y +
-                ", floor=" + floor +
-                '}';
+        return "[" + x + ", " + y + "]";
     }
 }

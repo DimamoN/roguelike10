@@ -17,6 +17,7 @@ import com.dimamon.roguelike10.entities.creatures.params.Pos;
 import com.dimamon.roguelike10.entities.player.Player;
 import com.dimamon.roguelike10.game.Statistics;
 import com.dimamon.roguelike10.game.Turn;
+import com.dimamon.roguelike10.game.gameLog.StaticGameLog;
 import com.dimamon.roguelike10.map.GameFloor;
 import com.dimamon.roguelike10.map.GameMap;
 import com.dimamon.roguelike10.sound.Sounds;
@@ -111,6 +112,11 @@ public abstract class Creature extends GameEntityVisiblePos implements LibGdxabl
         act(choseAct(direction));
     }
 
+    /**
+     * Directly act, with logging to GameLog
+     *
+     * @param act
+     */
     public void act(Act act){
 
 //        log.debug("Act = " + act);

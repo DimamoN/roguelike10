@@ -8,13 +8,11 @@ import com.dimamon.roguelike10.entities.LibGdxable;
 import com.dimamon.roguelike10.entities.player.Player;
 import com.dimamon.roguelike10.entities.creatures.Creature;
 import com.dimamon.roguelike10.game.Turn;
-import com.dimamon.roguelike10.map.generator.Coord;
 import com.dimamon.roguelike10.map.generator.floor.FloorGenerator;
 import com.dimamon.roguelike10.map.generator.floor.impl.GridFloorGenerator;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import static com.dimamon.roguelike10.config.GameConfig.FLOOR_COUNT;
 
@@ -72,13 +70,18 @@ public class GameMap implements LibGdxable, Turn {
     public static GameFloor getFloor(int n){
         return floors.get(n);
     }
-    public void onStairs() {
 
+
+    /**
+     * Return message to log
+     * @return
+     */
+    public String onStairs() {
         if(getFloor(player.getFloor()).isOnStepLow(player.getPos())){
             int nextFloor = player.getFloor() + 1;
             if(nextFloor >= GameConfig.FLOOR_COUNT){
                 log.error("No more floors");
-                return;
+                return "No more floors";
             }
             log.log("Going down, to " + nextFloor);
             // Remove from current floor
@@ -87,21 +90,24 @@ public class GameMap implements LibGdxable, Turn {
             putPlayerToFloor(nextFloor);
             player.setFloor(nextFloor);
             setCurrentFloor(nextFloor);
+            return "Going down to " + nextFloor + " floor";
         }
         else if(getFloor(player.getFloor()).isOnStepUp(player.getPos())){
             int nextFloor = player.getFloor() - 1;
             if(nextFloor < 0){
                 log.error("No more floors");
-                return;
+                return "No more floors";
             }
-            log.log("Going up, to " + nextFloor);
+            log.log("Going up to " + nextFloor);
             // Remove from current floor
             getFloor(player.getFloor()).removeCreature(player);
             // Put on next floor
             putPlayerToFloor(nextFloor);
             player.setFloor(nextFloor);
             setCurrentFloor(nextFloor);
+            return "Going up to " + nextFloor + " floor";
         }
+        return "There no stairs here";
     }
     public void putPlayerToFloorRandomSpace(int floor){
         floors.get(floor).addOnFloorRndSpace(player,floor);

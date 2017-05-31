@@ -49,7 +49,7 @@ public class CoordsTextLog implements LibGdxable {
         // Player stats
         font.draw(batch, "str:"+player.getAttributes().getStr()+
                 " dex:"+player.getAttributes().getStr()+
-                " mind:"+player.getAttributes().getMind()+
+                " perc:"+player.getAttributes().getPerc()+
                 " HP:"+player.getAttributes().getHp()+
                 " Turn: "+player.getStats().getTurnCount()+
                 " Hit: "+ player.getStats().getHit()+

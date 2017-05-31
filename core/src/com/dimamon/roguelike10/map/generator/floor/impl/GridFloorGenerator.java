@@ -32,7 +32,7 @@ public class GridFloorGenerator extends AbstractFloorGenerator {
     protected GameTile[][] generateFloor() {
 
         // Generate room starts
-        generateRoomGridRoomWithChance(5);
+        generateRoomGridRoomWithChance(50);
 
         // Add room with stepUp coord
         roomsStart.add(stepUp);
@@ -52,7 +52,7 @@ public class GridFloorGenerator extends AbstractFloorGenerator {
 
                 //Set room starts
                 if(x % CELL_SIZE == 0 && y % CELL_SIZE == 0 &&
-                        MathUtils.random(1,10) <= roomChance){
+                        MathUtils.random(1,100) <= roomChance){
                     floorMap[x][y] = GameTileFactory.getFloor();
                     roomsStart.add(new Coord(x, y));
                 } else {

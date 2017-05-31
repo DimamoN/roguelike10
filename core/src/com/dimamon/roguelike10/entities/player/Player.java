@@ -4,13 +4,17 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.dimamon.roguelike10.App;
+import com.dimamon.roguelike10.common.Act;
+import com.dimamon.roguelike10.common.Action;
 import com.dimamon.roguelike10.common.Direction;
 import com.dimamon.roguelike10.config.GameConfig;
+import com.dimamon.roguelike10.config.PosUtils;
 import com.dimamon.roguelike10.entities.LibGdxable;
 import com.dimamon.roguelike10.entities.creatures.Creature;
 import com.dimamon.roguelike10.entities.items.Item;
 import com.dimamon.roguelike10.entities.items.end.EndTerminal;
 import com.dimamon.roguelike10.entities.items.heals.Heal;
+import com.dimamon.roguelike10.game.gameLog.StaticGameLog;
 import com.dimamon.roguelike10.map.GameMap;
 import com.dimamon.roguelike10.screens.WinScreen;
 import com.dimamon.roguelike10.sound.Sounds;
@@ -105,7 +109,8 @@ public class Player extends Creature implements LibGdxable {
     }
 
     private void onStairs(){
-        map.onStairs();
+        String result = map.onStairs();
+        addToLog(result);
     }
 
     public void setMap(GameMap map) {
@@ -125,6 +130,31 @@ public class Player extends Creature implements LibGdxable {
     }
 
     /**
+     * Directly act, with logging to GameLog
+     *
+     * @param act
+     */
+    @Override
+    public void act(Act act){
+        stats.updTurnCount();
+
+        if(act.getAction() == Action.MOVE){
+            addToLog("You move " + act.getDirection() +
+                    " to "+ PosUtils.plusDir(pos,act.getDirection()));
+            move(act.getDirection());
+
+        }
+        else if(act.getAction() == Action.ATTACK){
+            addToLog("You attack to " + act.getDirection());
+            attack(act.getDirection());
+        }
+    }
+
+    private void addToLog(String message){
+        StaticGameLog.addMessage(message);
+    }
+
+    /**
      * Main usage of the items by player
      * @param item
      */
@@ -133,7 +163,7 @@ public class Player extends Creature implements LibGdxable {
             playerAbilities.heal(item);
         } else if (item instanceof EndTerminal){
 
-            log.log("YOU WIN!");
+            addToLog("You win!");
             app.setScreen(new WinScreen(app));
         }
     }
@@ -142,6 +172,8 @@ public class Player extends Creature implements LibGdxable {
 
         public void heal(Item item){
             Heal heal = (Heal) item;
+            addToLog("Healing with: " + heal.getName());
+            //remove
             log.log("Healing with: " + heal.getName());
             attributes.addHp(heal.getPower());
         }
