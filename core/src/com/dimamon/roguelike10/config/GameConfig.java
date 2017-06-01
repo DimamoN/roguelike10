@@ -8,6 +8,8 @@ import com.badlogic.gdx.graphics.Color;
 
 public class GameConfig {
 
+    public static final String VERSION = "dev.62";
+
     /**
      * WIDTH AND HEIGHT OF GAME SCREEN IN PIXELS
      * 1) 800 x 480  (25:15 blocks)

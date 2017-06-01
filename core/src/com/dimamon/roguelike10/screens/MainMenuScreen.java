@@ -60,6 +60,7 @@ public class MainMenuScreen extends AbstractScreen{
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 Sounds.click();
+                stage.clear();
                 app.setScreen(new GameScreen(app));
             }
         });
