@@ -236,8 +236,8 @@ public class GameFloor extends GameEntity implements LibGdxable, Turn {
 
     /**
      * TODO: NEAREST, NOT ANY
-     *
-     * @param creature
+     * Find enemy
+     * @param creature - who whats to find an enemy
      * @return nearest enemy
      */
     public Creature nearestEnemy(Creature creature) {
@@ -254,9 +254,12 @@ public class GameFloor extends GameEntity implements LibGdxable, Turn {
                 c -> PosUtils.isIn(c.getPos(), left, right)).findAny();
 
         if(enemy.isPresent()){
-            return enemy.get();
+            // If creature is player = this is enemy
+            Creature enemyCreature = enemy.get();
+            if(enemyCreature instanceof Player){
+                return enemyCreature;
+            }
         }
-
         return null;
     }
 

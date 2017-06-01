@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.Color;
 
 public class GameConfig {
 
-    public static final String VERSION = "dev.63";
+    public static final String VERSION = "dev.64";
     public static final String NAME = "Roguelike10";
     public static final String FULL_NAME = NAME + " " + VERSION;
 
@@ -43,7 +43,7 @@ public class GameConfig {
     /**
      * DEEPS OF GAME MAP
      */
-    public static final int FLOOR_COUNT = 5;
+    public static final int FLOOR_COUNT = 6;
 
     public static final int DEFAULT_HP = 10;
     public static final int DEFAULT_ATTACK = 5;

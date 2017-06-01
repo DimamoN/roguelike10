@@ -23,6 +23,7 @@ import com.dimamon.roguelike10.map.GameMap;
 import com.dimamon.roguelike10.sound.Sounds;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 /**
@@ -160,16 +161,28 @@ public abstract class Creature extends GameEntityVisiblePos implements LibGdxabl
 
     public void attack(Direction direction){
 
-        if(this instanceof Player){
-            Sounds.attack();
-        } else {
-            Sounds.attackMob();
-        }
-
+        // Whom we want to attack
         List<Creature> creaturesToAttack = map.getCurrentFloor()
                 .getOnPos(PosUtils.plusDir(pos, direction));
-        creaturesToAttack.stream().forEach
-                (c -> c.attackThis(this.getAttributes().getAttackPower()));
+
+        if(this instanceof Player){
+            Sounds.attack();
+            //Player is attacking enemies
+            creaturesToAttack.stream().forEach
+                    (c -> c.attackThis(this.getAttributes().getAttackPower()));
+        } else {
+            //Enemy is attacking player
+            List<Creature> isPlayerHere = creaturesToAttack.stream()
+                    .filter(creature -> creature instanceof Player)
+                    .collect(Collectors.toList());
+
+            //If there player - attack, if not - don't attack
+            if(!isPlayerHere.isEmpty()){
+                Sounds.attackMob();
+                creaturesToAttack.stream().forEach
+                        (c -> c.attackThis(this.getAttributes().getAttackPower()));
+            }
+        }
     }
 
     public Creature findEnemy(){

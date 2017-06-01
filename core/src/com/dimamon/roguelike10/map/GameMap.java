@@ -10,6 +10,7 @@ import com.dimamon.roguelike10.entities.creatures.Creature;
 import com.dimamon.roguelike10.game.Turn;
 import com.dimamon.roguelike10.map.generator.floor.FloorGenerator;
 import com.dimamon.roguelike10.map.generator.floor.impl.GridFloorGenerator;
+import com.dimamon.roguelike10.sound.Sounds;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -90,6 +91,7 @@ public class GameMap implements LibGdxable, Turn {
             putPlayerToFloor(nextFloor);
             player.setFloor(nextFloor);
             setCurrentFloor(nextFloor);
+            Sounds.door();
             return "Going down to " + nextFloor + " floor";
         }
         else if(getFloor(player.getFloor()).isOnStepUp(player.getPos())){
@@ -105,6 +107,7 @@ public class GameMap implements LibGdxable, Turn {
             putPlayerToFloor(nextFloor);
             player.setFloor(nextFloor);
             setCurrentFloor(nextFloor);
+            Sounds.door();
             return "Going up to " + nextFloor + " floor";
         }
         return "There no stairs here";

@@ -19,6 +19,7 @@ public class Sounds {
     private static final Sound DODGE = Gdx.audio.newSound(Gdx.files.internal("sfx/dodge.wav"));
 
     private static final Sound PICK = Gdx.audio.newSound(Gdx.files.internal("sfx/pick.mp3"));
+    private static final Sound DOOR = Gdx.audio.newSound(Gdx.files.internal("sfx/door.mp3"));
 
     private static final Sound WIN = Gdx.audio.newSound(Gdx.files.internal("sfx/win.mp3"));
     private static final Sound LOSE = Gdx.audio.newSound(Gdx.files.internal("sfx/lose.mp3"));
@@ -46,7 +47,7 @@ public class Sounds {
     }
 
     public static void attack(){
-        ATTACK.play(0.4f);
+        ATTACK.play(0.3f);
     }
 
     public static void attackMob(){
@@ -55,6 +56,10 @@ public class Sounds {
 
     public static void pick(){
         PICK.play(0.8f);
+    }
+
+    public static void door(){
+        DOOR.play(0.2f);
     }
 
     public static void dispose(){
@@ -67,6 +72,7 @@ public class Sounds {
         PICK.dispose();
         WIN.dispose();
         LOSE.dispose();
+        DOOR.dispose();
     }
 
     public static void dodge(){
