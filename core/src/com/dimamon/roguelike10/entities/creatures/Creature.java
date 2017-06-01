@@ -132,9 +132,6 @@ public abstract class Creature extends GameEntityVisiblePos implements LibGdxabl
     }
 
     public void move(Direction direction) {
-
-//        log.debug("Moving " + direction);
-
         switch (direction){
             case UP:{
                 pos.y = ++pos.y;
@@ -172,7 +169,7 @@ public abstract class Creature extends GameEntityVisiblePos implements LibGdxabl
         List<Creature> creaturesToAttack = map.getCurrentFloor()
                 .getOnPos(PosUtils.plusDir(pos, direction));
         creaturesToAttack.stream().forEach
-                (c -> c.attackThis(GameConfig.DEFAULT_ATTACK));
+                (c -> c.attackThis(this.getAttributes().getAttackPower()));
     }
 
     public Creature findEnemy(){

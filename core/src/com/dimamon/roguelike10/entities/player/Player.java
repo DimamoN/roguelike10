@@ -62,9 +62,6 @@ public class Player extends Creature implements LibGdxable {
      */
     public void updateUserInput(){
 
-        //TODO: Нажатие кнопкки должно начинать ход!
-        //а не ход, после перемещения игрока
-
         if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)){
             onStairs();
         }
@@ -77,15 +74,15 @@ public class Player extends Creature implements LibGdxable {
             act(Direction.UP);
             initTurn();
         }
-        if(Gdx.input.isKeyPressed(Input.Keys.S) || Gdx.input.isKeyPressed(Input.Keys.DOWN) && isMoveTime()){
+        if((Gdx.input.isKeyPressed(Input.Keys.S) || Gdx.input.isKeyPressed(Input.Keys.DOWN)) && isMoveTime()){
             act(Direction.DOWN);
             initTurn();
         }
-        if(Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.LEFT) && isMoveTime()){
+        if((Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.LEFT)) && isMoveTime()){
             act(Direction.LEFT);
             initTurn();
         }
-        if(Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.RIGHT) && isMoveTime()){
+        if((Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.RIGHT)) && isMoveTime()){
             act(Direction.RIGHT);
             initTurn();
         }
@@ -173,10 +170,13 @@ public class Player extends Creature implements LibGdxable {
 
         public void heal(Item item){
             Heal heal = (Heal) item;
-            addToLog("Healing with: " + heal.getName());
-            //remove
-            log.log("Healing with: " + heal.getName());
-            attributes.addHp(heal.getPower());
+            int hpAdded = attributes.addHp(heal.getPower());
+            if(hpAdded == 0){
+                addToLog("Already full HP");
+            } else {
+                addToLog("Healing " + hpAdded + " HP with: " + heal.getName());
+            }
+            log.log("Healing + " + hpAdded + " HP with: " + heal.getName());
         }
     }
 

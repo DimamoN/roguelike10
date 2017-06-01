@@ -9,6 +9,7 @@ import com.dimamon.roguelike10.common.CoordsTextLog;
 import com.dimamon.roguelike10.common.Log;
 import com.dimamon.roguelike10.entities.creatures.CreatureFactory;
 import com.dimamon.roguelike10.entities.player.Player;
+import com.dimamon.roguelike10.game.GameUi;
 import com.dimamon.roguelike10.game.gameLog.GameLogRenderer;
 import com.dimamon.roguelike10.map.GameMap;
 import com.dimamon.roguelike10.sound.Sounds;
@@ -21,11 +22,14 @@ public class GameScreen extends AbstractScreen{
 
     private Log log = new Log("Game");
 
+    //UI
     private CoordsTextLog coordsTextLog;
+    private GameLogRenderer gameLogRenderer;
+    private GameUi gameUi;
+
     private Player player;
     private GameMap gameMap;
 
-    private GameLogRenderer gameLogRenderer;
 
     public GameScreen(final App app) {
         super(app);
@@ -33,6 +37,7 @@ public class GameScreen extends AbstractScreen{
         gameMap = new GameMap(player, app);
         coordsTextLog = new CoordsTextLog(gameMap);
         gameLogRenderer = new GameLogRenderer(app.font24);
+        gameUi = new GameUi(app,player);
     }
 
     @Override
@@ -52,6 +57,7 @@ public class GameScreen extends AbstractScreen{
 
         gameMap.render(app.batch);
         gameLogRenderer.render(app.batch);
+        gameUi.render(app.batch);
         coordsTextLog.render(app.batch);
         app.drawBackground(0.06f);
 

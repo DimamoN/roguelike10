@@ -8,7 +8,9 @@ import com.badlogic.gdx.graphics.Color;
 
 public class GameConfig {
 
-    public static final String VERSION = "dev.62";
+    public static final String VERSION = "dev.63";
+    public static final String NAME = "Roguelike10";
+    public static final String FULL_NAME = NAME + " " + VERSION;
 
     /**
      * WIDTH AND HEIGHT OF GAME SCREEN IN PIXELS
@@ -44,7 +46,7 @@ public class GameConfig {
     public static final int FLOOR_COUNT = 5;
 
     public static final int DEFAULT_HP = 10;
-    public static final int DEFAULT_ATTACK = 10;
+    public static final int DEFAULT_ATTACK = 5;
     public static final int DEFAULT_HEAL = 5;
     /**
      * In percent

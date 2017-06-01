@@ -47,14 +47,14 @@ public class CoordsTextLog implements LibGdxable {
                 0, GameConfig.HEIGHT);
 
         // Player stats
-        font.draw(batch, "str:"+player.getAttributes().getStr()+
-                " dex:"+player.getAttributes().getStr()+
-                " perc:"+player.getAttributes().getPerc()+
-                " HP:"+player.getAttributes().getHp()+
-                " Turn: "+player.getStats().getTurnCount()+
-                " Hit: "+ player.getStats().getHit()+
-                " Dodge: "+ player.getStats().getDodge(),
-                0, GameConfig.HEIGHT - 20);
+//        font.draw(batch, "str:"+player.getAttributes().getStr()+
+//                " dex:"+player.getAttributes().getStr()+
+//                " perc:"+player.getAttributes().getPerc()+
+//                " HP:"+player.getAttributes().getHp()+
+//                " Turn: "+player.getStats().getTurnCount()+
+//                " Hit: "+ player.getStats().getHit()+
+//                " Dodge: "+ player.getStats().getDodge(),
+//                0, GameConfig.HEIGHT - 20);
 
         // GameCreature
         font.draw(batch, map.getCurrentFloor().getOnPos(new Pos(cursorX,cursorY)).toString(),

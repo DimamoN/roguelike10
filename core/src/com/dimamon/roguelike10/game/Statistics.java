@@ -4,6 +4,7 @@ package com.dimamon.roguelike10.game;
 public class Statistics {
 
     int turnCount;
+    //don't work
     int hit;
     int dodge;
 

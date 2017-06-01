@@ -89,7 +89,10 @@ public class MainMenuScreen extends AbstractScreen{
         stage.draw();
 
         app.batch.begin();
-        app.drawBackground(0.1f);
+
+        app.font24.draw(app.batch,GameConfig.FULL_NAME,GameConfig.WIDTH/2,GameConfig.HEIGHT - 100);
+
+        app.drawBackground(0.08f);
         app.batch.end();
 
         update(delta);

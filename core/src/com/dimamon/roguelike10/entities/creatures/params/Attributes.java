@@ -55,16 +55,33 @@ public class Attributes {
 
     /**
      * Safe add hp
-     * @param add
+     * @param
      */
-    public void addHp(int add){
+    public int addHp(int add){
+
+        int hpWas = hp;
+
         hp += add;
         if(hp > maxHp){
             hp = maxHp;
         }
+
+        return hp - hpWas;
     }
 
     //-------------------------ATTACKING------------------------------------
+
+    /**
+     * When attacking another creature - first get attack power
+     * @return
+     */
+    public int getAttackPower(){
+
+        int attack = GameConfig.DEFAULT_ATTACK;
+        attack += MathUtils.random(str/2);
+
+        return attack;
+    }
 
     /**
      * @param power
@@ -101,4 +118,7 @@ public class Attributes {
                 '}';
     }
 
+    public int getMaxHp() {
+        return maxHp;
+    }
 }
