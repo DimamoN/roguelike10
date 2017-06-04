@@ -20,6 +20,7 @@ public class Sounds {
 
     private static final Sound PICK = Gdx.audio.newSound(Gdx.files.internal("sfx/pick.mp3"));
     private static final Sound DOOR = Gdx.audio.newSound(Gdx.files.internal("sfx/door.mp3"));
+    private static final Sound TRAP = Gdx.audio.newSound(Gdx.files.internal("sfx/trap.mp3"));
 
     private static final Sound WIN = Gdx.audio.newSound(Gdx.files.internal("sfx/win.mp3"));
     private static final Sound LOSE = Gdx.audio.newSound(Gdx.files.internal("sfx/lose.mp3"));
@@ -89,5 +90,9 @@ public class Sounds {
 
     public static void click() {
         CLICK.play(0.5f);
+    }
+
+    public static void trap() {
+        TRAP.play(0.5f);
     }
 }

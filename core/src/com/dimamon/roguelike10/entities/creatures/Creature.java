@@ -157,6 +157,23 @@ public abstract class Creature extends GameEntityVisiblePos implements LibGdxabl
                 log.debug("No such direction");
             }
         }
+
+        if(this instanceof Player &&
+           map.getCurrentFloor().isOnTrap(pos)){
+
+            boolean attack = attributes.attack(10);
+
+            if(attack){
+                StaticGameLog.addMessage("You fell into a trap, -10 hp");
+                Sounds.trap();
+                map.getCurrentFloor().removeObject(pos);
+            } else {
+                StaticGameLog.addMessage("You evaded the trap");
+                Sounds.dodge();
+            }
+        }
+
+
     }
 
     public void attack(Direction direction){

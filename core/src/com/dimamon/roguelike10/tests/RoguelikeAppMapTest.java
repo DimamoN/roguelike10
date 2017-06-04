@@ -29,7 +29,7 @@ public class RoguelikeAppMapTest extends ApplicationAdapter {
 		batch = new SpriteBatch();
 		Gdx.app.setLogLevel(Application.LOG_DEBUG);
 //		coordsTextLog = new CoordsTextLog();
-//		floor = new GameFloor(new GridFloorGenerator(), 0, Coord.random());
+//		floor = new GameFloor(new GridFloorGenerator(), 0, Coord.random(), null);
 	}
 
 	@Override

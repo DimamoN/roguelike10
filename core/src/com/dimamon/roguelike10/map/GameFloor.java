@@ -13,6 +13,7 @@ import com.dimamon.roguelike10.entities.creatures.Creature;
 import com.dimamon.roguelike10.entities.creatures.params.Pos;
 import com.dimamon.roguelike10.entities.items.Item;
 import com.dimamon.roguelike10.entities.items.ItemsFactory;
+import com.dimamon.roguelike10.entities.object.Trap;
 import com.dimamon.roguelike10.entities.player.Player;
 import com.dimamon.roguelike10.game.Turn;
 import com.dimamon.roguelike10.map.gameTile.GameTile;
@@ -41,7 +42,6 @@ public class GameFloor extends GameEntity implements LibGdxable, Turn {
     private GameMap map;
     private int floorNum;
 
-    //TODO: Use dynamic sorted structure
     private List<Creature> creatures;
     private GameTile[][] floorMap = new GameTile[FLOOR_SIZE_X][FLOOR_SIZE_Y];
     private FloorGenerator floorGenerator;
@@ -87,6 +87,9 @@ public class GameFloor extends GameEntity implements LibGdxable, Turn {
         } else {
             setupEndTerminal();
         }
+
+        // Setup traps
+        setupTraps();
     }
 
     @Override
@@ -216,6 +219,12 @@ public class GameFloor extends GameEntity implements LibGdxable, Turn {
         }
         else return false;
     }
+    public boolean isOnTrap(Pos pos){
+        if(floorMap[pos.x][pos.y].getObject() instanceof Trap){
+            return true;
+        }
+        return false;
+    }
     public boolean canMove(Pos pos){
         return !floorMap[pos.x][pos.y].isBlocking();
     }
@@ -232,6 +241,9 @@ public class GameFloor extends GameEntity implements LibGdxable, Turn {
         creatures = newcreatures;
 
         return creatures.size() > newcreatures.size();
+    }
+    public void removeObject(Pos pos){
+        floorMap[pos.x][pos.y].setObject(null);
     }
 
     /**
@@ -328,6 +340,23 @@ public class GameFloor extends GameEntity implements LibGdxable, Turn {
     public Item pickItem(Pos pos){
         Item item = floorMap[pos.x][pos.y].pick();
         return item;
+    }
+
+    public void setupTraps(){
+
+        log.debug("LEVEL " + floorNum  +" Setup traps");
+        int trapsCount = 1 + floorNum;
+
+        while (trapsCount > 0){
+
+            log.debug(trapsCount + " left");
+            Pos pos = MapUtils.getRandomFloorPos(floorMap, floorNum);
+
+            log.debug("Set trap on pos " + pos);
+            floorMap[pos.x][pos.y].setObject(ItemsFactory.getTrap());
+            trapsCount--;
+        }
+
     }
 
     //--------------------TEST METHODS------------------------------------------------------

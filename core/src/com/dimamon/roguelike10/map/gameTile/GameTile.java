@@ -14,6 +14,10 @@ public class GameTile implements LibGdxable {
 
     //Items on the floor
     private Queue<Item> items;
+
+    //Trap or monument
+    private Item object;
+
     //Background
     private Tile background;
 
@@ -36,6 +40,7 @@ public class GameTile implements LibGdxable {
     public void render(SpriteBatch batch, int x, int y) {
         background.render(batch, x, y);
         if(!items.isEmpty()) items.peek().render(batch,x,y);
+        if(object != null) object.render(batch,x,y);
     }
 
     public void put(Item item){
@@ -44,6 +49,14 @@ public class GameTile implements LibGdxable {
 
     public Queue<Item> getItems() {
         return items;
+    }
+
+    public Item getObject() {
+        return object;
+    }
+
+    public void setObject(Item object) {
+        this.object = object;
     }
 
     //TODO: REMOVE!

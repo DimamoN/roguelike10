@@ -98,7 +98,7 @@ public class LoadingScreen extends AbstractScreen {
         app.assets.load("sfx/step.mp3", Sound.class);
         app.assets.load("sfx/step2.mp3", Sound.class);
         app.assets.load("sfx/step3.mp3", Sound.class);
-        app.assets.load("sfx/win.mp3", Sound.class);
+        app.assets.load("sfx/lose.mp3", Sound.class);
         app.assets.load("sfx/click.mp3", Sound.class);
 
         //Font

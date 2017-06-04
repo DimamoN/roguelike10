@@ -29,7 +29,6 @@ public class WinScreen extends AbstractScreen {
 
         win = new Image(new Texture("tiles/pic/win.jpg"));
         win.setBounds(0,0,1280,720);
-
     }
 
     @Override
@@ -45,8 +44,9 @@ public class WinScreen extends AbstractScreen {
 
         app.batch.begin();
         win.draw(app.batch,0.75f);
-        font.draw(app.batch,"YOU WIN! Press SPACE to play again, Q to exit",
-                GameConfig.WIDTH/2 - 50,GameConfig.HEIGHT/2);
+        app.font24.draw(app.batch,"Press SPACE to play again, Q to exit",
+                220,
+                GameConfig.HEIGHT/2 - 80);
         app.drawBackground(0.1f);
         app.batch.end();
     }
