@@ -14,16 +14,22 @@ public class ItemsFactory {
 
     // ITEMS
     private static final String HEAL = "tiles/items/heal.png";
+    private static final String HEAL_BIG = "tiles/items/heal_big.png";
     private static final String END = "tiles/items/end.png";
     private static final String TRAP = "tiles/items/trap.png";
 
     private static final Texture heal = new Texture(HEAL);
+    private static final Texture heal_big = new Texture(HEAL_BIG);
     private static final Texture end = new Texture(END);
     private static final Texture trap = new Texture(TRAP);
 
 
     public static Item getHeal(){
-        return new Heal("Small repair pack", GameConfig.DEFAULT_HEAL, heal);
+        return new Heal("Small repair pack", GameConfig.SMALL_HEAL, heal);
+    }
+
+    public static Item getHealBig(){
+        return new Heal("Big repair pack", GameConfig.BIG_HEAL, heal_big);
     }
 
     public static Item getEndTerminal(){

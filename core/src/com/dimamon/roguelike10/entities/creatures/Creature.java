@@ -2,11 +2,11 @@ package com.dimamon.roguelike10.entities.creatures;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.MathUtils;
 import com.dimamon.roguelike10.common.Act;
 import com.dimamon.roguelike10.common.Action;
 import com.dimamon.roguelike10.common.Direction;
 import com.dimamon.roguelike10.common.Log;
-import com.dimamon.roguelike10.config.GameConfig;
 import com.dimamon.roguelike10.config.MapUtils;
 import com.dimamon.roguelike10.config.PosUtils;
 import com.dimamon.roguelike10.entities.GameEntityVisiblePos;
@@ -14,6 +14,7 @@ import com.dimamon.roguelike10.entities.LibGdxable;
 import com.dimamon.roguelike10.entities.Moving;
 import com.dimamon.roguelike10.entities.creatures.params.Attributes;
 import com.dimamon.roguelike10.entities.creatures.params.Pos;
+import com.dimamon.roguelike10.entities.items.Item;
 import com.dimamon.roguelike10.entities.player.Player;
 import com.dimamon.roguelike10.game.Statistics;
 import com.dimamon.roguelike10.game.Turn;
@@ -24,6 +25,11 @@ import com.dimamon.roguelike10.sound.Sounds;
 
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static com.dimamon.roguelike10.config.GameConfig.CREATURES_VOLUME;
+import static com.dimamon.roguelike10.config.GameConfig.MAX_TRAP_DAMAGE;
+import static com.dimamon.roguelike10.config.GameConfig.MIN_TRAP_DAMAGE;
+import static com.dimamon.roguelike10.config.GameConfig.PLAYER_VOLUME;
 
 
 /**
@@ -132,6 +138,10 @@ public abstract class Creature extends GameEntityVisiblePos implements LibGdxabl
 
     }
 
+    /**
+     * Move & handle trap
+     * @param direction
+     */
     public void move(Direction direction) {
         switch (direction){
             case UP:{
@@ -158,18 +168,24 @@ public abstract class Creature extends GameEntityVisiblePos implements LibGdxabl
             }
         }
 
-        if(this instanceof Player &&
-           map.getCurrentFloor().isOnTrap(pos)){
+        // HANDLE TRAP
+        if(map.getCurrentFloor().isOnTrap(pos)){
 
-            boolean attack = attributes.attack(10);
+            int damage = MathUtils.random(MIN_TRAP_DAMAGE,MAX_TRAP_DAMAGE);
+            boolean attack = attributes.attack(damage);
 
             if(attack){
-                StaticGameLog.addMessage("You fell into a trap, -10 hp");
-                Sounds.trap();
+                if(this instanceof Player){
+                    StaticGameLog.addMessage("You fell into a trap, -"+damage+" hp");
+                    Sounds.trap(PLAYER_VOLUME);
+                } else Sounds.trap(CREATURES_VOLUME);
+
                 map.getCurrentFloor().removeObject(pos);
             } else {
-                StaticGameLog.addMessage("You evaded the trap");
-                Sounds.dodge();
+                if(this instanceof Player){
+                    StaticGameLog.addMessage("You evaded the trap");
+                    Sounds.dodge(PLAYER_VOLUME);
+                } else Sounds.dodge(CREATURES_VOLUME);
             }
         }
 
@@ -250,6 +266,13 @@ public abstract class Creature extends GameEntityVisiblePos implements LibGdxabl
         return PosUtils.safeCreate(pos.x + this.getAttributes().getVision(),
                 pos.y + this.getAttributes().getVision());
     }
+
+
+    //----------------------DROP---------------------------------------------
+    public abstract Item drop();
+
+
+    //----------------------OTHER---------------------------------------------
 
     /**
      * Compare so, Creatures list can be sorted, to render

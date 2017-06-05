@@ -4,6 +4,8 @@ import com.badlogic.gdx.math.MathUtils;
 import com.dimamon.roguelike10.config.GameConfig;
 import com.dimamon.roguelike10.sound.Sounds;
 
+import static com.dimamon.roguelike10.config.GameConfig.PLAYER_VOLUME;
+
 /**
  * Attributes of creatures
  * Created by dimamon on 4/15/17.
@@ -91,7 +93,7 @@ public class Attributes {
     public boolean attack(int power){
 
         if(canDodge()){
-            Sounds.dodge();
+            Sounds.dodge(PLAYER_VOLUME);
             return false;
         } else {
             hp -= power;

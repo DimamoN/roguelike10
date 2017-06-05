@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.Color;
 
 public class GameConfig {
 
-    public static final String VERSION = "dev.65";
+    public static final String VERSION = "dev.66";
     public static final String NAME = "Roguelike10";
     public static final String FULL_NAME = NAME + " " + VERSION;
 
@@ -47,7 +47,9 @@ public class GameConfig {
 
     public static final int DEFAULT_HP = 10;
     public static final int DEFAULT_ATTACK = 5;
-    public static final int DEFAULT_HEAL = 5;
+
+    public static final int SMALL_HEAL = 5;
+    public static final int BIG_HEAL = 10;
     /**
      * In percent
      */
@@ -58,10 +60,19 @@ public class GameConfig {
      */
     public static final int DEFAULT_VISION_DISTANCE = 2;
 
+    public static final int START_TRAP_COUNT = 3;
+    public static final int MIN_TRAP_DAMAGE = 5;
+    public static final int MAX_TRAP_DAMAGE = 15;
+
     /**
      * Minimum distance between stairs up and stairs down
      */
     public static final int STAIRS_DISTANCE = 25;
+
+
+    //-----------SOUND-------------------------------
+    public static final float PLAYER_VOLUME = 0.5f;
+    public static final float CREATURES_VOLUME = 0.2f;
 
 
     //-----------VISUAL------------------------------

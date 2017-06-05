@@ -76,8 +76,8 @@ public class Sounds {
         DOOR.dispose();
     }
 
-    public static void dodge(){
-        DODGE.play(0.5f);
+    public static void dodge(float volume){
+        DODGE.play(volume);
     }
 
     public static void win(){
@@ -92,7 +92,7 @@ public class Sounds {
         CLICK.play(0.5f);
     }
 
-    public static void trap() {
-        TRAP.play(0.5f);
+    public static void trap(float volume) {
+        TRAP.play(volume);
     }
 }

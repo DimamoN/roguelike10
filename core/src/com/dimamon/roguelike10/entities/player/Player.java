@@ -114,6 +114,11 @@ public class Player extends Creature implements LibGdxable {
         this.map = map;
     }
 
+    @Override
+    public Item drop() {
+        return null;
+    }
+
     public int getFloor() {
         return pos.floor;
     }

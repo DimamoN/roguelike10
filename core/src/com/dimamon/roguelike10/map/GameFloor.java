@@ -33,6 +33,7 @@ import java.util.stream.Collectors;
 
 import static com.dimamon.roguelike10.config.GameConfig.FLOOR_SIZE_X;
 import static com.dimamon.roguelike10.config.GameConfig.FLOOR_SIZE_Y;
+import static com.dimamon.roguelike10.config.GameConfig.START_TRAP_COUNT;
 
 public class GameFloor extends GameEntity implements LibGdxable, Turn {
 
@@ -144,7 +145,7 @@ public class GameFloor extends GameEntity implements LibGdxable, Turn {
                     log.log("Creature "+creature.getName()+" is dead");
                 }
 
-                putItem(creature.getPos(),ItemsFactory.getHeal());
+                putItem(creature.getPos(), creature.drop());
             }
         }
         creatures = lifeCreatures;
@@ -334,7 +335,9 @@ public class GameFloor extends GameEntity implements LibGdxable, Turn {
     //-----------------ITEMS-----------------------------------------------------
 
     public void putItem(Pos pos, Item item){
-        floorMap[pos.x][pos.y].put(item);
+        if(item != null){
+            floorMap[pos.x][pos.y].put(item);
+        }
     }
 
     public Item pickItem(Pos pos){
@@ -345,7 +348,7 @@ public class GameFloor extends GameEntity implements LibGdxable, Turn {
     public void setupTraps(){
 
         log.debug("LEVEL " + floorNum  +" Setup traps");
-        int trapsCount = 1 + floorNum;
+        int trapsCount = START_TRAP_COUNT + floorNum;
 
         while (trapsCount > 0){
 
