@@ -12,6 +12,7 @@ import com.dimamon.roguelike10.config.PosUtils;
 import com.dimamon.roguelike10.entities.GameEntityVisiblePos;
 import com.dimamon.roguelike10.entities.LibGdxable;
 import com.dimamon.roguelike10.entities.Moving;
+import com.dimamon.roguelike10.entities.creatures.params.Attack;
 import com.dimamon.roguelike10.entities.creatures.params.Attributes;
 import com.dimamon.roguelike10.entities.creatures.params.Pos;
 import com.dimamon.roguelike10.entities.items.Item;
@@ -200,9 +201,14 @@ public abstract class Creature extends GameEntityVisiblePos implements LibGdxabl
 
         if(this instanceof Player){
             Sounds.attack();
+
             //Player is attacking enemies
-            creaturesToAttack.stream().forEach
-                    (c -> c.attackThis(this.getAttributes().getAttackPower()));
+            for (Creature creature : creaturesToAttack){
+
+                creature.attackThis(new Attack(this, getAttackPower()));
+
+            }
+
         } else {
             //Enemy is attacking player
             List<Creature> isPlayerHere = creaturesToAttack.stream()
@@ -212,8 +218,8 @@ public abstract class Creature extends GameEntityVisiblePos implements LibGdxabl
             //If there player - attack, if not - don't attack
             if(!isPlayerHere.isEmpty()){
                 Sounds.attackMob();
-                creaturesToAttack.stream().forEach
-                        (c -> c.attackThis(this.getAttributes().getAttackPower()));
+                creaturesToAttack.forEach(
+                        c -> c.attackThis(new Attack(this, getAttackPower())));
             }
         }
     }
@@ -227,17 +233,26 @@ public abstract class Creature extends GameEntityVisiblePos implements LibGdxabl
     /**
      * Attack this creature
      */
-    public void attackThis(int power){
-        boolean wasHit = attributes.attack(power);
+    public void attackThis(Attack attack){
+
+        boolean wasHit = attributes.attack(attack.power);
         if(wasHit){
 
-            //todo: should know who attack
-//            stats.updHitCount();
-//            log.log("Was hit with " + power + " damage");
+            attack.from.stats.updHitCount();
+            attack.from.attributes.hit();
+
+            if(attack.from instanceof Player){
+                StaticGameLog.addMessage(this.name + " was hit with " + attack.power + " damage");
+            }
+            log.log("Was hit with " + attack.power + " damage");
         } else {
             stats.updDodgeCount();
-            log.log("Successfully dodge " + power + " damage");
+            log.log("Successfully dodge " + attack.power + " damage");
         }
+    }
+
+    public int getAttackPower(){
+        return this.getAttributes().getAttackPower();
     }
 
     public boolean checkLife(){

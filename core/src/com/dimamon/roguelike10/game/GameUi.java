@@ -24,7 +24,11 @@ public class GameUi implements LibGdxable{
     public void render(SpriteBatch batch) {
 
         // Player
-        app.font24.draw(batch, "STR:"+player.getAttributes().getStr()+
+        app.font24.draw(batch,
+
+                        "LEVEL: "+player.getAttributes().level.level+
+                        " XP: "+player.getAttributes().level.xp + "/" + player.getAttributes().level.nextLevelXP()+
+                        " STR:"+player.getAttributes().getStr()+
                         " DEX:"+player.getAttributes().getStr()+
                         " PERC:"+player.getAttributes().getPerc()+
                         " --- HP:"+player.getAttributes().getHp() + "/" + player.getAttributes().getMaxHp(),

@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.Color;
 
 public class GameConfig {
 
-    public static final String VERSION = "dev.66";
+    public static final String VERSION = "dev.67 - XP UPDATE";
     public static final String NAME = "Roguelike10";
     public static final String FULL_NAME = NAME + " " + VERSION;
 
@@ -59,6 +59,13 @@ public class GameConfig {
      * Distance, what creatures can see
      */
     public static final int DEFAULT_VISION_DISTANCE = 2;
+
+
+    //----------LEVEL & XP---------------
+    public static final int HIT_XP = 20;
+    public static final int LEVEL_UP_ATTRIBUTES = 5;
+
+
 
     public static final int START_TRAP_COUNT = 3;
     public static final int MIN_TRAP_DAMAGE = 5;

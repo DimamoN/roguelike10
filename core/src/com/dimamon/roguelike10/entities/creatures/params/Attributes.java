@@ -12,47 +12,26 @@ import static com.dimamon.roguelike10.config.GameConfig.PLAYER_VOLUME;
  */
 public class Attributes {
 
-    //Main attributes
-    //strength, dexterity, perception
-    protected int str,dex,perc;
+    public Level level;
 
-    protected int maxHp;
-    protected int hp;
+    // Main attributes
+    // strength, dexterity, perception
+    private int str,dex,perc;
 
-    protected int vision;
+    private int maxHp;
 
-    public Attributes(){
-        this.hp = GameConfig.DEFAULT_HP;
-        this.maxHp = hp;
-    }
+    private int hp;
+    private int vision;
 
     public Attributes(int str, int dex, int perc) {
+
+        this.level = new Level();
         this.str = str;
         this.dex = dex;
         this.perc = perc;
         this.hp = GameConfig.DEFAULT_HP + str;
         this.maxHp = hp;
         this.vision = GameConfig.DEFAULT_VISION_DISTANCE + perc /3;
-    }
-
-    public int getStr() {
-        return str;
-    }
-
-    public int getDex() {
-        return dex;
-    }
-
-    public int getPerc() {
-        return perc;
-    }
-
-    public int getHp() {
-        return hp;
-    }
-
-    public int getVision() {
-        return vision;
     }
 
     /**
@@ -72,7 +51,6 @@ public class Attributes {
     }
 
     //-------------------------ATTACKING------------------------------------
-
     /**
      * When attacking another creature - first get attack power
      * @return
@@ -107,12 +85,84 @@ public class Attributes {
     }
 
     public boolean isAlive(){
-        return (hp > 0) ?  true : false;
+        return (hp > 0);
+    }
+
+
+    //----------LEVEL & XP-------------------------------------------------
+
+    public void hit(){
+        addXp(GameConfig.HIT_XP);
+    }
+
+    public boolean addXp(int xp){
+        boolean levelUP = level.addXP(xp);
+        if(levelUP){
+            levelUpAttributes();
+        }
+        return levelUP;
+    }
+
+    public void levelUpAttributes(){
+
+        int riseCount = GameConfig.LEVEL_UP_ATTRIBUTES;
+
+        while(riseCount > 0) {
+            int random = MathUtils.random(1, 3);
+
+            switch (random) {
+                case 1: {
+                    str++;
+                    break;
+                }
+                case 2: {
+                    dex++;
+                    break;
+                }
+                case 3: {
+                    perc++;
+                    break;
+                }
+                default:
+            }
+            riseCount--;
+        }
+
+        // Setup addition attributes
+        this.maxHp = GameConfig.DEFAULT_HP + str;
+        this.vision = GameConfig.DEFAULT_VISION_DISTANCE + perc /3;
+    }
+
+    //----------------GETTERS-----------------------------------------------
+
+    public int getStr() {
+        return str;
+    }
+
+    public int getDex() {
+        return dex;
+    }
+
+    public int getPerc() {
+        return perc;
+    }
+
+    public int getHp() {
+        return hp;
+    }
+
+    public int getVision() {
+        return vision;
+    }
+
+    public int getMaxHp() {
+        return maxHp;
     }
 
     @Override
     public String toString() {
         return "{" +
+                "lvl = " + level +
                 "str=" + str +
                 ", dex=" + dex +
                 ", perc=" + perc +
@@ -120,7 +170,4 @@ public class Attributes {
                 '}';
     }
 
-    public int getMaxHp() {
-        return maxHp;
-    }
 }

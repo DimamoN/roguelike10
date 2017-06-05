@@ -24,6 +24,7 @@ public class Sounds {
 
     private static final Sound WIN = Gdx.audio.newSound(Gdx.files.internal("sfx/win.mp3"));
     private static final Sound LOSE = Gdx.audio.newSound(Gdx.files.internal("sfx/lose.mp3"));
+    private static final Sound LEVEL_UP = Gdx.audio.newSound(Gdx.files.internal("sfx/level_up.mp3"));
 
     private static final Sound CLICK = Gdx.audio.newSound(Gdx.files.internal("sfx/click.mp3"));
 
@@ -94,5 +95,9 @@ public class Sounds {
 
     public static void trap(float volume) {
         TRAP.play(volume);
+    }
+
+    public static void levelUp() {
+        LEVEL_UP.play(0.5f);
     }
 }
