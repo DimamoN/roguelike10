@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.Color;
 
 public class GameConfig {
 
-    public static final String VERSION = "dev.67 - XP UPDATE";
+    public static final String VERSION = "dev.68";
     public static final String NAME = "Roguelike10";
     public static final String FULL_NAME = NAME + " " + VERSION;
 
@@ -43,17 +43,18 @@ public class GameConfig {
     /**
      * DEEPS OF GAME MAP
      */
-    public static final int FLOOR_COUNT = 5;
+    public static final int FLOOR_COUNT = 10;
 
     public static final int DEFAULT_HP = 10;
-    public static final int DEFAULT_ATTACK = 5;
+    public static final int DEFAULT_ATTACK = 3;
 
-    public static final int SMALL_HEAL = 5;
-    public static final int BIG_HEAL = 10;
+    public static final int SMALL_HEAL = 8;
+    public static final int BIG_HEAL = 16;
+    public static final int HEAL_ROOM = 12;
     /**
      * In percent
      */
-    public static final int DEFAULT_DODGE_CHANCE = 10;
+    public static final int DEFAULT_DODGE_CHANCE = 8;
 
     /**
      * Distance, what creatures can see
@@ -85,5 +86,6 @@ public class GameConfig {
     //-----------VISUAL------------------------------
 
     public static final Color GAME_SCREEN_BACKGROUND = new Color(0.50f, 0.35f, 0.1f, 1f);
+
 
 }

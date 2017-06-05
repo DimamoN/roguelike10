@@ -29,8 +29,12 @@ public class Attributes {
         this.str = str;
         this.dex = dex;
         this.perc = perc;
-        this.hp = GameConfig.DEFAULT_HP + str;
-        this.maxHp = hp;
+        setupAdditionalAttributes();
+        this.hp = maxHp;
+    }
+
+    private void setupAdditionalAttributes(){
+        this.maxHp = GameConfig.DEFAULT_HP + str*2;
         this.vision = GameConfig.DEFAULT_VISION_DISTANCE + perc /3;
     }
 
@@ -81,7 +85,7 @@ public class Attributes {
     }
 
     private boolean canDodge(){
-        return MathUtils.random(0,100) < GameConfig.DEFAULT_DODGE_CHANCE + dex;
+        return MathUtils.random(0,100) < GameConfig.DEFAULT_DODGE_CHANCE + dex*2;
     }
 
     public boolean isAlive(){
@@ -128,9 +132,7 @@ public class Attributes {
             riseCount--;
         }
 
-        // Setup addition attributes
-        this.maxHp = GameConfig.DEFAULT_HP + str;
-        this.vision = GameConfig.DEFAULT_VISION_DISTANCE + perc /3;
+        setupAdditionalAttributes();
     }
 
     //----------------GETTERS-----------------------------------------------

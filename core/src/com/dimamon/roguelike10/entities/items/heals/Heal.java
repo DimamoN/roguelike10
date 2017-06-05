@@ -19,4 +19,10 @@ public class Heal extends Item {
     public int getPower() {
         return power;
     }
+
+    @Override
+    public String toString() {
+        return name + " with" +
+                "power=" + power;
+    }
 }

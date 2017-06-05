@@ -17,7 +17,7 @@ public class GameLogRenderer implements LibGdxable{
     @Override
     public void render(SpriteBatch batch) {
         font.draw(batch, StaticGameLog.getLastMessage(),
-                GameConfig.WIDTH / 1.7f, GameConfig.HEIGHT - 20);
+                GameConfig.WIDTH / 1.8f, GameConfig.HEIGHT - 20);
     }
 
     @Override

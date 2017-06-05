@@ -32,7 +32,7 @@ public class App extends Game {
 
 	// State
 	public OrthographicCamera camera;
-	public BitmapFont font24;
+	public static BitmapFont font24;
 
 	/**
 	 * Render all staff
@@ -77,7 +77,7 @@ public class App extends Game {
 	private void initFont(){
 		FreeTypeFontGenerator fg = new FreeTypeFontGenerator(Gdx.files.internal("fonts/micra.ttf"));
 		FreeTypeFontGenerator.FreeTypeFontParameter params = new FreeTypeFontGenerator.FreeTypeFontParameter();
-		params.size = 18;
+		params.size = 16;
 		params.color = Color.BLACK;
 		font24 = fg.generateFont(params);
 	}

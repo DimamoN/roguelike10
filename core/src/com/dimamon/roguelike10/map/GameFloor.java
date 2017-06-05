@@ -73,7 +73,7 @@ public class GameFloor extends GameEntity implements LibGdxable, Turn {
 
         // Generate creatures
         List<Creature> creaturesToAdd = CreatureGenerator.generateCreatures(floorNum);
-        creaturesToAdd.stream().forEach(c -> c.setMap(map));
+        creaturesToAdd.forEach(c -> c.setMap(map));
 
         addOnFloorRndSpace(creaturesToAdd,floorNum);
 
@@ -91,6 +91,9 @@ public class GameFloor extends GameEntity implements LibGdxable, Turn {
 
         // Setup traps
         setupTraps();
+        
+        // Setyp heal rooms
+        setupHealRooms();
     }
 
     @Override
@@ -101,7 +104,7 @@ public class GameFloor extends GameEntity implements LibGdxable, Turn {
                 floorMap[x][y].render(batch, x, y);
             }
         }
-        creatures.stream().forEach(c -> c.render(batch));
+        creatures.forEach(c -> c.render(batch));
     }
     @Override
     public void update() {
@@ -110,7 +113,7 @@ public class GameFloor extends GameEntity implements LibGdxable, Turn {
                 floorMap[x][y].update();
             }
         }
-        creatures.stream().forEach(c -> c.update());
+        creatures.forEach(Creature::update);
 
         //dirty
         Collections.sort(creatures);
@@ -122,7 +125,7 @@ public class GameFloor extends GameEntity implements LibGdxable, Turn {
                 floorMap[x][y].dispose();
             }
         }
-        creatures.stream().forEach(c -> c.dispose());
+        creatures.forEach(Creature::dispose);
     }
     @Override
     public void turn() {
@@ -151,7 +154,7 @@ public class GameFloor extends GameEntity implements LibGdxable, Turn {
         creatures = lifeCreatures;
 
         //Creatures make turn's
-        creatures.stream().forEach(c -> c.turn());
+        creatures.forEach(Creature::turn);
     }
 
     public void addOnFloorRndSpace(Creature creature, int floor){
@@ -160,7 +163,7 @@ public class GameFloor extends GameEntity implements LibGdxable, Turn {
     }
 
     public void addOnFloorRndSpace(List<Creature> creatures, int floor){
-        creatures.stream().forEach(c -> addOnFloorRndSpace(c,floor));
+        creatures.forEach(c -> addOnFloorRndSpace(c, floor));
     }
 
     public Action actionTo(int x, int y){
@@ -332,6 +335,11 @@ public class GameFloor extends GameEntity implements LibGdxable, Turn {
         floorMap[pos.x][pos.y].put(ItemsFactory.getEndTerminal());
     }
 
+    private void setupHealRooms(){
+        Pos pos = MapUtils.getRandomFloorPos(floorMap, floorNum);
+        floorMap[pos.x][pos.y].put(ItemsFactory.getHealRoom());
+    }
+
     //-----------------ITEMS-----------------------------------------------------
 
     public void putItem(Pos pos, Item item){
@@ -372,7 +380,7 @@ public class GameFloor extends GameEntity implements LibGdxable, Turn {
 
         // Generate creatures
         List<Creature> creaturesToAdd = CreatureGenerator.generateCreatures(floorNum);
-        creaturesToAdd.stream().forEach(c -> c.setMap(map));
+        creaturesToAdd.forEach(c -> c.setMap(map));
 
         addOnFloorRndSpace(creaturesToAdd,floorNum);
 

@@ -37,14 +37,14 @@ public class CreatureGenerator {
                 ANDROID_BLUE_START_MIN + floor,
                 ANDROID_BLUE_START_MAX + floor);
         for(int i = 0; i < androidBlueCount ; i++){
-            creatures.add(CreatureFactory.getAndroidBlue(floor,"android-"+i));
+            creatures.add(CreatureFactory.getAndroidBlue(floor,"-"+i));
         }
 
         int androidRedCount = MathUtils.random(
                 ANDROID_RED_START_MIN + floor,
                 ANDROID_RED_START_MAX + floor);
         for(int i = 0; i < androidRedCount ; i++){
-            creatures.add(CreatureFactory.getAndroidRed(floor,"android-"+i));
+            creatures.add(CreatureFactory.getAndroidRed(floor,"-"+i));
         }
 
         return creatures;

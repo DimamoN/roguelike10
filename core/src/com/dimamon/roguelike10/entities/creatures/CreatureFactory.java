@@ -24,7 +24,7 @@ public class CreatureFactory {
     }
 
     public static Android getAndroidBlackPower(int floor) {
-        return (Android) new Android(android, "Android", 30, 30, 30).setFloor(floor);
+        return (Android) new Android(android, "Android", 15, 15, 15).setFloor(floor);
     }
 
     public static Android getAndroidBlack(int floor){
@@ -32,11 +32,11 @@ public class CreatureFactory {
     }
 
     public static Android getAndroidBlue(int floor, String name){
-        return (Android) new Android(android_blue, "Android_blue:" + name, 10,10,10).setFloor(floor);
+        return (Android) new Android(android_blue, "A10B" + name, 5,5,5).setFloor(floor);
     }
 
     public static Android getAndroidRed(int floor, String name){
-        return (Android) new Android(android_red, "Android_red:" + name, 20,15,5).setFloor(floor);
+        return (Android) new Android(android_red, "A20R" + name, 8,6,8).setFloor(floor);
     }
 
 }

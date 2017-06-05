@@ -147,7 +147,6 @@ public class Player extends Creature implements LibGdxable {
 
         }
         else if(act.getAction() == Action.ATTACK){
-            addToLog("You attack to " + act.getDirection());
             attack(act.getDirection());
         }
     }

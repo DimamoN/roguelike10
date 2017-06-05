@@ -57,10 +57,8 @@ public class Android extends Creature {
 
     @Override
     public String toString() {
-        return super.toString();
+        return name + " hp : " + getAttributes().getHp() + "/" + getAttributes().getMaxHp();
     }
-
-
 
     /**
      * Handle turn

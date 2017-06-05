@@ -25,15 +25,13 @@ public class GameUi implements LibGdxable{
 
         // Player
         app.font24.draw(batch,
-
-                        "LEVEL: "+player.getAttributes().level.level+
-                        " XP: "+player.getAttributes().level.xp + "/" + player.getAttributes().level.nextLevelXP()+
+                        "LVL:"+player.getAttributes().level.level+
+                        " XP:"+player.getAttributes().level.xp + "/" + player.getAttributes().level.nextLevelXP()+
                         " STR:"+player.getAttributes().getStr()+
                         " DEX:"+player.getAttributes().getStr()+
                         " PERC:"+player.getAttributes().getPerc()+
-                        " --- HP:"+player.getAttributes().getHp() + "/" + player.getAttributes().getMaxHp(),
+                        " HP:"+player.getAttributes().getHp() + "/" + player.getAttributes().getMaxHp(),
                 0, GameConfig.HEIGHT - 20);
-
     }
 
     @Override

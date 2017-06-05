@@ -4,12 +4,18 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.dimamon.roguelike10.App;
 import com.dimamon.roguelike10.config.GameConfig;
 import com.dimamon.roguelike10.config.MapUtils;
 import com.dimamon.roguelike10.entities.LibGdxable;
+import com.dimamon.roguelike10.entities.creatures.Creature;
 import com.dimamon.roguelike10.entities.creatures.params.Pos;
+import com.dimamon.roguelike10.entities.items.Item;
 import com.dimamon.roguelike10.entities.player.Player;
 import com.dimamon.roguelike10.map.GameMap;
+
+import java.util.List;
+import java.util.Queue;
 
 import static com.badlogic.gdx.math.MathUtils.*;
 
@@ -42,11 +48,11 @@ public class CoordsTextLog implements LibGdxable {
     public void render(SpriteBatch batch) {
 
         // Block where mouse
-        font.draw(batch,
-                "X: " + cursorX + " Y: " + cursorY + " Level: " + (map.currentFloor()+1),
-                0, GameConfig.HEIGHT);
+//        App.font24.draw(batch,
+//                "X: " + cursorX + " Y: " + cursorY + " Level: " + (map.currentFloor()+1),
+//                0, GameConfig.HEIGHT);
 
-        // Player stats
+//         Player stats
 //        font.draw(batch, "str:"+player.getAttributes().getStr()+
 //                " dex:"+player.getAttributes().getStr()+
 //                " perc:"+player.getAttributes().getPerc()+
@@ -57,12 +63,18 @@ public class CoordsTextLog implements LibGdxable {
 //                0, GameConfig.HEIGHT - 20);
 
         // GameCreature
-        font.draw(batch, map.getCurrentFloor().getOnPos(new Pos(cursorX,cursorY)).toString(),
-                180,GameConfig.HEIGHT);
+        List<Creature> onPos = map.getCurrentFloor().getOnPos(new Pos(cursorX, cursorY));
+        if(!onPos.isEmpty()){
+            App.font24.draw(batch, onPos.toString(),
+                    180,GameConfig.HEIGHT);
+        }
 
-        // Items (todo: fix render null, if out of the map)
-        font.draw(batch, map.getCurrentFloor().getOnPosItems(new Pos(cursorX,cursorY)) + "",
-                GameConfig.WIDTH/2,GameConfig.HEIGHT);
+        Queue<Item> onPosItems = map.getCurrentFloor().getOnPosItems(new Pos(cursorX, cursorY));
+        if(onPosItems !=null && !onPosItems.isEmpty()){
+            App.font24.draw(batch, onPosItems.toString(),
+                    GameConfig.WIDTH/2,GameConfig.HEIGHT);
+        }
+
 
         update();
     }
