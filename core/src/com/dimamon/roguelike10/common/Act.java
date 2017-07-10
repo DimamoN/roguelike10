@@ -6,8 +6,8 @@ package com.dimamon.roguelike10.common;
 
 public class Act {
 
-    Action action;
-    Direction direction;
+    private Action action;
+    private Direction direction;
 
     public Act(Action action, Direction direction) {
         this.action = action;

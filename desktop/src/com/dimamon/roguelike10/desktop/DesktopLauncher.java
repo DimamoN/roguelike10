@@ -11,7 +11,7 @@ public class DesktopLauncher {
 		config.height = GameConfig.HEIGHT;
 		config.width = GameConfig.WIDTH;
 		config.fullscreen=false;
-		config.resizable=false;
+		config.resizable=true;
 		config.title = "roguelike10 " + GameConfig.VERSION;
 		new LwjglApplication(new App(), config);
 	}
